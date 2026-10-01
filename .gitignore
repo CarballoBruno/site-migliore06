@@ -1,0 +1,28 @@
+# =====================================================================
+# Fichier .gitignore
+# Rôle : liste des fichiers que Git doit IGNORER (ne jamais enregistrer
+# dans l'historique ni envoyer sur GitHub / le serveur IONOS).
+# Une ligne = un fichier ou un motif. Les lignes commençant par # sont
+# des commentaires.
+# =====================================================================
+
+# --- Fichiers techniques créés automatiquement par Windows ---
+Thumbs.db
+desktop.ini
+
+# --- Fichiers temporaires d'éditeurs ---
+*.tmp
+*.bak
+~$*
+
+# --- Photos originales en haute résolution (trop lourdes) ---
+# Ne mettre dans le site que les photos retouchées et allégées.
+# Les originaux peuvent être rangés dans un dossier "originaux" :
+# ils resteront sur le poste mais ne seront jamais publiés.
+originaux/
+
+# --- Informations secrètes ---
+# Ne jamais enregistrer de mot de passe dans Git.
+# (Les identifiants FTP IONOS seront stockés dans les "Secrets" GitHub.)
+*.secret
+.env
