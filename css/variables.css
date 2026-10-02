@@ -1,0 +1,157 @@
+/* ==========================================================================
+   variables.css — Réglages de la charte graphique du site migliore06.fr
+   --------------------------------------------------------------------------
+   Ce fichier regroupe TOUS les réglages visuels du site : couleurs, polices,
+   tailles de texte, espacements, arrondis, ombres, largeurs.
+
+   Règle d'or : le reste du CSS (style.css) n'écrit jamais une couleur ou une
+   police « en dur ». Il utilise uniquement les variables définies ici.
+   → Pour changer une couleur sur tout le site, on la modifie ici, une seule fois.
+
+   Comment ça marche : une variable s'écrit  --nom-de-la-variable: valeur;
+   et s'utilise ailleurs avec  var(--nom-de-la-variable).
+   ========================================================================== */
+
+:root {
+
+    /* ----------------------------------------------------------------------
+       1. COULEURS DE LA CHARTE
+       ---------------------------------------------------------------------- */
+
+    /* Bleu du logo (RVB 0,0,255). Réservé aux accents : titre « Nouvelle
+       Carrosserie Migliore », logo, boutons, liens, bordures.
+       Jamais en grand aplat (trop agressif à l'œil). */
+    --couleur-bleu-logo: #0000FF;
+
+    /* Bleu foncé : titres secondaires, encarts, bandeaux. */
+    --couleur-bleu-fonce: #001A66;
+
+    /* Bleu moyen : liens et effets au survol de la souris. */
+    --couleur-bleu-moyen: #3D5AFE;
+
+    /* Anthracite : couleur du texte courant (plus doux que le noir pur). */
+    --couleur-anthracite: #23272F;
+
+    /* Gris clair : fond des sections alternées, pour rythmer la page. */
+    --couleur-gris-clair: #F2F3F6;
+
+    /* Gris moyen : traits de séparation, bordures discrètes des cartes. */
+    --couleur-gris-bordure: #D9DCE3;
+
+    /* Gris texte : textes secondaires (légendes, dates, mentions). */
+    --couleur-gris-texte: #5A6070;
+
+    /* Fond principal de la page : blanc légèrement cassé (pas de blanc pur). */
+    --couleur-fond-page: #FAFAFA;
+
+    /* Blanc pur : cartes et encarts, pour qu'ils ressortent du fond. */
+    --couleur-blanc: #FFFFFF;
+
+    /* Vert : message « Votre demande a bien été envoyée » du formulaire. */
+    --couleur-message-succes: #1B7F3B;
+    --couleur-fond-succes: #E6F4EA;
+
+    /* Rouge : messages d'erreur du formulaire (champ oublié, etc.). */
+    --couleur-message-erreur: #B3261E;
+    --couleur-fond-erreur: #FCE8E6;
+
+
+    /* ----------------------------------------------------------------------
+       2. POLICES DE CARACTÈRES
+       Chaque police est suivie de « polices de secours » : si la première
+       n'est pas disponible, le navigateur prend la suivante.
+       ---------------------------------------------------------------------- */
+
+    /* Impact : UNIQUEMENT pour le titre « Nouvelle Carrosserie Migliore ». */
+    --police-titre-entreprise: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+
+    /* Barlow Condensed : titres de sections (resserrée, robuste, « industrielle »). */
+    --police-titres: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+
+    /* Public Sans : texte courant (très lisible, à l'écran comme sur mobile). */
+    --police-texte: "Public Sans", "Segoe UI", Arial, sans-serif;
+
+    /* Épaisseurs de police utilisées. */
+    --epaisseur-normale: 400;
+    --epaisseur-semi-grasse: 600;
+    --epaisseur-grasse: 700;
+
+
+    /* ----------------------------------------------------------------------
+       3. TAILLES DE TEXTE
+       « rem » = taille relative au réglage du navigateur (1rem = 16 pixels
+       en général). Si le visiteur agrandit le texte, tout suit.
+       clamp(minimum, idéal, maximum) : la taille s'adapte à la largeur de
+       l'écran (petite sur téléphone, grande sur ordinateur), entre deux bornes.
+       ---------------------------------------------------------------------- */
+
+    --taille-texte-petit: 0.875rem;                         /* ~14 px : mentions, dates */
+    --taille-texte-normal: 1rem;                            /* ~16 px : texte courant */
+    --taille-texte-grand: 1.125rem;                         /* ~18 px : paragraphes d'introduction */
+
+    --taille-titre-entreprise: clamp(1.75rem, 4vw, 2.75rem); /* « Nouvelle Carrosserie Migliore » */
+    --taille-titre-page: clamp(2rem, 5vw, 3rem);            /* grand titre d'une page */
+    --taille-titre-section: clamp(1.6rem, 3.5vw, 2.25rem);  /* titre d'une section */
+    --taille-titre-carte: 1.35rem;                          /* titre d'une carte ou d'un encart */
+
+    /* Hauteur de ligne : espace entre les lignes d'un paragraphe. */
+    --hauteur-ligne-texte: 1.6;
+    --hauteur-ligne-titres: 1.15;
+
+
+    /* ----------------------------------------------------------------------
+       4. ESPACEMENTS (marges intérieures et extérieures)
+       Une échelle unique, utilisée partout, pour un rendu régulier et aéré.
+       ---------------------------------------------------------------------- */
+
+    --espace-tres-petit: 0.25rem;   /* ~4 px */
+    --espace-petit: 0.5rem;         /* ~8 px */
+    --espace-moyen: 1rem;           /* ~16 px */
+    --espace-grand: 1.5rem;         /* ~24 px */
+    --espace-tres-grand: 2.5rem;    /* ~40 px */
+    --espace-entre-sections: clamp(3rem, 8vw, 5rem); /* entre deux grandes sections */
+
+
+    /* ----------------------------------------------------------------------
+       5. LARGEURS ET MISE EN PAGE
+       ---------------------------------------------------------------------- */
+
+    /* Largeur maximale du contenu : au-delà, le contenu reste centré
+       (évite des lignes de texte trop longues sur les grands écrans). */
+    --largeur-max-contenu: 1200px;
+
+    /* Largeur de la colonne de droite (« Informations importantes »). */
+    --largeur-colonne-droite: 320px;
+
+    /* Marge sur les côtés de l'écran (surtout utile sur téléphone). */
+    --marge-cotes-ecran: 1rem;
+
+    /* Hauteur des bandes bleues du bandeau du haut (cf. ancien site).
+       Valeurs à ajuster en voyant le rendu à l'écran. */
+    --hauteur-bande-bleue-fine: 2.25rem;    /* bande du haut : téléphone, email, devis */
+    --hauteur-bande-bleue-epaisse: 3rem;    /* séparateur avant le contenu de la page */
+
+
+    /* ----------------------------------------------------------------------
+       6. ARRONDIS, BORDURES ET OMBRES
+       ---------------------------------------------------------------------- */
+
+    --arrondi-petit: 4px;           /* boutons, champs du formulaire */
+    --arrondi-moyen: 8px;           /* cartes, encarts */
+
+    --epaisseur-bordure: 1px;
+    --epaisseur-bordure-accent: 4px; /* liseré bleu sur le côté d'un encart */
+
+    /* Ombre légère sous les cartes blanches, pour les détacher du fond. */
+    --ombre-carte: 0 2px 8px rgba(0, 26, 102, 0.08);
+    /* Ombre un peu plus marquée au survol d'une carte. */
+    --ombre-carte-survol: 0 6px 18px rgba(0, 26, 102, 0.15);
+
+
+    /* ----------------------------------------------------------------------
+       7. ANIMATIONS
+       ---------------------------------------------------------------------- */
+
+    /* Durée des petits effets (changement de couleur au survol, etc.). */
+    --duree-transition: 0.2s;
+}

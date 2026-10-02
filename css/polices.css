@@ -1,0 +1,87 @@
+/* ==========================================================================
+   polices.css — Déclaration des polices de caractères du site
+   --------------------------------------------------------------------------
+   Les polices Barlow Condensed (titres) et Public Sans (texte courant) sont
+   stockées DANS le site, dossier /polices/ : aucune donnée des visiteurs n'est
+   envoyée à Google (conforme RGPD, pas de mention particulière nécessaire).
+
+   Polices gratuites, licence libre SIL Open Font License (voir les fichiers
+   licence-*.txt dans le dossier /polices/).
+   Origine : Google Fonts, fichiers web optimisés (format .woff2) fournis par
+   Fontsource, jeu de caractères « latin » (accents français, œ, €, « »).
+
+   Ce fichier dit seulement au navigateur OÙ trouver chaque police.
+   Le CHOIX des polices pour chaque élément se fait dans variables.css
+   (--police-titres, --police-texte).
+
+   Impact n'est pas déclarée ici : elle est déjà présente sur les ordinateurs
+   (Windows, Mac) et n'a donc pas besoin d'être téléchargée.
+
+   « font-display: swap » : le texte s'affiche tout de suite avec une police
+   de secours, puis bascule sur la bonne police dès qu'elle est chargée
+   (le visiteur n'attend jamais devant une page vide).
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   Barlow Condensed — titres de sections
+   -------------------------------------------------------------------------- */
+
+/* Semi-grasse (600) */
+@font-face {
+    font-family: "Barlow Condensed";
+    src: url("../polices/barlow-condensed-semi-gras.woff2") format("woff2");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Grasse (700) */
+@font-face {
+    font-family: "Barlow Condensed";
+    src: url("../polices/barlow-condensed-gras.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+/* --------------------------------------------------------------------------
+   Public Sans — texte courant
+   -------------------------------------------------------------------------- */
+
+/* Normale (400) */
+@font-face {
+    font-family: "Public Sans";
+    src: url("../polices/public-sans-normal.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Normale en italique (400) */
+@font-face {
+    font-family: "Public Sans";
+    src: url("../polices/public-sans-italique.woff2") format("woff2");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Semi-grasse (600) */
+@font-face {
+    font-family: "Public Sans";
+    src: url("../polices/public-sans-semi-gras.woff2") format("woff2");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Grasse (700) */
+@font-face {
+    font-family: "Public Sans";
+    src: url("../polices/public-sans-gras.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
