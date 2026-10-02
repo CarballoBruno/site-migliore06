@@ -32,6 +32,10 @@
     /* Anthracite : couleur du texte courant (plus doux que le noir pur). */
     --couleur-anthracite: #23272F;
 
+    /* Bleu logo éclairci (bleu logo à moitié transparent sur fond blanc) :
+       sous-titre « - Carrossier Constructeur - », comme sur l'ancien site. */
+    --couleur-bleu-logo-clair: #8080FF;
+
     /* Gris clair : fond des sections alternées, pour rythmer la page. */
     --couleur-gris-clair: #F2F3F6;
 
@@ -62,14 +66,20 @@
        n'est pas disponible, le navigateur prend la suivante.
        ---------------------------------------------------------------------- */
 
-    /* Impact : UNIQUEMENT pour le titre « Nouvelle Carrosserie Migliore ». */
+    /* Le site n'utilise que DEUX polices :
+
+       1. Impact : UNIQUEMENT pour le titre « Nouvelle Carrosserie Migliore »
+          et son sous-titre « - Carrossier Constructeur - ». */
     --police-titre-entreprise: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 
-    /* Barlow Condensed : titres de sections (resserrée, robuste, « industrielle »). */
-    --police-titres: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
-
-    /* Public Sans : texte courant (très lisible, à l'écran comme sur mobile). */
-    --police-texte: "Public Sans", "Segoe UI", Arial, sans-serif;
+    /* 2. Police principale : TOUT le reste du site (menu, slogan, pied de
+          page, titres de sections, texte courant…).
+          Pour changer la police de tout le site, il suffit de modifier
+          cette seule ligne. Exemples possibles (déjà présentes dans le
+          dossier /polices/) :
+            "Public Sans", "Segoe UI", Arial, sans-serif
+            "Barlow Condensed", "Arial Narrow", Arial, sans-serif */
+    --police-principale: "Times New Roman", Times, Georgia, serif;
 
     /* Épaisseurs de police utilisées. */
     --epaisseur-normale: 400;
@@ -89,7 +99,14 @@
     --taille-texte-normal: 1rem;                            /* ~16 px : texte courant */
     --taille-texte-grand: 1.125rem;                         /* ~18 px : paragraphes d'introduction */
 
-    --taille-titre-entreprise: clamp(1.75rem, 4vw, 2.75rem); /* « Nouvelle Carrosserie Migliore » */
+    /* Bandeau du haut (tailles reprises de l'ancien site sur grand écran). */
+    --taille-titre-entreprise: clamp(1.75rem, 3.5vw, 2.5rem);       /* ~40 px : « Nouvelle Carrosserie Migliore » */
+    --taille-sous-titre-entreprise: clamp(1.15rem, 2vw, 1.5625rem); /* ~25 px : « - Carrossier Constructeur - » */
+    --taille-menu: clamp(1rem, 1.15vw, 1.25rem);                    /* ~16 à 20 px : liens du menu (dans la bande bleue) */
+    --taille-slogan: clamp(1.05rem, 1.5vw, 1.25rem);                /* ~20 px : slogan */
+    --taille-nom-pied-de-page: 1.4rem;                              /* ~22 px : nom en Impact dans le pied de page */
+
+    /* Reste du site. */
     --taille-titre-page: clamp(2rem, 5vw, 3rem);            /* grand titre d'une page */
     --taille-titre-section: clamp(1.6rem, 3.5vw, 2.25rem);  /* titre d'une section */
     --taille-titre-carte: 1.35rem;                          /* titre d'une carte ou d'un encart */
@@ -104,6 +121,7 @@
        Une échelle unique, utilisée partout, pour un rendu régulier et aéré.
        ---------------------------------------------------------------------- */
 
+    --espace-minuscule: 0.125rem;   /* ~2 px */
     --espace-tres-petit: 0.25rem;   /* ~4 px */
     --espace-petit: 0.5rem;         /* ~8 px */
     --espace-moyen: 1rem;           /* ~16 px */
@@ -126,10 +144,20 @@
     /* Marge sur les côtés de l'écran (surtout utile sur téléphone). */
     --marge-cotes-ecran: 1rem;
 
-    /* Hauteur des bandes bleues du bandeau du haut (cf. ancien site).
-       Valeurs à ajuster en voyant le rendu à l'écran. */
-    --hauteur-bande-bleue-fine: 2.25rem;    /* bande du haut : téléphone, email, devis */
-    --hauteur-bande-bleue-epaisse: 3rem;    /* séparateur avant le contenu de la page */
+    /* Largeur du bandeau du haut : 85 % de l'écran, centré (comme l'ancien site). */
+    --largeur-bandeau-haut: 85%;
+
+    /* Hauteur de la bande bleue du bandeau du haut (celle du menu). */
+    --hauteur-bande-bleue-epaisse: 2.5rem;  /* ~40 px : bande qui contient le menu */
+
+    /* Largeur des colonnes 1 et 3 du pied de page (identiques, pour que le
+       nom de l'entreprise soit exactement au centre). Juste assez pour la
+       ligne la plus longue (liens légaux + copyright). */
+    --largeur-cote-pied-de-page: 23rem;
+
+    /* Hauteur des logos qui encadrent le bandeau du haut. */
+    --hauteur-logo-ncm: 80px;
+    --hauteur-logo-utac: 34px;
 
 
     /* ----------------------------------------------------------------------
@@ -141,6 +169,9 @@
 
     --epaisseur-bordure: 1px;
     --epaisseur-bordure-accent: 4px; /* liseré bleu sur le côté d'un encart */
+    --epaisseur-soulignement: 2px;   /* contour de sélection au clavier */
+    --epaisseur-trait-menu: 3px;     /* petit trait blanc sous la page active du menu */
+    --epaisseur-trait-pied-de-page: 2px; /* traits blancs entre les colonnes du pied de page */
 
     /* Ombre légère sous les cartes blanches, pour les détacher du fond. */
     --ombre-carte: 0 2px 8px rgba(0, 26, 102, 0.08);

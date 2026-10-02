@@ -1,0 +1,499 @@
+/* ==========================================================================
+   style.css — Mise en forme du site migliore06.fr
+   --------------------------------------------------------------------------
+   Ce fichier décrit l'apparence de chaque élément du site.
+   Il n'écrit JAMAIS de couleur ni de police « en dur » : il utilise
+   uniquement les variables de variables.css, sous la forme var(--nom).
+
+   Sommaire :
+     1. Bases communes à tout le site
+     2. Bandeau du haut (inc/header.php)
+     3. Pied de page (inc/footer.php)
+     4. Adaptation aux écrans plus petits (tablettes, téléphones)
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. BASES COMMUNES À TOUT LE SITE
+   ========================================================================== */
+
+/* Les dimensions d'un élément incluent ses marges intérieures et sa bordure
+   (calculs de largeur beaucoup plus simples et prévisibles). */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Page entière : fond, police et couleur du texte courant. */
+body {
+    margin: 0;
+    background-color: var(--couleur-fond-page);
+    color: var(--couleur-anthracite);
+    font-family: var(--police-principale);
+    font-size: var(--taille-texte-normal);
+    line-height: var(--hauteur-ligne-texte);
+
+    /* La page occupe au moins toute la hauteur de l'écran, et le contenu
+       (<main>) s'étire : le pied de page reste ainsi toujours en bas,
+       même quand la page est courte. */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Les images ne débordent jamais de leur conteneur. */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Liens : bleu moyen, sans soulignement ; bleu logo au survol. */
+a {
+    color: var(--couleur-bleu-moyen);
+    text-decoration: none;
+    transition: color var(--duree-transition);
+}
+
+a:hover {
+    color: var(--couleur-bleu-logo);
+}
+
+/* Contour bien visible autour de l'élément sélectionné au clavier
+   (touche Tab) : indispensable pour les personnes qui n'utilisent pas
+   de souris. */
+:focus-visible {
+    outline: var(--epaisseur-soulignement) solid var(--couleur-bleu-moyen);
+    outline-offset: 3px;
+}
+
+/* Lien « Aller au contenu » : caché hors de l'écran, il apparaît
+   en haut à gauche seulement quand on l'atteint avec la touche Tab. */
+.lien-acces-contenu {
+    position: absolute;
+    left: var(--espace-moyen);
+    top: -100px;
+    z-index: 100;
+    padding: var(--espace-petit) var(--espace-moyen);
+    background-color: var(--couleur-bleu-fonce);
+    color: var(--couleur-blanc);
+    border-radius: var(--arrondi-petit);
+}
+
+.lien-acces-contenu:focus {
+    top: var(--espace-moyen);
+    color: var(--couleur-blanc);
+}
+
+
+
+/* ==========================================================================
+   2. BANDEAU DU HAUT (inc/header.php)
+   Reproduction fidèle du bandeau de l'ancien site migliore06.fr.
+   ========================================================================== */
+
+/* Le bandeau entier occupe 85 % de la largeur de l'écran, centré.
+   Les bandes bleues ont donc la même largeur que le contenu. */
+.bandeau-haut {
+    width: var(--largeur-bandeau-haut);
+    margin: var(--espace-petit) auto 0;
+}
+
+
+/* --- 2.1 Zone claire : grille logos / titre / sous-titre / slogan ----- */
+
+/* La zone est découpée en une grille de 3 colonnes et 3 lignes :
+
+        colonne 1    colonne 2 (centre)    colonne 3
+   1    logo NCM     titre                 logo UTAC
+   2    (suite)      sous-titre            (suite)
+   3    (suite)      slogan                (suite)
+
+   - les logos sont collés aux bords de la bande (aucune marge latérale) ;
+   - les colonnes 1 et 3 ont la même largeur : le titre est exactement au
+     centre, aligné avec le nom de l'entreprise dans le pied de page.
+   Le menu n'est pas ici : il est dans la bande bleue épaisse (2.2). */
+.zone-identite {
+    display: grid;
+    grid-template-columns: minmax(max-content, 1fr) auto minmax(max-content, 1fr);
+    grid-template-areas:
+        "ncm  titre      utac"
+        "ncm  soustitre  utac"
+        "ncm  slogan     utac";
+    align-items: center;
+    column-gap: var(--espace-moyen);
+    row-gap: 0;
+    padding: var(--espace-petit) 0;
+}
+
+/* « Nouvelle Carrosserie Migliore » : TOUJOURS en Impact, TOUJOURS en bleu
+   #0000FF (règle de la charte graphique). */
+.titre-entreprise {
+    grid-area: titre;
+    text-align: center;
+    font-family: var(--police-titre-entreprise);
+    font-size: var(--taille-titre-entreprise);
+    font-weight: var(--epaisseur-normale);   /* Impact est déjà très épaisse */
+    line-height: var(--hauteur-ligne-titres);
+    color: var(--couleur-bleu-logo);
+}
+
+/* Le titre reste bleu logo au survol de la souris. */
+.titre-entreprise:hover {
+    color: var(--couleur-bleu-logo);
+}
+
+/* « - Carrossier Constructeur - » : Impact, bleu éclairci. */
+.sous-titre-entreprise {
+    grid-area: soustitre;
+    margin: 0;
+    text-align: center;
+    font-family: var(--police-titre-entreprise);
+    font-size: var(--taille-sous-titre-entreprise);
+    line-height: var(--hauteur-ligne-titres);
+    color: var(--couleur-bleu-logo-clair);
+}
+
+/* Slogan : police principale, en gras, centré sous le titre. */
+.slogan {
+    grid-area: slogan;
+    margin: var(--espace-tres-petit) 0 0;
+    text-align: center;
+    font-family: var(--police-principale);
+    font-size: var(--taille-slogan);
+    font-weight: var(--epaisseur-grasse);
+    line-height: var(--hauteur-ligne-titres);
+    color: var(--couleur-anthracite);
+}
+
+/* Logo NCM, à l'extrême gauche. */
+.logo-ncm {
+    grid-area: ncm;
+    justify-self: start;
+}
+
+.logo-ncm img {
+    height: var(--hauteur-logo-ncm);
+    width: auto;
+}
+
+/* Bloc UTAC, à l'extrême droite : le logo, et en dessous les domaines
+   certifiés. */
+.certification-utac {
+    grid-area: utac;
+    justify-self: end;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--espace-tres-petit);
+}
+
+.certification-utac img {
+    height: var(--hauteur-logo-utac);
+    width: auto;
+}
+
+/* Mention des domaines certifiés, sur deux lignes centrées :
+   « Certifié » puis « PL, VUL, Aménageur ». */
+.certification-utac-texte {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: var(--taille-texte-petit);
+    font-weight: var(--epaisseur-semi-grasse);
+    line-height: var(--hauteur-ligne-titres);
+    color: var(--couleur-bleu-fonce);
+}
+
+
+/* --- 2.2 Bande bleue épaisse : contient le menu ---------------------- */
+
+/* La bande sépare la présentation de l'entreprise du contenu de la page.
+   Le menu y est écrit en blanc, centré. */
+.bande-bleue-epaisse {
+    min-height: var(--hauteur-bande-bleue-epaisse);
+    background-color: var(--couleur-bleu-logo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Liens du menu alignés à l'horizontale, centrés. */
+.menu-principal-liste {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: var(--espace-grand);
+}
+
+/* Chaque lien : police principale, en blanc.
+   Un petit trait (transparent par défaut) est prévu sous chaque lien. */
+.menu-principal-liste a {
+    display: block;
+    padding: var(--espace-tres-petit) var(--espace-petit) var(--espace-minuscule);
+    font-family: var(--police-principale);
+    font-size: var(--taille-menu);
+    line-height: var(--hauteur-ligne-titres);
+    color: var(--couleur-blanc);
+    border-bottom: var(--epaisseur-trait-menu) solid transparent;
+    transition: border-color var(--duree-transition);
+}
+
+/* Au survol de la souris : le petit trait apparaît en bleu clair. */
+.menu-principal-liste a:hover {
+    color: var(--couleur-blanc);
+    border-bottom-color: var(--couleur-bleu-logo-clair);
+}
+
+/* Page en cours : petit trait blanc sous le lien. */
+.menu-principal-liste a.lien-actif {
+    border-bottom-color: var(--couleur-blanc);
+}
+
+/* Contour de sélection au clavier en blanc (le bleu serait invisible
+   sur la bande bleue). */
+.menu-principal-liste a:focus-visible {
+    outline-color: var(--couleur-blanc);
+}
+
+
+/* ==========================================================================
+   3. PIED DE PAGE (inc/footer.php)
+   Bande bleue de la même largeur que le bandeau du haut, texte blanc,
+   3 colonnes : juridique + contact | identité (la plus large) | liens
+   légaux + copyright, séparées par des traits verticaux blancs.
+   ========================================================================== */
+
+.pied-de-page {
+    width: var(--largeur-bandeau-haut);
+    margin: var(--espace-tres-grand) auto var(--espace-petit);
+    padding: var(--espace-tres-petit) var(--espace-grand);
+    background-color: var(--couleur-bleu-logo);
+    color: var(--couleur-blanc);
+    font-family: var(--police-principale);
+    font-size: var(--taille-texte-petit);
+    line-height: var(--hauteur-ligne-titres);
+
+    /* 3 colonnes :
+       - colonnes 1 et 3 de MÊME largeur (--largeur-cote-pied-de-page),
+         juste suffisante pour leur texte ;
+       - colonne centrale (1fr) : toute la place restante, la plus large.
+       Le nom de l'entreprise est donc exactement au centre de la bande,
+       aligné avec le titre du bandeau du haut. */
+    display: grid;
+    grid-template-columns: var(--largeur-cote-pied-de-page) 1fr var(--largeur-cote-pied-de-page);
+    grid-template-areas: "gauche  identite  legale";
+}
+
+/* Une colonne = ses lignes l'une sous l'autre, centrées en hauteur. */
+.pied-de-page-colonne {
+    margin: 0;
+    font-style: normal;          /* <address> s'affiche en italique par défaut */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: var(--espace-minuscule);
+}
+
+/* Colonne 1 : ses deux lignes ont exactement la même largeur (celle de
+   la plus longue) et sont « justifiées » : « SARL… » et le téléphone
+   commencent au même bord gauche, le SIRET et l'email finissent au même
+   bord droit. */
+.colonne-gauche {
+    grid-area: gauche;
+    padding-right: var(--espace-moyen);
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+.colonne-gauche .pied-de-page-ligne {
+    justify-content: space-between;
+}
+
+/* Colonne centrale : traits blancs de chaque côté. */
+.colonne-identite {
+    grid-area: identite;
+    padding: 0 var(--espace-moyen);
+    border-left: var(--epaisseur-trait-pied-de-page) solid var(--couleur-blanc);
+    border-right: var(--epaisseur-trait-pied-de-page) solid var(--couleur-blanc);
+}
+
+.colonne-legale {
+    grid-area: legale;
+    padding-left: var(--espace-moyen);
+}
+
+/* La colonne 1 a sa marge à droite, la colonne 3 à gauche : leur texte
+   est centré dans l'espace restant. */
+
+/* Une ligne d'une colonne : ses informations côte à côte, séparées par
+   un espace bien marqué (à la place d'un séparateur). */
+.pied-de-page-ligne {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: var(--espace-moyen);
+}
+
+/* Une information n'est jamais coupée en deux
+   (ex. « RCS Nice 326 726 619 » reste d'un seul tenant). */
+.pied-de-page-ligne > * {
+    white-space: nowrap;
+}
+
+/* Petit tiret blanc entre « Mentions légales » et « Politique de
+   confidentialité ». Les espaces qui l'entourent sont réduits pour qu'il
+   reste proche des deux liens. */
+.separateur-pied-de-page {
+    margin: 0 calc(var(--espace-petit) - var(--espace-moyen));
+}
+
+/* « Nouvelle Carrosserie Migliore » : en Impact, en grand, comme le titre
+   du bandeau du haut. Exceptionnellement en blanc et non en bleu : du
+   bleu sur la bande bleue serait invisible. */
+.pied-de-page-nom {
+    font-family: var(--police-titre-entreprise);
+    font-size: var(--taille-nom-pied-de-page);
+    font-weight: var(--epaisseur-normale);   /* Impact est déjà très épaisse */
+    letter-spacing: 0.02em;
+}
+
+/* Liens du pied de page : blancs, soulignés au survol. */
+.pied-de-page a {
+    color: var(--couleur-blanc);
+}
+
+.pied-de-page a:hover {
+    color: var(--couleur-blanc);
+    text-decoration: underline;
+}
+
+/* Contour de sélection au clavier en blanc (le bleu serait invisible
+   sur la bande bleue). */
+.pied-de-page a:focus-visible {
+    outline-color: var(--couleur-blanc);
+}
+
+
+/* ==========================================================================
+   4. ADAPTATION AUX ÉCRANS PLUS PETITS
+   Les largeurs ci-dessous (en pixels) sont les « points de bascule » où la
+   mise en page change. Elles ne peuvent pas être des variables CSS
+   (limite technique du langage), elles sont donc écrites ici.
+   ========================================================================== */
+
+/* Écrans moyens (moins de 1400 pixels de large) : dans le pied de page,
+   le nom et l'adresse passent au-dessus, sur toute la largeur, et les
+   colonnes 1 et 3 se placent en dessous, côte à côte :
+
+        nom de l'entreprise + adresse
+        ──────────────────────────────────
+        juridique + contact  ┃  liens légaux + © */
+@media (max-width: 1400px) {
+
+    .pied-de-page {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "identite  identite"
+            "gauche    legale";
+        row-gap: var(--espace-petit);
+        padding-top: var(--espace-moyen);
+        padding-bottom: var(--espace-moyen);
+    }
+
+    /* Plus de traits de part et d'autre du nom : un trait horizontal
+       sous l'identité, et un trait vertical entre les colonnes 1 et 3. */
+    .colonne-identite {
+        border-left: none;
+        border-right: none;
+        border-bottom: var(--epaisseur-trait-pied-de-page) solid var(--couleur-blanc);
+        padding: 0 0 var(--espace-petit);
+    }
+
+    .colonne-gauche {
+        border-right: var(--epaisseur-trait-pied-de-page) solid var(--couleur-blanc);
+    }
+}
+
+/* Tablettes et téléphones (moins de 900 pixels de large) : tout s'empile
+   en une seule colonne centrée. */
+@media (max-width: 900px) {
+
+    .pied-de-page {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "identite"
+            "gauche"
+            "legale";
+    }
+
+    .colonne-gauche {
+        border-right: none;
+        padding: 0 0 var(--espace-petit);
+        border-bottom: var(--epaisseur-trait-pied-de-page) solid var(--couleur-blanc);
+    }
+
+    /* Sur petit écran, les lignes de la colonne 1 sont simplement centrées. */
+    .colonne-gauche .pied-de-page-ligne {
+        justify-content: center;
+    }
+
+    .colonne-legale {
+        padding: 0;
+    }
+}
+
+/* Petits écrans (moins de 800 pixels de large) : les deux logos côte à
+   côte en haut, puis titre, sous-titre et slogan, centrés (le menu reste
+   dans la bande bleue, sur une ou plusieurs lignes) :
+
+        logo NCM    logo UTAC
+        titre       titre
+        sous-titre  sous-titre
+        slogan      slogan      */
+@media (max-width: 800px) {
+
+    .zone-identite {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "ncm        utac"
+            "titre      titre"
+            "soustitre  soustitre"
+            "slogan     slogan";
+        justify-items: center;
+        row-gap: var(--espace-petit);
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+/* Téléphones (moins de 600 pixels de large) :
+   le bandeau prend toute la largeur (avec une petite marge sur les côtés). */
+@media (max-width: 600px) {
+
+    .bandeau-haut,
+    .pied-de-page {
+        width: auto;
+        margin-left: var(--marge-cotes-ecran);
+        margin-right: var(--marge-cotes-ecran);
+    }
+
+    /* Nom de l'entreprise du pied de page : peut passer sur deux lignes,
+       pour ne pas dépasser de la bande bleue. */
+    .pied-de-page-nom > * {
+        white-space: normal;
+    }
+}

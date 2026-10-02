@@ -1,0 +1,135 @@
+# ==========================================================================
+# .htaccess — Réglages du serveur web (Apache, chez IONOS) pour migliore06.fr
+# --------------------------------------------------------------------------
+# Ce fichier est lu par le serveur IONOS à chaque visite. Il sert à :
+#   1. forcer la connexion sécurisée (HTTPS) et une adresse unique (www) ;
+#   2. rediriger les adresses de l'ancien site vers les nouvelles pages ;
+#   3. interdire l'accès direct aux fichiers internes (réglages, morceaux
+#      de pages, fichiers de contenu, fichiers cachés) ;
+#   4. ajouter des protections de sécurité envoyées au navigateur ;
+#   5. accélérer le site (mise en cache des polices et des images).
+#
+# IMPORTANT : ce fichier n'a AUCUN effet sur votre poste (le petit serveur
+# de prévisualisation de PHP l'ignore). Il ne s'applique qu'une fois en
+# ligne chez IONOS → à vérifier le jour de la mise en ligne.
+#
+# En cas d'erreur « 500 Internal Server Error » après la mise en ligne,
+# c'est presque toujours une ligne de ce fichier : mettre un # devant la
+# ligne suspecte pour la désactiver, puis tester à nouveau.
+#
+# Les lignes commençant par # sont des commentaires (ignorées par le serveur).
+# ==========================================================================
+
+
+# Les pages et textes du site sont encodés en UTF-8 (accents corrects).
+AddDefaultCharset UTF-8
+
+# Interdit d'afficher la liste des fichiers d'un dossier qui n'a pas de
+# page d'accueil (ex. : /images/ ne montre pas la liste des photos).
+Options -Indexes
+
+
+# --------------------------------------------------------------------------
+# 1 et 2. REDIRECTIONS
+# « RewriteRule » = règle de réécriture d'adresse. [R=301] = redirection
+# définitive (Google transfère le référencement vers la nouvelle adresse).
+# [L] = arrêter là, ne pas lire les règles suivantes.
+# --------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # --- 1. Une seule adresse officielle : https://www.migliore06.fr ---
+    # Si le visiteur arrive en « http:// » (non sécurisé) OU sans « www »,
+    # il est renvoyé vers https://www.migliore06.fr/ + la page demandée.
+    # (Vérification du port 443 = port HTTPS : méthode conseillée par IONOS.)
+    RewriteCond %{SERVER_PORT} !=443 [OR]
+    RewriteCond %{HTTP_HOST} !^www\. [NC]
+    RewriteRule ^(.*)$ https://www.migliore06.fr/$1 [R=301,L]
+
+    # --- 2. Anciennes adresses du site → nouvelles pages ---
+    # Ancienne page Contact → nouvelle page Contact.
+    RewriteRule ^pagesPHP/contact\.php$ /contact.php [R=301,L,NC]
+    # Anciennes pages Utilitaires légers, Poids lourds, Divers → accueil
+    # (à faire pointer vers les nouvelles pages quand elles existeront).
+    RewriteRule ^pagesPHP/(vul|pl|divers)\.php$ / [R=301,L,NC]
+
+    # --- 3. Accès interdits (réponse « 403 Accès refusé ») ---
+    # [F] = Forbidden (interdit).
+
+    # Fichiers et dossiers cachés (commençant par un point : .git, .env…),
+    # sauf le dossier .well-known utilisé pour les certificats HTTPS.
+    RewriteRule (^|/)\.(?!well-known/) - [F,L]
+
+    # Fichier de réglages du site.
+    RewriteRule ^config\.php$ - [F,L,NC]
+
+    # Morceaux de pages (bandeau, pied de page) : ils ne doivent être
+    # utilisés que par les vraies pages, jamais ouverts seuls.
+    RewriteRule ^inc/ - [F,L,NC]
+
+    # Fichiers de contenu au format texte (annonces, actualités…) : ils sont
+    # lus par PHP, pas par le visiteur. Les photos restent, elles, visibles.
+    RewriteRule ^contenu/.*\.(txt|md|json|ini)$ - [F,L,NC]
+</IfModule>
+
+
+# --------------------------------------------------------------------------
+# 4. PROTECTIONS DE SÉCURITÉ envoyées au navigateur du visiteur
+# --------------------------------------------------------------------------
+<IfModule mod_headers.c>
+
+    # Empêche le navigateur de « deviner » le type d'un fichier (un fichier
+    # image piégé ne peut pas être exécuté comme un programme).
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Interdit à d'autres sites d'afficher migliore06.fr dans un cadre
+    # (protection contre les pages piégées qui imitent votre site).
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # Quand un visiteur clique vers un autre site, celui-ci voit seulement
+    # « migliore06.fr », pas l'adresse complète de la page quittée.
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Le site n'utilise ni caméra, ni micro, ni localisation : on les bloque.
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+    # Politique de sécurité du contenu (CSP) : liste des sources autorisées.
+    # Tout ce qui n'est pas dans cette liste est bloqué par le navigateur,
+    # ce qui neutralise la plupart des scripts malveillants injectés.
+    #   default-src 'self'        → par défaut, uniquement migliore06.fr
+    #   img-src 'self' data:      → images du site (+ petites images intégrées)
+    #   frame-src google.com      → la carte Google Maps de la page Contact
+    #   form-action 'self'        → les formulaires n'envoient que vers le site
+    #   frame-ancestors 'self'    → personne ne peut encadrer le site
+    #   object-src 'none'         → aucun module externe (Flash, etc.)
+    #   upgrade-insecure-requests → tout est chargé en HTTPS
+    # ATTENTION : si on ajoute un jour un service extérieur (statistiques,
+    # vidéo YouTube…), il faudra l'ajouter ici, sinon il sera bloqué.
+    Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data:; frame-src https://www.google.com https://maps.google.com; form-action 'self'; frame-ancestors 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+
+    # HSTS : oblige les navigateurs à toujours utiliser HTTPS pour ce site.
+    # DÉSACTIVÉ pour l'instant : à activer (enlever le #) seulement après
+    # avoir vérifié en ligne que https://www.migliore06.fr fonctionne bien,
+    # car une fois reçu par les navigateurs, ce réglage dure un an.
+    # Header always set Strict-Transport-Security "max-age=31536000"
+
+</IfModule>
+
+
+# --------------------------------------------------------------------------
+# 5. MISE EN CACHE (le navigateur garde certains fichiers en mémoire et ne
+#    les retélécharge pas à chaque page : site plus rapide)
+# --------------------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    # Polices : elles ne changent jamais → gardées 1 an.
+    ExpiresByType font/woff2 "access plus 1 year"
+    # Images : gardées 1 mois.
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    # CSS : non mis en cache longtemps, pour que vos modifications de style
+    # soient visibles rapidement par les visiteurs.
+    ExpiresByType text/css "access plus 1 day"
+</IfModule>
