@@ -1,0 +1,8 @@
+# ==========================================================================
+# donnees/.htaccess — Interdit tout accès depuis Internet à ce dossier
+# --------------------------------------------------------------------------
+# Ce dossier contient des fichiers techniques du formulaire de contact
+# (compteur anti-envois répétés, copies des messages d'essai). Ils sont lus
+# et écrits par PHP uniquement, jamais par les visiteurs.
+# ==========================================================================
+Require all denied

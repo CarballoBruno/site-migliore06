@@ -26,3 +26,20 @@ originaux/
 # (Les identifiants FTP IONOS seront stockés dans les "Secrets" GitHub.)
 *.secret
 .env
+
+# --- Fichiers techniques du formulaire de contact ---
+# Compteur d'envois et copies des messages d'essai : propres à chaque
+# machine, ils ne doivent jamais être enregistrés ni publiés.
+# (Seul le fichier de protection donnees/.htaccess est conservé.)
+donnees/*
+!donnees/.htaccess
+
+# --- Circuit des photos : dossiers JAMAIS publiés ---
+# photos-a-traiter : dépôt des photos brutes (plaques, personnes, enseignes
+#   encore visibles, plusieurs Mo chacune) ;
+# photos-retouchees : archive grand format des photos retouchées, des
+#   photos écartées et des documents d'origine (non publiés).
+# Seules les copies allégées de images/carrousel/ (et des autres dossiers
+# d'images du site) sont publiées.
+images/photos-a-traiter/
+images/photos-retouchees/

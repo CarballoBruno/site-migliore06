@@ -1,0 +1,99 @@
+# ==========================================================================
+# contenu/carrousel.txt — STOCK de photos du carrousel de la page d'accueil
+# --------------------------------------------------------------------------
+# Une ligne par photo :
+#
+#     nom-du-fichier.jpg | Description | Date de la photo | Véhicule
+#
+#   - fichier     : photo rangée dans images/carrousel/ (540 x 360 pixels) ;
+#   - description : n'est PAS affichée sur la photo ; elle sert à Google et
+#                   aux personnes malvoyantes (lecteurs d'écran) ;
+#   - date        : date de prise de vue, JJ/MM/AAAA (sert à favoriser les
+#                   photos récentes) ;
+#   - véhicule    : repère libre, IDENTIQUE pour toutes les photos d'un même
+#                   véhicule (le site n'en montre jamais deux à la fois).
+#
+# CE QUE FAIT LE SITE À CHAQUE VISITE :
+#   1. il tire au sort 20 photos dans ce stock (réglage dans config.php) :
+#      environ 2/3 de photos de moins de 6 mois et 1/3 plus anciennes
+#      (complété avec les autres s'il en manque), une seule par véhicule,
+#      un peu plus d'un poids lourd pour deux utilitaires et pas plus de
+#      30 % d'un même type (sinon le mélange ne pourrait pas les séparer) ;
+#      s'il manque des poids lourds, le tirage compte un peu moins de 20
+#      photos → PHOTOGRAPHIER DAVANTAGE DE POIDS LOURDS (vues arrière) ;
+#   2. il les mélange en respectant deux règles :
+#        - jamais deux photos du même type à la suite (benne, caisse…) ;
+#        - jamais plus de deux photos de la même gamme à la suite
+#          (poids lourds « pl » ou utilitaires légers « vul »).
+#   L'ordre des lignes ci-dessous n'a donc pas d'importance.
+#
+# NOM DES FICHIERS : gamme-type-numéro.jpg, sans accents ni espaces.
+#   C'est ce nom qui indique la gamme et le type :
+#     gamme : pl (poids lourd) ou vul (utilitaire léger)
+#     type  : benne, caisse, plateau, ampliroll, fourgon…
+#   Exemples : pl-benne-02.jpg, vul-plateau-03.jpg
+#
+# Pour retirer une photo : supprimer sa ligne (ou mettre un # devant).
+# Les lignes qui commencent par # sont des commentaires (ignorées).
+#
+# Règles de choix et de retouche des photos (circuit : images/photos-a-traiter
+# → images/photos-retouchees → images/carrousel) :
+#   - UNE SEULE réalisation par photo (jamais une autre benne, caisse ou
+#     plateau à côté ou derrière) ;
+#   - cadrage sur nos carrosseries plutôt que sur la cabine du constructeur ;
+#   - personne de reconnaissable sur la photo ;
+#   - retouches : recadrage, image plus claire et plus nette, 540 x 360 px ;
+#     nos plaques W garage restent visibles ; seuls les éléments de tiers
+#     (plaques d'autres véhicules, enseignes, logos de clients) sont floutés.
+# ==========================================================================
+
+# --- Poids lourds ---
+pl-ampliroll-01.jpg  | Ampliroll sur porteur Fuso                                 | 06/04/2018 | v20180406
+pl-ampliroll-02.jpg  | Ampliroll avec benne sur porteur Renault 6x4               | 20/02/2025 | v20250220
+pl-ampliroll-03.jpg  | Ampliroll sur porteur Fuso, vue arrière                    | 16/02/2026 | v20260216
+pl-benne-01.jpg      | Benne basculante sur porteur Iveco                         | 25/03/2024 | v20240325
+pl-caisse-01.jpg     | Caisse fourgon sur porteur Iveco                           | 29/01/2024 | v20240129
+pl-caisse-02.jpg     | Caisse à rideaux coulissants avec hayon élévateur          | 24/10/2024 | v20241024
+pl-plateau-01.jpg    | Plateau avec grue auxiliaire, vue arrière                  | 06/08/2024 | v20240806
+
+# --- Utilitaires légers ---
+vul-benne-01.jpg     | Benne basculante avec rehausse grillagée sur Mercedes Sprinter          | 18/09/2026 | v20260918
+vul-benne-02.jpg     | Benne basculante à grandes rehausses aluminium sur Mercedes Sprinter    | 02/10/2025 | v20251002
+vul-benne-03.jpg     | Benne basculante avec grue auxiliaire sur Iveco Daily                   | 23/06/2026 | v20260623
+vul-benne-04.jpg     | Benne basculante à grandes rehausses sur Iveco Daily                    | 30/07/2026 | v20260730
+vul-benne-05.jpg     | Benne basculante à grandes rehausses sur Volkswagen Crafter             | 16/09/2026 | v20260916
+vul-benne-06.jpg     | Benne basculante à grandes rehausses sur Iveco Daily, vue arrière       | 09/10/2026 | v20261009
+vul-caisse-01.jpg    | Caisse fourgon noire sur Volkswagen Crafter                             | 15/02/2024 | v20240215
+vul-caisse-02.jpg    | Caisse fourgon sur Renault Master                                       | 05/12/2024 | v20241205
+vul-caisse-03.jpg    | Caisse fourgon sur Volkswagen Crafter                                   | 03/07/2025 | v20250703
+vul-caisse-04.jpg    | Caisse fourgon sur Mercedes Sprinter                                    | 07/11/2025 | v20251107
+vul-caisse-05.jpg    | Caisse fourgon avec hayon élévateur sur Iveco Daily                     | 18/06/2026 | v20260618
+vul-caisse-06.jpg    | Caisse fourgon sur Iveco Daily                                          | 02/07/2026 | v20260702
+vul-fourgon-01.jpg   | Hayon élévateur sur fourgon                                             | 17/03/2026 | v20260317
+vul-fourgon-02.jpg   | Aménagement intérieur de fourgon                                        | 10/09/2026 | v20260910
+vul-plateau-01.jpg   | Plateau porte-vitres sur Iveco Daily                                    | 30/01/2026 | v20260130
+vul-plateau-02.jpg   | Plateau aluminium sur Iveco Daily                                       | 15/04/2026 | v20260415
+
+# --- Ajouts du 09/10/2026 (anciennes photos en attente) ---
+pl-benne-02.jpg      | Benne basculante sur porteur Iveco, vue arrière                                       | 25/03/2024 | v20240325
+pl-ampliroll-04.jpg  | Ampliroll avec benne sur porteur Renault 6x4, vue arrière                             | 20/02/2025 | v20250220
+vul-benne-07.jpg     | Benne basculante avec rehausse grillagée sur Mercedes Sprinter, vue arrière           | 23/04/2025 | v20250423
+vul-benne-08.jpg     | Benne basculante avec rehausse grillagée sur Mercedes Sprinter                        | 23/04/2025 | v20250423
+vul-benne-09.jpg     | Benne basculante à grandes rehausses aluminium sur Mercedes Sprinter, vue arrière     | 02/10/2025 | v20251002
+vul-benne-10.jpg     | Benne basculante avec rehausse grillagée sur Iveco Daily double cabine                | 15/10/2025 | v20251015
+vul-benne-11.jpg     | Benne basculante avec rehausse grillagée sur Volkswagen Crafter                       | 08/01/2026 | v20260108
+vul-benne-12.jpg     | Benne basculante avec rehausse grillagée sur Mercedes Sprinter                        | 21/01/2026 | v20260121
+vul-caisse-07.jpg    | Caisse fourgon avec hayon élévateur sur Iveco Daily, vue arrière                      | 31/03/2026 | v20260331
+vul-caisse-08.jpg    | Caisse fourgon ouverte, hayon élévateur abaissé                                       | 31/03/2026 | v20260331
+vul-plateau-03.jpg   | Plateau aluminium sur Iveco Daily, vue arrière                                        | 15/04/2026 | v20260415
+vul-plateau-04.jpg   | Plateau aluminium sur Iveco Daily, vue de côté                                        | 15/04/2026 | v20260415
+vul-benne-13.jpg     | Benne à grandes rehausses sur Iveco Daily double cabine, vue arrière                  | 22/04/2026 | v20260422a
+vul-benne-14.jpg     | Benne à grandes rehausses sur Iveco Daily double cabine, vue de côté                  | 22/04/2026 | v20260422a
+vul-plateau-05.jpg   | Plateau aluminium avec ridelles sur Iveco Daily                                       | 22/04/2026 | v20260422b
+vul-caisse-09.jpg    | Caisse fourgon avec hayon élévateur sur Iveco Daily                                   | 15/06/2026 | v20260615
+vul-ampliroll-01.jpg | Ampliroll sur Iveco Daily, vue arrière                                                | 18/06/2026 | v20260618b
+vul-caisse-10.jpg    | Caisse fourgon sur Iveco Daily, vue arrière                                           | 02/07/2026 | v20260702
+vul-benne-15.jpg     | Benne à grandes rehausses sur Iveco Daily, vue arrière                                | 30/07/2026 | v20260730
+vul-benne-16.jpg     | Benne basculante avec rehausse grillagée sur Mercedes Sprinter                        | 02/10/2026 | v20261002
+vul-benne-17.jpg     | Benne à grandes rehausses aluminium sur Iveco Daily, vue arrière                      | 01/02/2026 | v20260201
+vul-benne-18.jpg     | Benne à grandes rehausses aluminium sur Iveco Daily                                   | 01/02/2026 | v20260201

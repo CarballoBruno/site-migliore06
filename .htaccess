@@ -5,7 +5,7 @@
 #   1. forcer la connexion sécurisée (HTTPS) et une adresse unique (www) ;
 #   2. rediriger les adresses de l'ancien site vers les nouvelles pages ;
 #   3. interdire l'accès direct aux fichiers internes (réglages, morceaux
-#      de pages, fichiers de contenu, fichiers cachés) ;
+#      de pages, fichiers de contenu, données du formulaire, fichiers cachés) ;
 #   4. ajouter des protections de sécurité envoyées au navigateur ;
 #   5. accélérer le site (mise en cache des polices et des images).
 #
@@ -63,9 +63,12 @@ Options -Indexes
     # Fichier de réglages du site.
     RewriteRule ^config\.php$ - [F,L,NC]
 
-    # Morceaux de pages (bandeau, pied de page) : ils ne doivent être
-    # utilisés que par les vraies pages, jamais ouverts seuls.
+    # Morceaux de pages (bandeau, pied de page, fonctions) : ils ne doivent
+    # être utilisés que par les vraies pages, jamais ouverts seuls.
     RewriteRule ^inc/ - [F,L,NC]
+
+    # Fichiers techniques du formulaire de contact (compteur d'envois…).
+    RewriteRule ^donnees/ - [F,L,NC]
 
     # Fichiers de contenu au format texte (annonces, actualités…) : ils sont
     # lus par PHP, pas par le visiteur. Les photos restent, elles, visibles.

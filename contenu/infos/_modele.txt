@@ -1,0 +1,50 @@
+# ==========================================================================
+# contenu/infos/_modele.txt — MODÈLE d'annonce « Informations importantes »
+# --------------------------------------------------------------------------
+# Ce fichier n'est jamais affiché (son nom commence par « _ »).
+#
+# POUR AJOUTER UNE ANNONCE :
+#   1. Copier ce fichier dans le même dossier (contenu/infos/).
+#   2. Le renommer, sans accents ni espaces, sans « _ » au début :
+#      ex. fermeture-ete-2027.txt
+#   3. Remplir le titre, les dates et le texte ci-dessous.
+#
+# LES DATES (format JJ/MM/AAAA, ex. 01/08/2027) :
+#   - afficher_du : premier jour où l'annonce apparaît sur le site
+#                   (vide = dès maintenant) ;
+#   - afficher_au : dernier jour où elle apparaît (vide = toujours,
+#                   annonce permanente).
+#   L'annonce apparaît et disparaît toute seule : il suffit de la préparer
+#   à l'avance. Une date mal écrite empêche l'annonce de s'afficher.
+#
+# LE TEXTE : sous la ligne « --- ». Une ligne vide sépare deux paragraphes.
+# Un « ! » au tout début d'un paragraphe le met en valeur (plus gros, en
+# gras) ; le « ! » lui-même n'est pas affiché.
+#
+# UN LIEN SOUS L'ANNONCE (facultatif) : remplir les deux lignes
+#   bouton: Contactez-nous                 (texte du lien)
+#   bouton_lien: contact.php#formulaire    (page du site, ou adresse https://…)
+# Laisser vides pour ne pas afficher de lien.
+#
+# ORDRE D'AFFICHAGE : les annonces datées (fermetures…) d'abord, puis les
+# annonces permanentes ; à égalité, dans l'ordre alphabétique des noms de
+# fichiers.
+#
+# Pour retirer une annonce avant la date prévue : supprimer son fichier
+# (ou le renommer en ajoutant « _ » au début de son nom).
+#
+# FERMETURE EXCEPTIONNELLE (route coupée, coupure de courant…) : utiliser
+# plutôt le modèle _modele-fermeture-exceptionnelle.txt.
+#
+# Les lignes qui commencent par # sont des commentaires (ignorées).
+# ==========================================================================
+
+titre: Fermeture estivale
+afficher_du: 15/07/2027
+afficher_au: 23/08/2027
+bouton:
+bouton_lien:
+---
+L'atelier sera fermé du lundi 9 août au vendredi 20 août 2027 inclus.
+
+Réouverture le lundi 23 août à 8h30.

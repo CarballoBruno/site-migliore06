@@ -57,6 +57,10 @@ function marquerLienActif(string $nomLien, string $pageActive): string
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/polices.css">
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Petits programmes du site (carte au clic, pause du carrousel).
+         « defer » : chargés sans ralentir l'affichage de la page. -->
+    <script src="js/main.js" defer></script>
 </head>
 <body>
 
@@ -80,7 +84,7 @@ function marquerLienActif(string $nomLien, string $pageActive): string
 
         <p class="sous-titre-entreprise">- Carrossier Constructeur -</p>
 
-        <p class="slogan">« Une Écoute, Un Conseil, Un Savoir-faire »</p>
+        <p class="slogan">«&nbsp;Une Écoute, Un Conseil, Un Savoir-faire&nbsp;»</p>
 
         <!-- À l'extrême droite : certification UTAC (logo + domaines certifiés) -->
         <div class="certification-utac">
@@ -93,7 +97,16 @@ function marquerLienActif(string $nomLien, string $pageActive): string
          la présentation de l'entreprise du contenu de la page -->
     <nav class="bande-bleue-epaisse menu-principal" aria-label="Menu principal">
         <ul class="menu-principal-liste">
-            <li><a href="index.php"<?= marquerLienActif('accueil', $pageActive) ?>>Accueil</a></li>
+            <!-- Accueil : symbole de la petite maison au lieu du mot.
+                 « aria-label » donne le nom « Accueil » aux lecteurs d'écran,
+                 « title » l'affiche en bulle au survol de la souris. -->
+            <li>
+                <a href="index.php" aria-label="Accueil" title="Accueil"<?= marquerLienActif('accueil', $pageActive) ?>>
+                    <svg class="icone-accueil" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M12 3 2 11.5h3V21h5.5v-6h3v6H19v-9.5h3L12 3Z"/>
+                    </svg>
+                </a>
+            </li>
             <li><a href="index.php#amenagements">Aménagements</a></li>
             <li><a href="index.php#realisations">Réalisations</a></li>
             <li><a href="index.php#actualites">Actualités</a></li>

@@ -9,7 +9,10 @@
      1. Bases communes à tout le site
      2. Bandeau du haut (inc/header.php)
      3. Pied de page (inc/footer.php)
-     4. Adaptation aux écrans plus petits (tablettes, téléphones)
+     4. Pages de texte (mentions légales…)
+     5. Page Contact (formulaire, coordonnées, carte)
+     6. Page d'accueil (carrousel…)
+     7. Adaptation aux écrans plus petits (tablettes, téléphones)
    ========================================================================== */
 
 
@@ -248,6 +251,15 @@ a:hover {
     transition: border-color var(--duree-transition);
 }
 
+/* Lien « Accueil » : petite maison dessinée (même couleur que le texte du
+   menu, un peu plus haute que les lettres pour être bien reconnaissable). */
+.icone-accueil {
+    display: block;
+    width: 1.2em;
+    height: 1.2em;
+    fill: currentColor;
+}
+
 /* Au survol de la souris : le petit trait apparaît en bleu clair. */
 .menu-principal-liste a:hover {
     color: var(--couleur-blanc);
@@ -389,7 +401,853 @@ a:hover {
 
 
 /* ==========================================================================
-   4. ADAPTATION AUX ÉCRANS PLUS PETITS
+   4. PAGES DE TEXTE (mentions légales, et plus tard autres pages simples)
+   Une colonne de texte centrée, d'une largeur confortable à lire.
+   ========================================================================== */
+
+.page-texte {
+    width: 100%;
+    max-width: var(--largeur-texte);
+    margin: 0 auto;
+    padding: var(--espace-tres-grand) var(--marge-cotes-ecran);
+}
+
+/* Grand titre de la page (« Mentions légales », « Politique de
+   confidentialité »), avec un trait bleu dessous. */
+.page-texte h1 {
+    margin: var(--espace-tres-grand) 0 var(--espace-grand);
+    padding-bottom: var(--espace-petit);
+    font-family: var(--police-principale);
+    font-size: var(--taille-titre-section);
+    line-height: var(--hauteur-ligne-titres);
+    color: var(--couleur-bleu-fonce);
+    border-bottom: var(--epaisseur-soulignement) solid var(--couleur-bleu-logo);
+}
+
+/* Le premier titre de la page n'a pas d'espace au-dessus. */
+.page-texte h1:first-child {
+    margin-top: 0;
+}
+
+/* Le lien « Politique de confidentialité » du pied de page fait défiler
+   jusqu'à ce titre : on laisse un peu d'air au-dessus. */
+.page-texte h1[id] {
+    scroll-margin-top: var(--espace-grand);
+}
+
+/* Titre de chaque partie (« Éditeur du site », « Hébergement »…). */
+.page-texte h2 {
+    margin: var(--espace-grand) 0 var(--espace-petit);
+    font-family: var(--police-principale);
+    font-size: var(--taille-titre-carte);
+    line-height: var(--hauteur-ligne-titres);
+    color: var(--couleur-bleu-fonce);
+}
+
+.page-texte p {
+    margin: 0 0 var(--espace-moyen);
+}
+
+/* Liste d'informations (siège, SIRET, TVA…) : sans puces, une par ligne. */
+.liste-infos {
+    list-style: none;
+    margin: 0 0 var(--espace-moyen);
+    padding: 0;
+    display: grid;
+    gap: var(--espace-tres-petit);
+}
+
+/* Intitulé de chaque information (« Siège social : »…), en gras. */
+.libelle {
+    font-weight: var(--epaisseur-grasse);
+}
+
+/* Liens dans le texte : soulignés, pour bien les repérer. */
+.page-texte a {
+    text-decoration: underline;
+}
+
+/* Date de mise à jour, en bas de page, plus discrète. */
+.date-mise-a-jour {
+    margin-top: var(--espace-tres-grand);
+    font-size: var(--taille-texte-petit);
+    color: var(--couleur-gris-texte);
+}
+
+
+/* ==========================================================================
+   5. PAGE CONTACT (contact.php)
+   Formulaire à gauche, coordonnées / horaires / carte à droite, chacun
+   dans une carte blanche qui ressort du fond.
+   ========================================================================== */
+
+.page-contact {
+    width: 100%;
+    max-width: var(--largeur-max-contenu);
+    margin: 0 auto;
+    padding: var(--espace-tres-grand) var(--marge-cotes-ecran);
+}
+
+/* Titre « Contact » et texte d'introduction. */
+.page-contact-titre {
+    margin: 0 0 var(--espace-petit);
+    font-family: var(--police-principale);
+    font-size: var(--taille-titre-page);
+    line-height: var(--hauteur-ligne-titres);
+    color: var(--couleur-bleu-fonce);
+}
+
+.page-contact-intro {
+    max-width: var(--largeur-texte);
+    margin: 0 0 var(--espace-tres-grand);
+    font-size: var(--taille-texte-grand);
+}
+
+/* Deux colonnes : formulaire (plus large) et coordonnées. */
+.page-contact-grille {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: var(--espace-tres-grand);
+    align-items: start;
+}
+
+/* Carte blanche (formulaire, coordonnées). */
+.carte-contact {
+    background-color: var(--couleur-blanc);
+    border: var(--epaisseur-bordure) solid var(--couleur-gris-bordure);
+    border-radius: var(--arrondi-moyen);
+    box-shadow: var(--ombre-carte);
+    padding: var(--espace-tres-grand);
+}
+
+.carte-contact h2 {
+    margin: 0 0 var(--espace-grand);
+    font-family: var(--police-principale);
+    font-size: var(--taille-titre-carte);
+    color: var(--couleur-bleu-fonce);
+}
+
+.carte-contact h3 {
+    margin: var(--espace-grand) 0 var(--espace-petit);
+    font-family: var(--police-principale);
+    font-size: var(--taille-texte-grand);
+    color: var(--couleur-bleu-fonce);
+}
+
+
+/* --- 5.1 Messages (succès en vert, erreur en rouge) -------------------- */
+
+.message-succes,
+.message-erreur {
+    margin: 0 0 var(--espace-grand);
+    padding: var(--espace-moyen);
+    border-radius: var(--arrondi-petit);
+    border-left: var(--epaisseur-bordure-accent) solid;
+    font-weight: var(--epaisseur-semi-grasse);
+}
+
+.message-succes {
+    color: var(--couleur-message-succes);
+    background-color: var(--couleur-fond-succes);
+    border-left-color: var(--couleur-message-succes);
+}
+
+.message-erreur {
+    color: var(--couleur-message-erreur);
+    background-color: var(--couleur-fond-erreur);
+    border-left-color: var(--couleur-message-erreur);
+}
+
+
+/* --- 5.2 Formulaire ---------------------------------------------------- */
+
+.formulaire-contact {
+    display: grid;
+    gap: var(--espace-moyen);
+}
+
+.mention-obligatoire {
+    margin: 0;
+    font-size: var(--taille-texte-petit);
+    color: var(--couleur-gris-texte);
+}
+
+/* Étoile des champs obligatoires. */
+.etoile {
+    color: var(--couleur-message-erreur);
+}
+
+/* Deux champs côte à côte (nom + prénom, société + email). */
+.formulaire-ligne {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--espace-moyen);
+}
+
+/* Un champ : son intitulé au-dessus, la zone de saisie dessous. */
+.formulaire-champ {
+    display: grid;
+    gap: var(--espace-tres-petit);
+}
+
+.formulaire-champ label {
+    font-weight: var(--epaisseur-semi-grasse);
+}
+
+.formulaire-champ input,
+.formulaire-champ textarea {
+    width: 100%;
+    padding: var(--espace-petit) var(--espace-moyen);
+    font-family: var(--police-principale);
+    font-size: var(--taille-texte-normal);
+    color: var(--couleur-anthracite);
+    background-color: var(--couleur-fond-page);
+    border: var(--epaisseur-bordure) solid var(--couleur-gris-bordure);
+    border-radius: var(--arrondi-petit);
+    transition: border-color var(--duree-transition);
+}
+
+.formulaire-champ textarea {
+    resize: vertical;     /* le visiteur peut agrandir la zone en hauteur */
+}
+
+/* Zone de saisie active : bordure bleue. */
+.formulaire-champ input:focus,
+.formulaire-champ textarea:focus {
+    border-color: var(--couleur-bleu-moyen);
+    background-color: var(--couleur-blanc);
+}
+
+/* Champ en erreur : bordure rouge. */
+.formulaire-champ [aria-invalid="true"] {
+    border-color: var(--couleur-message-erreur);
+}
+
+/* Message d'erreur sous un champ. */
+.erreur-champ {
+    margin: 0;
+    font-size: var(--taille-texte-petit);
+    color: var(--couleur-message-erreur);
+}
+
+/* Champ piège anti-robots : placé hors de l'écran, invisible pour les
+   visiteurs (mais présent dans la page, pour piéger les robots). */
+.champ-piege {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/* Bouton « Envoyer ma demande », et boutons principaux des autres pages
+   (ex. « Parlez-nous de votre projet » sur l'accueil) : même apparence. */
+.bouton-envoyer,
+.bouton-principal {
+    justify-self: start;
+    padding: var(--espace-petit) var(--espace-tres-grand);
+    font-family: var(--police-principale);
+    font-size: var(--taille-texte-grand);
+    font-weight: var(--epaisseur-grasse);
+    color: var(--couleur-blanc);
+    background-color: var(--couleur-bleu-logo);
+    border: none;
+    border-radius: var(--arrondi-petit);
+    cursor: pointer;
+    transition: background-color var(--duree-transition);
+}
+
+.bouton-envoyer:hover,
+.bouton-principal:hover {
+    color: var(--couleur-blanc);
+    background-color: var(--couleur-bleu-fonce);
+}
+
+/* Le bouton principal est un lien : on enlève le soulignement des liens. */
+.bouton-principal {
+    display: inline-block;
+    text-decoration: none;
+}
+
+/* Mention RGPD sous le bouton. */
+.mention-rgpd {
+    margin: 0;
+    font-size: var(--taille-texte-petit);
+    color: var(--couleur-gris-texte);
+}
+
+.mention-rgpd a {
+    text-decoration: underline;
+}
+
+
+/* --- 5.3 Coordonnées, horaires, carte ----------------------------------- */
+
+/* Téléphone en grand, bien visible. */
+.telephone-en-clair {
+    margin: 0 0 var(--espace-moyen);
+    font-size: var(--taille-titre-section);
+    font-weight: var(--epaisseur-grasse);
+    line-height: var(--hauteur-ligne-titres);
+}
+
+.telephone-en-clair a {
+    color: var(--couleur-bleu-logo);
+}
+
+/* Adresse postale et email, une information par ligne. */
+.coordonnees {
+    display: grid;
+    gap: var(--espace-minuscule);
+    font-style: normal;
+}
+
+/* « Nouvelle Carrosserie Migliore » dans les coordonnées : en Impact et
+   en bleu (règle de la charte), un peu plus gros que le texte courant. */
+.nom-entreprise-coordonnees {
+    margin-bottom: var(--espace-tres-petit);
+    font-family: var(--police-titre-entreprise);
+    font-size: var(--taille-nom-coordonnees);
+    line-height: var(--hauteur-ligne-titres);
+    letter-spacing: 0.02em;
+    color: var(--couleur-bleu-logo);
+}
+
+/* Horaires : les jours en gras, et les heures juste en dessous. */
+/* Horaires (inc/horaires.php) : un jour par ligne, le jour à gauche, les
+   plages horaires à droite sur la même ligne (« 8h30 – 12h00 / 14h00 –
+   17h30 »), jours séparés par un trait fin. */
+.horaires {
+    margin: 0;
+}
+
+.horaires-ligne {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--espace-moyen);
+    padding: var(--espace-tres-petit) 0;
+    border-bottom: var(--epaisseur-bordure) solid var(--couleur-gris-bordure);
+}
+
+.horaires-ligne:last-child {
+    border-bottom: none;
+}
+
+.horaires dt {
+    font-weight: var(--epaisseur-semi-grasse);
+}
+
+.horaires dd {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;            /* sur un écran très étroit, l'après-midi passe dessous */
+    justify-content: flex-end;
+    font-variant-numeric: tabular-nums;
+}
+
+/* « / » entre la plage du matin et celle de l'après-midi (placé à la fin
+   de la plage du matin : si la ligne se coupe, le « / » reste en fin de
+   ligne et non au début de la suivante). */
+.horaires dd span:not(:last-child)::after {
+    content: "\00a0/\00a0";
+}
+
+/* Jours de fermeture : en gris, pour que les jours ouverts ressortent. */
+.horaires-ferme {
+    color: var(--couleur-gris-texte);
+}
+
+.horaires-mention {
+    margin: var(--espace-petit) 0 0;
+    font-size: var(--taille-texte-petit);
+    font-style: italic;
+    color: var(--couleur-gris-texte);
+}
+
+/* Bloc d'attente de la carte (avant le clic) et carte elle-même :
+   même taille, pour que rien ne bouge au moment de l'affichage. */
+.emplacement-carte,
+.carte-google {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border: var(--epaisseur-bordure) solid var(--couleur-gris-bordure);
+    border-radius: var(--arrondi-petit);
+}
+
+.emplacement-carte {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--espace-moyen);
+    padding: var(--espace-grand);
+    text-align: center;
+    background-color: var(--couleur-gris-clair);
+}
+
+.emplacement-carte p {
+    margin: 0;
+    font-size: var(--taille-texte-petit);
+    color: var(--couleur-gris-texte);
+}
+
+/* Bouton « Afficher la carte ». */
+.bouton-carte {
+    padding: var(--espace-petit) var(--espace-grand);
+    font-family: var(--police-principale);
+    font-size: var(--taille-texte-normal);
+    font-weight: var(--epaisseur-semi-grasse);
+    color: var(--couleur-bleu-logo);
+    background-color: var(--couleur-blanc);
+    border: var(--epaisseur-soulignement) solid var(--couleur-bleu-logo);
+    border-radius: var(--arrondi-petit);
+    cursor: pointer;
+    transition: background-color var(--duree-transition), color var(--duree-transition);
+}
+
+.bouton-carte:hover {
+    color: var(--couleur-blanc);
+    background-color: var(--couleur-bleu-logo);
+}
+
+.lien-carte {
+    font-size: var(--taille-texte-petit);
+    text-decoration: underline;
+}
+
+
+/* ==========================================================================
+   6. PAGE D'ACCUEIL (index.php)
+   ========================================================================== */
+
+/* --- 6.1 Carrousel : bande de photos qui défile en continu ------------- */
+
+/* Même largeur que le bandeau (85 % de l'écran), centré, juste sous le menu. */
+.carrousel {
+    position: relative;
+    width: var(--largeur-bandeau-haut);
+    margin: 0 auto;
+    padding: var(--espace-petit) 0;
+}
+
+/* « Fenêtre » : ne montre que la partie de la bande de photos qui est
+   dans la largeur du carrousel. */
+.carrousel-fenetre {
+    overflow: hidden;
+}
+
+/* La bande de photos : toutes les photos côte à côte (série écrite deux
+   fois). L'animation la fait glisser vers la gauche de la moitié de sa
+   longueur, c'est-à-dire d'une série complète : à ce moment, la 2e série
+   est exactement à la place de la 1re, et l'animation recommence sans que
+   l'on voie la coupure. */
+.carrousel-piste {
+    display: flex;
+    gap: var(--ecart-photos-carrousel);
+    width: max-content;
+    /* Durée d'un tour = durée par photo x nombre de photos (nombre donné
+       par js/main.js ; 20 par défaut si le JavaScript est désactivé). */
+    animation: defiler-carrousel calc(var(--duree-par-photo-carrousel) * var(--nombre-photos-carrousel, 20)) linear infinite;
+}
+
+@keyframes defiler-carrousel {
+    from { transform: translateX(0); }
+    to   { transform: translateX(calc(-50% - var(--ecart-photos-carrousel) / 2)); }
+}
+
+/* Arrêt du défilement : au survol de la souris, quand un élément du
+   carrousel est sélectionné au clavier, ou avec le bouton pause. */
+.carrousel:hover .carrousel-piste,
+.carrousel:focus-within .carrousel-piste,
+.carrousel.est-en-pause .carrousel-piste {
+    animation-play-state: paused;
+}
+
+/* Une photo (aucun texte affiché dessus). */
+.carrousel-photo {
+    position: relative;
+    margin: 0;
+    flex: 0 0 auto;
+}
+
+.carrousel-photo img {
+    display: block;
+    height: var(--hauteur-photo-carrousel);
+    width: auto;
+    max-width: none;
+}
+
+/* Bouton pause / lecture : petit rond blanc en bas à droite des photos. */
+.carrousel-bouton-pause {
+    position: absolute;
+    right: var(--espace-petit);
+    bottom: calc(var(--espace-petit) * 2);
+    width: 2.25rem;
+    height: 2.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--taille-texte-petit);
+    color: var(--couleur-bleu-logo);
+    background-color: var(--couleur-blanc);
+    border: var(--epaisseur-soulignement) solid var(--couleur-bleu-logo);
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.carrousel-bouton-pause:hover {
+    opacity: 1;
+}
+
+/* Le bouton reste caché tant que js/main.js ne l'a pas activé. */
+.carrousel-bouton-pause[hidden] {
+    display: none;
+}
+
+/* Visiteurs ayant demandé à réduire les animations : pas de défilement ;
+   la bande de photos se fait défiler à la main. */
+@media (prefers-reduced-motion: reduce) {
+    .carrousel-piste {
+        animation: none;
+    }
+
+    .carrousel-fenetre {
+        overflow-x: auto;
+    }
+}
+
+
+/* --- 6.2 Bande bleue sous le carrousel ---------------------------------- */
+
+/* Simple séparation, de la même largeur et de la même hauteur que la
+   bande bleue du menu. */
+.bande-bleue-carrousel {
+    width: var(--largeur-bandeau-haut);
+    height: var(--hauteur-bande-bleue-epaisse);
+    margin: 0 auto;
+    background-color: var(--couleur-bleu-logo);
+}
+
+
+/* --- 6.3 Corps de la page d'accueil (disposition « hybride ») ---------- */
+
+/* Même largeur que le bandeau et le pied de page (85 %), centré : les
+   bords du contenu sont alignés avec ceux du bandeau. */
+.accueil-corps {
+    width: var(--largeur-bandeau-haut);
+    margin: 0 auto;
+    padding: var(--espace-tres-grand) 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--espace-entre-sections);
+}
+
+/* Partie haute : grille de 2 colonnes, le contenu principal prend
+   plusieurs parts (--parts-contenu-principal) et la colonne de droite
+   1 part, avec une largeur minimale pour la colonne. « minmax(0, …) » empêche un contenu trop
+   large (photo, mot très long) d'élargir la colonne principale. */
+.accueil-haut {
+    display: grid;
+    grid-template-columns: minmax(0, var(--parts-contenu-principal)) minmax(var(--largeur-min-colonne-droite), 1fr);
+    gap: var(--espace-tres-grand);
+    align-items: start;
+}
+
+/* Présentation de l'entreprise (en haut de la zone principale).
+   Mise en page « classique » (et non en grille) : c'est elle qui permet
+   au texte de s'écouler autour des images placées à droite. */
+.presentation {
+    container-type: inline-size; /* les largeurs d'images (« cqi ») se calculent
+                                    d'après la largeur de la présentation */
+}
+
+/* Texte à gauche, étroite colonne à droite : le bord droit du texte reste
+   aligné de haut en bas. Les deux colonnes ont la même hauteur. */
+.presentation-corps {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--largeur-image-dans-texte);
+    gap: var(--espace-grand);
+}
+
+.presentation-texte {
+    display: flow-root; /* contient l'image insérée à gauche dans le texte */
+}
+
+/* Le dernier paragraphe n'a pas de marge dessous : sa dernière ligne est
+   alignée sur le bas de l'image du bas de la colonne de droite. */
+.presentation-texte p:last-child {
+    margin-bottom: 0;
+}
+
+/* Colonne de droite : image en haut, image en bas, et le bouton centré
+   dans l'espace entre les deux (marges automatiques). */
+.presentation-images {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espace-petit);
+}
+
+/* Bouton de la colonne : un peu plus compact, pour tenir sur une ligne. */
+.bouton-colonne-images {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: var(--espace-petit);
+    font-size: var(--taille-texte-normal);
+}
+
+.presentation-titre {
+    margin: 0 0 var(--espace-moyen);
+    font-family: var(--police-principale);
+    font-size: var(--taille-titre-presentation);
+    line-height: var(--hauteur-ligne-titres);
+    color: var(--couleur-bleu-fonce);
+    /* Sur une seule ligne (sur tablette et téléphone, il peut passer sur
+       plusieurs lignes : voir la partie 7). */
+    white-space: nowrap;
+}
+
+/* Paragraphes : toute la largeur de la zone, texte justifié (bords gauche
+   et droit alignés). La coupure des mots en fin de ligne (« hyphens »)
+   évite les grands espaces que la justification crée parfois. */
+.presentation p {
+    margin: 0 0 var(--espace-moyen);
+    font-size: var(--taille-texte-grand);
+    line-height: var(--hauteur-ligne-texte);
+    text-align: justify;
+    hyphens: auto;
+}
+
+/* Images de la présentation (exemples d'études) : dans un cadre blanc,
+   avec une courte légende dessous. Toutes de la même largeur, qu'elles
+   soient insérées dans le texte ou dans la colonne de droite. */
+.image-dans-texte {
+    display: block;
+    width: var(--largeur-image-dans-texte);
+    margin: 0;
+    padding: var(--espace-petit);
+    background-color: var(--couleur-blanc);
+    border: var(--epaisseur-bordure) solid var(--couleur-gris-bordure);
+    border-radius: var(--arrondi-petit);
+    text-align: center;
+}
+
+.image-a-gauche {
+    float: left;
+    margin: var(--espace-tres-petit) var(--espace-grand) var(--espace-moyen) 0;
+}
+
+.image-dans-texte img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.legende-image {
+    display: block;
+    margin-top: var(--espace-tres-petit);
+    font-size: var(--taille-texte-petit);
+    line-height: var(--hauteur-ligne-titres);
+    color: var(--couleur-gris-texte);
+}
+
+/* Mots clés mis en valeur dans le texte de présentation : en gras et du
+   même bleu foncé que le titre (avec modération : quelques expressions). */
+.presentation strong {
+    font-weight: var(--epaisseur-grasse);
+    color: var(--couleur-bleu-fonce);
+}
+
+/* Colonne de droite : ses encarts s'empilent les uns sous les autres. */
+.colonne-droite {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espace-grand);
+}
+
+/* Encart de la colonne de droite (horaires…) : carte blanche qui ressort
+   du fond, titre souligné d'un trait bleu. */
+.encart-colonne {
+    container-type: inline-size; /* permet d'adapter le contenu à la largeur de l'encart */
+    padding: var(--espace-grand) var(--espace-moyen);
+    background-color: var(--couleur-blanc);
+    border: var(--epaisseur-bordure) solid var(--couleur-gris-bordure);
+    border-radius: var(--arrondi-moyen);
+    box-shadow: var(--ombre-carte);
+}
+
+.encart-colonne-titre {
+    margin: 0 0 var(--espace-moyen);
+    padding-bottom: var(--espace-petit);
+    font-family: var(--police-principale);
+    font-size: var(--taille-titre-carte);
+    line-height: var(--hauteur-ligne-titres);
+    color: var(--couleur-bleu-fonce);
+    border-bottom: var(--epaisseur-soulignement) solid var(--couleur-bleu-logo);
+}
+
+.encart-colonne .horaires {
+    font-size: var(--taille-texte-normal);
+}
+
+/* Encart étroit (ordinateur portable) : horaires un peu plus petits, pour
+   que chaque jour tienne sur une seule ligne. */
+@container (max-width: 18rem) {
+    .encart-colonne .horaires {
+        font-size: var(--taille-texte-petit);
+    }
+
+    .encart-colonne .horaires-ligne {
+        gap: var(--espace-petit);
+    }
+}
+
+/* « Ouvert / fermé en ce moment » : pastille verte ou rouge et phrase,
+   en tête des Informations importantes. */
+.etat-ouverture {
+    display: flex;
+    align-items: baseline;
+    gap: var(--espace-petit);
+    margin: 0 0 var(--espace-moyen);
+    font-weight: var(--epaisseur-grasse);
+}
+
+.etat-ouverture-pastille {
+    flex: 0 0 auto;
+    width: 0.75em;
+    height: 0.75em;
+    border-radius: 50%;
+}
+
+.etat-ouvert {
+    color: var(--couleur-message-succes);
+}
+
+.etat-ferme {
+    color: var(--couleur-message-erreur);
+}
+
+.etat-ouverture-pastille {
+    background-color: currentColor; /* même couleur que la phrase */
+}
+
+/* Annonces « Informations importantes » : fond bleu très pâle et liseré
+   bleu sur le côté ; les annonces datées (fermetures…) ont un liseré
+   plus vif, pour attirer l'œil. */
+.annonce {
+    padding: var(--espace-petit) var(--espace-moyen);
+    background-color: var(--couleur-fond-annonce);
+    border-left: var(--epaisseur-bordure-accent) solid var(--couleur-bleu-moyen);
+    border-radius: var(--arrondi-petit);
+}
+
+.annonce + .annonce {
+    margin-top: var(--espace-moyen);
+}
+
+.annonce-temporaire {
+    border-left-color: var(--couleur-bleu-logo);
+}
+
+/* Fermeture exceptionnelle : en rouge, comme l'indicateur « Fermé ». */
+.annonce-fermeture {
+    background-color: var(--couleur-fond-erreur);
+    border-left-color: var(--couleur-message-erreur);
+}
+
+.annonce-fermeture .annonce-titre {
+    color: var(--couleur-message-erreur);
+}
+
+.annonce-titre {
+    margin: 0 0 var(--espace-tres-petit);
+    font-size: var(--taille-texte-normal);
+    font-weight: var(--epaisseur-grasse);
+    color: var(--couleur-bleu-fonce);
+}
+
+.annonce p {
+    margin: 0 0 var(--espace-tres-petit);
+    font-size: var(--taille-texte-petit);
+    line-height: var(--hauteur-ligne-texte);
+}
+
+.annonce p:last-child {
+    margin-bottom: 0;
+}
+
+/* Paragraphe mis en valeur (« ! » dans le fichier) : plus gros, en gras. */
+.annonce .annonce-en-valeur {
+    margin-top: var(--espace-petit);
+    font-size: var(--taille-texte-normal);
+    font-weight: var(--epaisseur-grasse);
+    color: var(--couleur-bleu-fonce);
+}
+
+/* Lien sous l'annonce (« bouton: » dans le fichier), ex. « Contactez-nous ». */
+.annonce-lien {
+    display: inline-block;
+    margin-top: var(--espace-petit);
+    font-weight: var(--epaisseur-grasse);
+    color: var(--couleur-bleu-logo);
+}
+
+.annonce-lien::after {
+    content: " \2192"; /* flèche → */
+}
+
+/* « Nous joindre » : téléphone en grand, adresse, bouton. */
+.encart-telephone {
+    margin: 0 0 var(--espace-petit);
+    font-size: var(--taille-titre-carte);
+    font-weight: var(--epaisseur-grasse);
+    font-variant-numeric: tabular-nums;
+}
+
+.encart-telephone a {
+    color: var(--couleur-bleu-logo);
+    text-decoration: none;
+}
+
+.encart-adresse {
+    margin: 0 0 var(--espace-moyen);
+    font-style: normal;
+    line-height: var(--hauteur-ligne-texte);
+}
+
+/* Bouton qui occupe toute la largeur de son encart. */
+.bouton-pleine-largeur {
+    display: block;
+    width: 100%;
+    padding-left: var(--espace-moyen);
+    padding-right: var(--espace-moyen);
+    text-align: center;
+}
+
+/* Suite de la page : sections empilées, sur toute la largeur. */
+.accueil-sections {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espace-entre-sections);
+}
+
+/* PROVISOIRE : repères de mise en page (cadres en pointillés), le temps de
+   valider les emplacements. À supprimer quand le vrai contenu sera en place. */
+.zone-provisoire {
+    min-height: 12rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: var(--epaisseur-soulignement) dashed var(--couleur-gris-bordure);
+    color: var(--couleur-gris-texte);
+    background-color: var(--couleur-gris-clair);
+}
+
+
+/* ==========================================================================
+   7. ADAPTATION AUX ÉCRANS PLUS PETITS
    Les largeurs ci-dessous (en pixels) sont les « points de bascule » où la
    mise en page change. Elles ne peuvent pas être des variables CSS
    (limite technique du langage), elles sont donc écrites ici.
@@ -431,6 +1289,27 @@ a:hover {
 /* Tablettes et téléphones (moins de 900 pixels de large) : tout s'empile
    en une seule colonne centrée. */
 @media (max-width: 900px) {
+
+    /* Page Contact : formulaire puis coordonnées, l'un sous l'autre. */
+    .page-contact-grille {
+        grid-template-columns: 1fr;
+    }
+
+    /* Accueil : la colonne de droite passe sous le contenu principal. */
+    .accueil-haut {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* Images de la présentation un peu plus larges (écran plus étroit). */
+    .presentation {
+        --largeur-image-dans-texte: 30cqi;
+    }
+
+    /* Titre de la présentation : peut passer sur plusieurs lignes. */
+    .presentation-titre {
+        white-space: normal;
+        font-size: var(--taille-titre-section);
+    }
 
     .pied-de-page {
         grid-template-columns: 1fr;
@@ -485,10 +1364,40 @@ a:hover {
 @media (max-width: 600px) {
 
     .bandeau-haut,
-    .pied-de-page {
+    .pied-de-page,
+    .carrousel,
+    .bande-bleue-carrousel,
+    .accueil-corps {
         width: auto;
         margin-left: var(--marge-cotes-ecran);
         margin-right: var(--marge-cotes-ecran);
+    }
+
+    /* Accueil : présentation sur une seule colonne (trop étroit pour que
+       le texte entoure les images) ; les images passent sur toute la
+       largeur, celles de la colonne de droite sous le texte. */
+    .presentation-corps {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .image-dans-texte {
+        float: none;
+        width: 100%;
+        margin: 0 0 var(--espace-moyen);
+    }
+
+    /* Page Contact : un champ par ligne, cartes moins rembourrées. */
+    .formulaire-ligne {
+        grid-template-columns: 1fr;
+    }
+
+    .carte-contact {
+        padding: var(--espace-grand) var(--espace-moyen);
+    }
+
+    /* Carrousel : photos un peu moins hautes sur téléphone. */
+    .carrousel-photo img {
+        height: calc(var(--hauteur-photo-carrousel) * 0.75);
     }
 
     /* Nom de l'entreprise du pied de page : peut passer sur deux lignes,

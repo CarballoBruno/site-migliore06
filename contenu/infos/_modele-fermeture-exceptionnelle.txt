@@ -1,0 +1,44 @@
+# ==========================================================================
+# contenu/infos/_modele-fermeture-exceptionnelle.txt
+# MODÈLE de FERMETURE EXCEPTIONNELLE (route coupée, coupure de gaz ou
+# d'électricité, intempéries…)
+# --------------------------------------------------------------------------
+# Ce fichier n'est jamais affiché (son nom commence par « _ »).
+#
+# POUR SIGNALER UNE FERMETURE :
+#   1. Copier ce fichier dans le même dossier (contenu/infos/).
+#   2. Le renommer, sans accents ni espaces, sans « _ » au début :
+#      ex. fermeture-coupure-electricite.txt
+#   3. Remplir le titre, les dates et heures, et le texte ci-dessous.
+#
+# CE QUI SE PASSE SUR LE SITE :
+#   - pendant la fermeture, l'indicateur en haut des « Informations
+#     importantes » affiche « Fermé exceptionnellement », avec l'heure de
+#     réouverture ;
+#   - votre message s'affiche juste en dessous ;
+#   - à la fin de la fermeture, tout disparaît de soi-même : il n'y a rien
+#     à retirer (vous pouvez supprimer le fichier plus tard).
+#
+# LES DATES ET HEURES (format JJ/MM/AAAA HHhMM, ex. 08/10/2026 14h00) :
+#   - ferme_du : début de la fermeture ;
+#   - ferme_au : fin de la fermeture (= heure de réouverture).
+#   Sans heure (ex. 08/10/2026), la fermeture couvre la journée entière.
+#
+# FACULTATIF : afficher_du (JJ/MM/AAAA) pour prévenir à l'avance
+# (ex. quelques jours avant une coupure d'électricité annoncée).
+# Laisser afficher_au vide : le message disparaît à la fin de la fermeture.
+#
+# LE TEXTE : sous la ligne « --- ». Une ligne vide sépare deux paragraphes.
+#
+# Les lignes qui commencent par # sont des commentaires (ignorées).
+# ==========================================================================
+
+titre: Fermeture exceptionnelle
+afficher_du:
+afficher_au:
+ferme_du: 08/10/2026 14h00
+ferme_au: 09/10/2026 12h00
+---
+Attention, la Nouvelle Carrosserie Migliore est fermée du jeudi 8 octobre à 14h00 au vendredi 9 octobre à 12h00, en raison d'une coupure d'électricité indépendante de notre volonté.
+
+Merci de votre compréhension.
