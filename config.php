@@ -33,6 +33,31 @@ ini_set('log_errors', '1');                          // …et toujours les enreg
 
 
 /* --------------------------------------------------------------------------
+   Protections de sécurité envoyées au navigateur du visiteur
+   Elles étaient prévues dans .htaccess, mais le serveur IONOS ne les
+   applique pas (constaté le 15/10/2026) : elles sont donc envoyées ici,
+   par chaque page PHP. Mêmes réglages et mêmes explications que dans
+   .htaccess (section 4).
+   ⚠ Tout nouveau service externe (statistiques, vidéo…) devra être ajouté
+   à la ligne Content-Security-Policy, sinon le navigateur le bloquera.
+   -------------------------------------------------------------------------- */
+
+if (!headers_sent()) {
+    header('X-Content-Type-Options: nosniff');
+    header('X-Frame-Options: SAMEORIGIN');
+    header('Referrer-Policy: strict-origin-when-cross-origin');
+    header('Permissions-Policy: camera=(), microphone=(), geolocation=()');
+    header("Content-Security-Policy: default-src 'self'; img-src 'self' data:; "
+         . "frame-src https://www.google.com https://maps.google.com; form-action 'self'; "
+         . "frame-ancestors 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests");
+    // Connexion sécurisée obligatoire pendant 1 an (HSTS) : seulement en ligne.
+    if (!$estEnLocal) {
+        header('Strict-Transport-Security: max-age=31536000');
+    }
+}
+
+
+/* --------------------------------------------------------------------------
    Coordonnées de l'entreprise (affichées dans le bandeau, le pied de page…)
    -------------------------------------------------------------------------- */
 
@@ -49,6 +74,12 @@ $telephoneLien = '+33493548617';
 // Adresse du site sur Internet (avec le « / » final). Sert aux liens
 // complets lus par Google et par les réseaux sociaux (aperçu de partage).
 $adresseSite = 'https://www.migliore06.fr/';
+
+// Menu complet (Nos aménagements, Réparation, Entretien, À savoir) ou
+// menu réduit (Accueil + Contact). Réduit pour la première mise en ligne
+// (15/10/2026), tant que les pages aménagements n'existent pas :
+// mettre true quand elles seront prêtes.
+$afficherMenuComplet = false;
 
 // Adresse email affichée sur le site.
 $emailContact = 'info@migliore06.fr';

@@ -196,6 +196,7 @@ $adressePage = $adresseSite . ($fichierPageEnCours === 'index.php' ? '' : $fichi
                     </svg>
                 </a>
             </li>
+            <?php if ($afficherMenuComplet): ?>
             <!-- Menu déroulant « Nos aménagements » : la liste s'ouvre au survol
                  de la souris, ou au toucher / clic sur le bouton (téléphone,
                  clavier). Le bouton est souligné quand on est sur l'une de
@@ -219,6 +220,7 @@ $adressePage = $adresseSite . ($fichierPageEnCours === 'index.php' ? '' : $fichi
             <?php foreach ($menuRubriques as $nomMenu => [$fichierPage, $adresseDeSecours]): ?>
                 <li><a href="<?= donnerAdresseLienMenu($fichierPage, $adresseDeSecours) ?>"<?= marquerLienActif(basename($fichierPage, '.php'), $pageActive) ?>><?= htmlspecialchars($nomMenu) ?></a></li>
             <?php endforeach; ?>
+            <?php endif; ?>
             <li><a href="contact.php"<?= marquerLienActif('contact', $pageActive) ?>>Contact</a></li>
         </ul>
     </nav>

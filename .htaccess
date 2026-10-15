@@ -82,6 +82,9 @@ ErrorDocument 404 /404.php
 
 # --------------------------------------------------------------------------
 # 4. PROTECTIONS DE SÉCURITÉ envoyées au navigateur du visiteur
+# ⚠ Constaté le 15/10/2026 : le serveur IONOS n'applique PAS ces lignes.
+#   Elles sont donc AUSSI envoyées par config.php (c'est là qu'elles
+#   comptent) ; les garder identiques des deux côtés.
 # --------------------------------------------------------------------------
 <IfModule mod_headers.c>
 

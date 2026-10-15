@@ -43,3 +43,10 @@ donnees/*
 # d'images du site) sont publiées.
 images/photos-a-traiter/
 images/photos-retouchees/
+
+# --- Mise en ligne ---
+# _NCM_EnLigne : copie propre du site, prête à envoyer chez IONOS (recréée
+#   par preparer-mise-en-ligne.py, dans le dossier parent) ;
+# _NCM_SiteArchive : sauvegarde de l'ancien site migliore06.fr.
+_NCM_EnLigne/
+_NCM_SiteArchive/
