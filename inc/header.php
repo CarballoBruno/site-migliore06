@@ -17,7 +17,9 @@
    Avant d'inclure ce fichier, chaque page doit définir :
      $titrePage       → titre affiché dans l'onglet du navigateur et sur Google
      $descriptionPage → court résumé de la page, affiché sous le titre sur Google
-     $pageActive      → nom de la page en cours ('accueil', 'contact'…),
+     $donneesStructurees (facultatif) → fiche de l'entreprise pour Google (tableau)
+     $nePasIndexer (facultatif) → true pour qu'une page ne soit pas dans Google
+     $pageActive      → nom de la page en cours ('accueil', 'contact', 'bennes'…),
                         pour souligner le bon lien dans le menu
    et avoir chargé config.php (coordonnées de l'entreprise).
 
@@ -42,6 +44,53 @@ function marquerLienActif(string $nomLien, string $pageActive): string
     }
     return '';
 }
+
+
+// Menu (choix du client, 15/10/2026) : maison · Nos aménagements ▾ (menu
+// déroulant, dont « Travaux sur mesure » en dernier) ·
+// Réparation · Entretien · À savoir
+// (nouveautés et réglementation) · Contact.
+// Chaque lien : nom affiché => fichier de sa page. Les cartes de l'accueil
+// (contenu/amenagements.txt) renvoient vers ces mêmes pages.
+// Tant qu'une page n'existe pas encore, son lien mène à la section
+// « Nos aménagements » de l'accueil ; dès que la page est créée, le lien
+// pointe vers elle tout seul (rien à changer ici).
+
+// Liste du menu déroulant « Nos aménagements ».
+$menuAmenagements = [
+    'Bennes'                   => 'bennes.php',
+    'Bras de levage'           => 'bras-de-levage.php',
+    'Caisses'                  => 'caisses.php',
+    'Hayons'                   => 'hayons.php',
+    'Plateaux'                 => 'plateaux.php',
+    'Grues'                    => 'grues.php',
+    'Fourgons'                 => 'amenagements-fourgons.php',
+    'Travaux sur mesure'       => 'amenagements-specifiques.php',
+];
+
+// Liens affichés directement dans la bande, après « Nos aménagements » :
+// nom affiché => [fichier de la page, adresse de secours tant que la page
+// n'existe pas].
+$menuRubriques = [
+    'Réparation'             => ['reparation.php', 'index.php#amenagements'],
+    'Entretien'              => ['entretien.php', 'index.php#amenagements'],
+    'À savoir'               => ['a-savoir.php', 'index.php#informations'],
+];
+
+
+/**
+ * Donne l'adresse d'un lien du menu : la page si elle existe déjà dans le
+ * site, sinon une adresse de secours sur l'accueil.
+ *
+ * @param string $fichierPage      nom du fichier de la page (ex. bennes.php)
+ * @param string $adresseDeSecours adresse utilisée tant que la page n'existe
+ *                                 pas (par défaut : section « Nos aménagements »)
+ * @return string                  adresse à mettre dans le lien
+ */
+function donnerAdresseLienMenu(string $fichierPage, string $adresseDeSecours = 'index.php#amenagements'): string
+{
+    return is_file(__DIR__ . '/../' . $fichierPage) ? $fichierPage : $adresseDeSecours;
+}
 ?>
 <!doctype html>
 <html lang="fr">
@@ -52,6 +101,40 @@ function marquerLienActif(string $nomLien, string $pageActive): string
 
     <title><?= htmlspecialchars($titrePage) ?></title>
     <meta name="description" content="<?= htmlspecialchars($descriptionPage) ?>">
+<?php
+// Adresse officielle de cette page (ex. https://www.migliore06.fr/contact.php ;
+// l'accueil est simplement https://www.migliore06.fr/).
+$fichierPageEnCours = basename($_SERVER['SCRIPT_NAME']);
+$adressePage = $adresseSite . ($fichierPageEnCours === 'index.php' ? '' : $fichierPageEnCours);
+?>
+    <!-- Adresse officielle de la page, pour Google (évite les doublons,
+         ex. « /index.php » et « / » comptés comme deux pages). -->
+    <link rel="canonical" href="<?= htmlspecialchars($adressePage) ?>">
+<?php if (!empty($nePasIndexer)): ?>
+    <!-- Page à ne pas enregistrer dans Google (ex. page « introuvable »). -->
+    <meta name="robots" content="noindex">
+<?php endif; ?>
+
+    <!-- Icône du site : onglet du navigateur, favoris, écran d'accueil du
+         téléphone (fichiers à la racine du site, faits d'après le logo NCM). -->
+    <link rel="icon" href="favicon.ico" sizes="48x48">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <!-- Aperçu quand le lien du site est partagé (WhatsApp, Facebook,
+         LinkedIn, e-mail…) : titre, phrase et photo (images/partage.jpg,
+         1200 × 630 pixels). -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:site_name" content="<?= htmlspecialchars($nomEntreprise) ?>">
+    <meta property="og:title" content="<?= htmlspecialchars($titrePage) ?>">
+    <meta property="og:description" content="<?= htmlspecialchars($descriptionPage) ?>">
+    <meta property="og:url" content="<?= htmlspecialchars($adressePage) ?>">
+    <meta property="og:image" content="<?= htmlspecialchars($adresseSite) ?>images/partage.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Caisse construite par Nouvelle Carrosserie Migliore devant l'atelier de La Trinité">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Feuilles de style, dans cet ordre : réglages, polices, mise en forme -->
     <link rel="stylesheet" href="css/variables.css">
@@ -61,6 +144,12 @@ function marquerLienActif(string $nomLien, string $pageActive): string
     <!-- Petits programmes du site (carte au clic, pause du carrousel).
          « defer » : chargés sans ralentir l'affichage de la page. -->
     <script src="js/main.js" defer></script>
+<?php if (!empty($donneesStructurees)): ?>
+    <!-- Données structurées pour les moteurs de recherche (invisibles à
+         l'écran) : nom, adresse, téléphone, zone d'intervention…
+         Ce bloc n'est pas un programme : il n'est jamais exécuté. -->
+    <script type="application/ld+json"><?= json_encode($donneesStructurees, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) ?></script>
+<?php endif; ?>
 </head>
 <body>
 
@@ -107,9 +196,29 @@ function marquerLienActif(string $nomLien, string $pageActive): string
                     </svg>
                 </a>
             </li>
-            <li><a href="index.php#amenagements">Aménagements</a></li>
-            <li><a href="index.php#realisations">Réalisations</a></li>
-            <li><a href="index.php#actualites">Actualités</a></li>
+            <!-- Menu déroulant « Nos aménagements » : la liste s'ouvre au survol
+                 de la souris, ou au toucher / clic sur le bouton (téléphone,
+                 clavier). Le bouton est souligné quand on est sur l'une de
+                 ces pages. -->
+            <?php
+            $pagesDuDeroulant = array_map(fn($fichier) => basename($fichier, '.php'), $menuAmenagements);
+            $deroulantActif   = in_array($pageActive, $pagesDuDeroulant, true);
+            ?>
+            <li class="menu-deroulant">
+                <button type="button" class="menu-deroulant-bouton<?= $deroulantActif ? ' lien-actif' : '' ?>"
+                        aria-expanded="false" aria-controls="liste-amenagements">
+                    Nos aménagements <span class="menu-deroulant-fleche" aria-hidden="true">&#9662;</span>
+                </button>
+                <ul id="liste-amenagements" class="menu-deroulant-liste">
+                    <?php foreach ($menuAmenagements as $nomMenu => $fichierPage): ?>
+                        <li><a href="<?= donnerAdresseLienMenu($fichierPage) ?>"<?= marquerLienActif(basename($fichierPage, '.php'), $pageActive) ?>><?= htmlspecialchars($nomMenu) ?></a></li>
+                    <?php endforeach; ?>
+                </ul>
+            </li>
+            <!-- Rubriques affichées directement (liste plus haut, $menuRubriques) -->
+            <?php foreach ($menuRubriques as $nomMenu => [$fichierPage, $adresseDeSecours]): ?>
+                <li><a href="<?= donnerAdresseLienMenu($fichierPage, $adresseDeSecours) ?>"<?= marquerLienActif(basename($fichierPage, '.php'), $pageActive) ?>><?= htmlspecialchars($nomMenu) ?></a></li>
+            <?php endforeach; ?>
             <li><a href="contact.php"<?= marquerLienActif('contact', $pageActive) ?>>Contact</a></li>
         </ul>
     </nav>

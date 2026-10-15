@@ -27,19 +27,61 @@ $descriptionPage = 'Carrosserie industrielle depuis 1948 : bennes, plateaux, cai
                  . 'Alpes-Maritimes, Var, Alpes-de-Haute-Provence, Hautes-Alpes, Bouches-du-Rhône.';
 $pageActive      = 'accueil';
 
+// Données structurées : fiche d'identité de l'entreprise lue par Google
+// (invisible à l'écran). Elle indique notamment notre zone d'intervention,
+// sans l'afficher sur la page (choix du client, 15/10/2026). Voir
+// https://developers.google.com/search/docs/appearance/structured-data/local-business
+$donneesStructurees = [
+    '@context'     => 'https://schema.org',
+    '@type'        => 'AutoBodyShop',
+    'name'         => $nomEntreprise,
+    'description'  => 'Carrossier constructeur : bennes, caisses, hayons, bras de levage, plateaux, '
+                    . 'grues et aménagements pour utilitaires et poids lourds. Opérateur qualifié UTAC.',
+    'url'          => $adresseSite,
+    'telephone'    => $telephoneLien,
+    'email'        => $emailContact,
+    'foundingDate' => '1948',
+    'address'      => [
+        '@type'           => 'PostalAddress',
+        'streetAddress'   => $adresseRue,
+        'postalCode'      => $adresseCodePostal,
+        'addressLocality' => $adresseVille,
+        'addressRegion'   => 'Alpes-Maritimes',
+        'addressCountry'  => 'FR',
+    ],
+    'areaServed'   => array_map(
+        fn($departement) => ['@type' => 'AdministrativeArea', 'name' => $departement],
+        ['Alpes-Maritimes', 'Var', 'Alpes-de-Haute-Provence', 'Hautes-Alpes', 'Bouches-du-Rhône']
+    ),
+];
+
 // Moment de la visite (sert au carrousel, aux annonces, à « ouvert / fermé »)
 $maintenant = new DateTimeImmutable('now');
 
 // Photos du carrousel : tirées au sort dans le stock (liste dans
 // contenu/carrousel.txt, fichiers dans images/carrousel/), puis mélangées
 // (voir tirerPhotosCarrousel() et melangerPhotosCarrousel()).
+$stockCarrousel  = lirePhotosCarrousel(__DIR__ . '/contenu/carrousel.txt', __DIR__ . '/images/carrousel');
 $photosCarrousel = melangerPhotosCarrousel(tirerPhotosCarrousel(
-    lirePhotosCarrousel(__DIR__ . '/contenu/carrousel.txt', __DIR__ . '/images/carrousel'),
+    $stockCarrousel,
     $nombrePhotosCarrousel,
     $partPhotosRecentes,
     $moisPhotoRecente,
     $maintenant
 ));
+
+// Description de chaque photo (celle de contenu/carrousel.txt), reprise
+// comme texte de remplacement des photos des cartes : lue par Google et
+// par les personnes malvoyantes. Une photo hors carrousel est décrite dans
+// la dernière colonne de contenu/amenagements.txt (sinon : titre de la carte).
+$legendesPhotos = array_column($stockCarrousel, 'legende', 'fichier');
+
+// Cartes « Nos aménagements » (contenu/amenagements.txt)
+$cartesAmenagements = lireCartesAmenagements(
+    __DIR__ . '/contenu/amenagements.txt',
+    __DIR__ . '/images/carrousel',
+    __DIR__
+);
 
 // Annonces « Informations importantes » à afficher aujourd'hui
 // (un fichier par annonce dans contenu/infos/, mode d'emploi : _modele.txt)
@@ -196,6 +238,68 @@ require __DIR__ . '/inc/header.php';
                     </div>
                 </section>
 
+                <!-- Certification : à quoi sert la qualification « Opérateur
+                     qualifié UTAC », et la démarche suivie pour chaque véhicule
+                     (d'après le Manuel Qualité de l'entreprise). -->
+                <section class="certification" aria-labelledby="titre-certification">
+                    <h2 id="titre-certification" class="certification-titre">
+                        Opérateur qualifié UTAC&nbsp;: ce que cela change pour votre véhicule neuf
+                    </h2>
+
+                    <p>
+                        Un véhicule neuf que l'on carrosse ou que l'on aménage doit être reconnu
+                        conforme au code de la route avant sa première immatriculation. Opérateur
+                        qualifié UTAC pour le poids lourd, l'utilitaire et l'aménagement, nous
+                        réalisons nous-mêmes ce <strong>contrôle de conformité initial</strong>. Votre
+                        véhicule est livré avec le procès-verbal qui permet de l'immatriculer
+                        directement, sans passer par une réception à titre isolé auprès de la
+                        <strong>DREAL</strong> (Direction régionale de l'environnement, de l'aménagement
+                        et du logement), le service de l'État chargé de la réception des véhicules.
+                    </p>
+
+                    <p>
+                        Cette qualification repose sur une démarche qualité appliquée à chaque
+                        véhicule, de votre demande jusqu'à la livraison&nbsp;:
+                    </p>
+
+                    <!-- Les 7 étapes (le numéro est ajouté par la feuille de style) -->
+                    <ol class="etapes">
+                        <li>
+                            <h3>L'étude de votre demande</h3>
+                            <p>Répartition des charges, faisabilité, conformité au code de la route&nbsp;: tout est vérifié avant le devis.</p>
+                        </li>
+                        <li>
+                            <h3>Des équipements homologués</h3>
+                            <p>Chaque équipement réglementé est accompagné de son procès-verbal d'homologation.</p>
+                        </li>
+                        <li>
+                            <h3>La vérification de votre véhicule à son arrivée</h3>
+                            <p>Nous contrôlons qu'il correspond exactement au véhicule étudié.</p>
+                        </li>
+                        <li>
+                            <h3>La réalisation dans notre atelier</h3>
+                            <p>Dans le respect des directives de carrossage du constructeur.</p>
+                        </li>
+                        <li>
+                            <h3>Les essais des appareils de levage</h3>
+                            <p>Hayons, grues et bras de levage sont essayés avant la livraison.</p>
+                        </li>
+                        <li>
+                            <h3>Le contrôle de conformité et la pesée</h3>
+                            <p>Chaque véhicule terminé est contrôlé, photographié et pesé.</p>
+                        </li>
+                        <li>
+                            <h3>Un dossier technique complet</h3>
+                            <p>Conservé au moins 10&nbsp;ans.</p>
+                        </li>
+                    </ol>
+
+                    <p>
+                        Cette démarche est vérifiée <strong>tous les deux ans par les audits de
+                        l'UTAC</strong>, qui conditionnent le maintien de notre qualification.
+                    </p>
+                </section>
+
             </div>
 
             <aside class="colonne-droite" aria-label="Informations pratiques">
@@ -208,7 +312,7 @@ require __DIR__ . '/inc/header.php';
                 <!-- Informations importantes : d'abord « ouvert / fermé en ce
                      moment » (calculé à chaque visite), puis les annonces lues
                      dans contenu/infos/ (affichées automatiquement entre leurs dates) -->
-                <section class="encart-colonne" aria-labelledby="titre-infos">
+                <section id="informations" class="encart-colonne" aria-labelledby="titre-infos">
                     <h2 id="titre-infos" class="encart-colonne-titre">Informations importantes</h2>
                     <p class="etat-ouverture <?= $etatOuverture['ouvert'] ? 'etat-ouvert' : 'etat-ferme' ?>">
                         <span class="etat-ouverture-pastille" aria-hidden="true"></span>
@@ -218,7 +322,15 @@ require __DIR__ . '/inc/header.php';
                         <div class="annonce<?= $annonce['temporaire'] ? ' annonce-temporaire' : '' ?><?= $annonce['fermeture'] ? ' annonce-fermeture' : '' ?>">
                             <h3 class="annonce-titre"><?= htmlspecialchars($annonce['titre']) ?></h3>
                             <?php foreach ($annonce['paragraphes'] as $paragraphe): ?>
-                                <p<?= $paragraphe['en_valeur'] ? ' class="annonce-en-valeur"' : '' ?>><?= htmlspecialchars($paragraphe['texte']) ?></p>
+                                <?php if ($paragraphe['liste'] !== []): ?>
+                                    <ul class="annonce-liste">
+                                        <?php foreach ($paragraphe['liste'] as $element): ?>
+                                            <li><?= htmlspecialchars($element) ?></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                <?php else: ?>
+                                    <p<?= $paragraphe['en_valeur'] ? ' class="annonce-en-valeur"' : '' ?>><?= htmlspecialchars($paragraphe['texte']) ?></p>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                             <?php if ($annonce['bouton'] !== ''): ?>
                                 <a class="annonce-lien" href="<?= htmlspecialchars($annonce['bouton_lien']) ?>"><?= htmlspecialchars($annonce['bouton']) ?></a>
@@ -227,8 +339,64 @@ require __DIR__ . '/inc/header.php';
                     <?php endforeach; ?>
                 </section>
 
-                <!-- Nous joindre : téléphone, adresse, bouton vers le formulaire -->
-                <section class="encart-colonne" aria-labelledby="titre-joindre">
+            </aside>
+
+        </div>
+
+        <!-- 2.2 Suite de la page : sections sur toute la largeur -->
+        <div class="accueil-sections">
+
+            <?php if ($cartesAmenagements !== []): ?>
+            <!-- Nos aménagements : une carte par type de carrosserie (contenu
+                 dans contenu/amenagements.txt). Une carte devient un lien vers
+                 sa page détaillée dès que cette page existe. -->
+            <section id="amenagements" class="amenagements" aria-labelledby="titre-amenagements">
+                <h2 id="titre-amenagements" class="titre-section">Nos aménagements</h2>
+                <ul class="cartes-amenagements">
+                    <?php foreach ($cartesAmenagements as $carte): ?>
+                        <li class="carte-amenagement">
+                            <?php if ($carte['page'] !== ''): ?><a class="carte-amenagement-lien" href="<?= htmlspecialchars($carte['page']) ?>"><?php endif; ?>
+                            <img src="images/carrousel/<?= htmlspecialchars($carte['photo']) ?>"
+                                 alt="<?= htmlspecialchars($carte['description_photo'] !== '' ? $carte['description_photo'] : ($legendesPhotos[$carte['photo']] ?? $carte['titre'])) ?>" width="<?= (int) $carte['largeur'] ?>" height="<?= (int) $carte['hauteur'] ?>" loading="lazy">
+                            <div class="carte-amenagement-texte">
+                                <h3><?= htmlspecialchars($carte['titre']) ?></h3>
+                                <p><?= htmlspecialchars($carte['texte']) ?></p>
+                                <?php if ($carte['page'] !== ''): ?><span class="carte-amenagement-suite">Découvrir</span><?php endif; ?>
+                            </div>
+                            <?php if ($carte['page'] !== ''): ?></a><?php endif; ?>
+                            <!-- Partenaires : logos (liens vers leurs sites, nouvel onglet)
+                                 et mention éventuelle. La zone est toujours présente,
+                                 même vide, pour que le trait gris soit au même niveau
+                                 sur toutes les cartes. -->
+                            <div class="carte-partenaire">
+                                <?php if ($carte['partenaire'] !== null): ?>
+                                    <?php foreach ($carte['partenaire']['logos'] as $unPartenaire):
+                                        // Texte de remplacement tiré du nom du fichier :
+                                        // logo-hmf.png -> « HMF » (sigle), logo-palkit.png -> « Palkit ».
+                                        $nomPartenaire = preg_replace('/^logo-|\.\w+$/', '', $unPartenaire['logo']);
+                                        $nomPartenaire = strlen($nomPartenaire) <= 3 ? strtoupper($nomPartenaire) : ucfirst($nomPartenaire); ?>
+                                        <?php if ($unPartenaire['lien'] !== ''): ?><a href="<?= htmlspecialchars($unPartenaire['lien']) ?>" target="_blank" rel="noopener"><?php endif; ?>
+                                            <img src="images/logos/<?= htmlspecialchars($unPartenaire['logo']) ?>" class="logo-<?= $unPartenaire['format'] ?>"
+                                                 alt="<?= htmlspecialchars($nomPartenaire) ?>" loading="lazy">
+                                        <?php if ($unPartenaire['lien'] !== ''): ?></a><?php endif; ?>
+                                    <?php endforeach; ?>
+                                    <?php if ($carte['partenaire']['mention'] !== '' && $carte['partenaire']['logos'][0]['lien'] !== ''): ?>
+                                        <a class="carte-partenaire-mention" href="<?= htmlspecialchars($carte['partenaire']['logos'][0]['lien']) ?>"
+                                           target="_blank" rel="noopener"><?= htmlspecialchars($carte['partenaire']['mention']) ?></a>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </section>
+            <?php endif; ?>
+
+            <!-- Fin de la page : notre slogan à gauche, « Nous joindre » à droite
+                 (il fait écho à celui du bandeau du haut). -->
+            <div class="fin-de-page">
+                <p class="fin-de-page-slogan">«&nbsp;Une Écoute, Un Conseil, Un Savoir-faire&nbsp;»</p>
+                <section class="encart-colonne fin-de-page-joindre" aria-labelledby="titre-joindre">
                     <h2 id="titre-joindre" class="encart-colonne-titre">Nous joindre</h2>
                     <p class="encart-telephone">
                         <a href="tel:<?= htmlspecialchars($telephoneLien) ?>"><?= htmlspecialchars($telephoneAffiche) ?></a>
@@ -237,17 +405,9 @@ require __DIR__ . '/inc/header.php';
                         <?= htmlspecialchars($adresseRue) ?><br>
                         <?= htmlspecialchars($adresseCodePostal . ' ' . $adresseVille) ?>
                     </address>
-                    <a class="bouton-principal bouton-pleine-largeur" href="contact.php#formulaire">Parlez-nous de votre projet</a>
+                    <a class="bouton-principal" href="contact.php#formulaire">Parlez-nous de votre projet</a>
                 </section>
-            </aside>
-
-        </div>
-
-        <!-- 2.2 Suite de la page : sections sur toute la largeur -->
-        <div class="accueil-sections">
-            <!-- PROVISOIRE (repères de mise en page, à supprimer) -->
-            <div class="zone-provisoire">Section pleine largeur</div>
-            <div class="zone-provisoire">Section pleine largeur</div>
+            </div>
         </div>
 
     </div>

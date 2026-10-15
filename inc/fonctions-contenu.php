@@ -481,8 +481,19 @@ function lireFichierAnnonce(string $chemin): ?array
 
     // Paragraphes : blocs de lignes séparés par une ligne vide. Un « ! » au
     // début d'un paragraphe le met en valeur (le « ! » n'est pas affiché).
+    // Un bloc dont chaque ligne commence par « - » devient une liste à puces.
     $champs['paragraphes'] = [];
     foreach (preg_split('/\n\s*\n/', trim(implode("\n", $texte))) as $bloc) {
+        $lignes = array_values(array_filter(array_map('trim', explode("\n", $bloc)), fn($ligne) => $ligne !== ''));
+        $lignesAvecTiret = array_filter($lignes, fn($ligne) => str_starts_with($ligne, '-'));
+        if ($lignes !== [] && count($lignesAvecTiret) === count($lignes)) {
+            $champs['paragraphes'][] = [
+                'texte'     => '',
+                'en_valeur' => false,
+                'liste'     => array_map(fn($ligne) => ltrim(substr($ligne, 1)), $lignes),
+            ];
+            continue;
+        }
         $bloc = trim(preg_replace('/\s+/', ' ', $bloc));
         if ($bloc === '') {
             continue;
@@ -491,6 +502,7 @@ function lireFichierAnnonce(string $chemin): ?array
         $champs['paragraphes'][] = [
             'texte'     => $enValeur ? ltrim(substr($bloc, 1)) : $bloc,
             'en_valeur' => $enValeur,
+            'liste'     => [],
         ];
     }
 
@@ -499,6 +511,15 @@ function lireFichierAnnonce(string $chemin): ?array
     if (!preg_match('#^(https://|[a-z0-9-]+\.php)#i', $champs['bouton_lien'])) {
         $champs['bouton'] = '';
     }
+
+    // Typographie française : espace insécable avant « : ; ? ! » pour que
+    // ces signes ne passent jamais seuls en début de ligne.
+    $champs['titre'] = ajouterEspacesInsecables($champs['titre']);
+    foreach ($champs['paragraphes'] as &$paragraphe) {
+        $paragraphe['texte'] = ajouterEspacesInsecables($paragraphe['texte']);
+        $paragraphe['liste'] = array_map('ajouterEspacesInsecables', $paragraphe['liste']);
+    }
+    unset($paragraphe);
 
     return $champs;
 }
@@ -578,4 +599,140 @@ function lireDateHeureAnnonce(string $texte, bool $finDeJournee): DateTimeImmuta
         return $date->setTime((int) $m[2], (int) ($m[3] ?? 0));
     }
     return $finDeJournee ? $date->modify('+1 day') : $date;
+}
+
+
+/**
+ * Lit les cartes « Nos aménagements » dans le fichier contenu/amenagements.txt.
+ * Chaque ligne utile a la forme « Titre | photo.jpg | Texte | page.php », suivie
+ * éventuellement de « | Mention | logo1.png, logo2.png | https://lien1, https://lien2 ».
+ * Un logo n'est gardé que s'il existe dans images/logos/ et si son lien
+ * (même rang dans la liste) commence par https://.
+ * La page n'est gardée que si elle existe vraiment dans le site (sinon la
+ * carte est affichée sans lien). Une carte dont la photo est introuvable
+ * n'est pas affichée.
+ *
+ * @param string $fichierListe   chemin du fichier amenagements.txt
+ * @param string $dossierImages  chemin du dossier des photos (images/carrousel)
+ * @param string $dossierSite    chemin du dossier du site (pour vérifier les pages)
+ * @return array  cartes : liste de ['titre', 'photo', 'texte', 'page', 'largeur', 'hauteur', 'partenaire',
+ *                'description_photo'] ;
+ *                'partenaire' = ['mention', 'logos' => liste de ['logo', 'lien', 'format']] ou null
+ */
+function lireCartesAmenagements(string $fichierListe, string $dossierImages, string $dossierSite): array
+{
+    if (!is_file($fichierListe)) {
+        return [];
+    }
+
+    $cartes = [];
+    foreach (file($fichierListe, FILE_IGNORE_NEW_LINES) as $ligne) {
+        $ligne = trim($ligne);
+        if ($ligne === '' || str_starts_with($ligne, '#')) {
+            continue;
+        }
+        [$titre, $photo, $texte, $page, $mention, $logo, $lien, $descriptionPhoto] = array_pad(array_map('trim', explode('|', $ligne)), 8, '');
+
+        // Sécurité : simple nom de fichier uniquement (pas de chemin).
+        if ($titre === '' || !preg_match('/^[a-z0-9._-]+\.(jpe?g|png|webp)$/i', $photo)) {
+            continue;
+        }
+        $taille = is_file($dossierImages . '/' . $photo) ? getimagesize($dossierImages . '/' . $photo) : false;
+        if ($taille === false) {
+            continue;
+        }
+        if (!preg_match('/^[a-z0-9-]+\.php$/', $page) || !is_file($dossierSite . '/' . $page)) {
+            $page = '';
+        }
+
+        // Partenaires (facultatif) : chaque logo doit exister. Son lien doit
+        // être sûr (https://) ; un tiret « - » = logo affiché sans lien
+        // (ex. notre propre logo NCM).
+        $logos = [];
+        $liens = array_map('trim', explode(',', $lien));
+        foreach (array_map('trim', explode(',', $logo)) as $rang => $unLogo) {
+            $unLien = $liens[$rang] ?? '';
+            if ($unLien === '-') {
+                $unLien = '';
+            } elseif (!str_starts_with($unLien, 'https://')) {
+                continue;
+            }
+            if (preg_match('/^[a-z0-9._-]+\.(png|svg|webp|jpe?g)$/i', $unLogo)
+                && is_file($dossierSite . '/images/logos/' . $unLogo)) {
+                $logos[] = [
+                    'logo'   => $unLogo,
+                    'lien'   => $unLien,
+                    'format' => lireFormatLogo($dossierSite . '/images/logos/' . $unLogo),
+                ];
+            }
+        }
+        $partenaire = $logos === [] ? null : ['mention' => $mention, 'logos' => $logos];
+
+        $cartes[] = [
+            'titre'      => $titre,
+            'photo'      => $photo,
+            'texte'      => $texte,
+            'page'       => $page,
+            'largeur'    => $taille[0],
+            'hauteur'    => $taille[1],
+            'partenaire' => $partenaire,
+            'description_photo' => $descriptionPhoto,
+        ];
+    }
+    return $cartes;
+}
+
+
+/**
+ * Indique la forme d'un logo, pour que tous les logos paraissent de même
+ * importance à l'écran : à hauteur égale, un logo carré (HMF, JPM) paraît
+ * bien plus petit qu'un logo très allongé (Palkit, Dhollandia). Les logos
+ * carrés ou hauts sont donc affichés plus grands (voir style.css).
+ *
+ * @param string $cheminLogo  chemin du fichier du logo (png, jpg, webp ou svg)
+ * @return string  'allonge' (au moins 2 fois plus large que haut),
+ *                 'moyen' (de 1,3 à 2 fois plus large que haut)
+ *                 ou 'carre' (presque carré, ou plus haut que large)
+ */
+function lireFormatLogo(string $cheminLogo): string
+{
+    $largeur = 0;
+    $hauteur = 0;
+    if (str_ends_with(strtolower($cheminLogo), '.svg')) {
+        // SVG : les dimensions sont dans l'attribut viewBox="0 0 largeur hauteur".
+        if (preg_match('/viewBox="[\d.\s-]*?([\d.]+)\s+([\d.]+)"/', (string) file_get_contents($cheminLogo), $resultat)) {
+            [$largeur, $hauteur] = [(float) $resultat[1], (float) $resultat[2]];
+        }
+    } else {
+        $taille = @getimagesize($cheminLogo);
+        if ($taille !== false) {
+            [$largeur, $hauteur] = [$taille[0], $taille[1]];
+        }
+    }
+    if ($hauteur <= 0) {
+        return 'allonge';   // dimensions illisibles : taille normale
+    }
+    $rapport = $largeur / $hauteur;
+    if ($rapport >= 2) {
+        return 'allonge';
+    }
+    return $rapport >= 1.3 ? 'moyen' : 'carre';
+}
+
+
+/**
+ * Remplace l'espace ordinaire placée avant « : ; ? ! » (et après « « »,
+ * avant « » ») par une espace insécable : le signe reste collé au mot qui
+ * le précède et ne passe jamais seul à la ligne (règle de typographie
+ * française). Si l'espace manque, elle est ajoutée.
+ *
+ * @param string $texte  texte d'origine
+ * @return string        texte corrigé
+ */
+function ajouterEspacesInsecables(string $texte): string
+{
+    $texte = preg_replace('/\s*([:;?!»])/u', "\u{00A0}$1", $texte);
+    $texte = preg_replace('/«\s*/u', "«\u{00A0}", $texte);
+    // Exception : les adresses « https:// » ne sont pas touchées.
+    return str_replace("\u{00A0}://", '://', $texte);
 }

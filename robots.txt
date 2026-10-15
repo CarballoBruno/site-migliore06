@@ -1,0 +1,14 @@
+# ==========================================================================
+# robots.txt — Consignes pour les robots des moteurs de recherche (Google…)
+# --------------------------------------------------------------------------
+# Tout le site public peut être exploré. Les dossiers techniques sont de
+# toute façon interdits d'accès par le fichier .htaccess.
+# La dernière ligne indique où se trouve le plan du site (sitemap.xml).
+# ==========================================================================
+
+User-agent: *
+Disallow: /inc/
+Disallow: /donnees/
+Disallow: /contenu/
+
+Sitemap: https://www.migliore06.fr/sitemap.xml

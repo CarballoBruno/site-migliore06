@@ -1,0 +1,139 @@
+# ==========================================================================
+# contenu/photos-pages.txt — Photos réservées aux FUTURES PAGES (Bennes,
+# Caisses, Plateaux…), PAS au carrousel de l'accueil (décision du client,
+# 15/10/2026).
+# --------------------------------------------------------------------------
+# Copies 540 x 360 dans images/photos-pages/ ; versions grand format dans
+# images/photos-retouchees/ (même nom). Même format que carrousel.txt :
+#     fichier | description | date de prise de vue | repère du véhicule
+# Pour faire passer une photo dans le carrousel : déplacer son fichier dans
+# images/carrousel/ et sa ligne dans contenu/carrousel.txt.
+# ==========================================================================
+
+pl-caisse-04.jpg     | Caisse à rideaux coulissants sur porteur Iveco Eurocargo                              | 14/06/2017 | v20170614
+pl-caisse-06.jpg     | Caisse à rideaux coulissants sur porteur Iveco Eurocargo                              | 14/06/2017 | v20170614
+pl-caisse-07.jpg     | Caisse à rideaux coulissants sur porteur Iveco Eurocargo                              | 14/06/2017 | v20170614
+pl-caisse-08.jpg     | Caisse à rideaux coulissants sur porteur Iveco Eurocargo                              | 14/06/2017 | v20170614
+pl-caisse-09.jpg     | Caisse avec hayon élévateur, vue arrière                                              | 12/10/2017 | v20171012
+pl-caisse-12.jpg     | Caisse à rideaux coulissants sur porteur Iveco Stralis                                | 02/01/2018 | v20180102
+pl-caisse-13.jpg     | Caisse à rideaux coulissants sur porteur Iveco Stralis                                | 02/01/2018 | v20180102
+pl-benne-05.jpg      | Benne basculante avec grue auxiliaire sur porteur Iveco Eurocargo                     | 14/06/2018 | v20180614
+pl-benne-06.jpg      | Benne travaux publics aluminium sur porteur Iveco 8x4, vue arrière                    | 28/01/2022 | v20220128
+pl-benne-07.jpg      | Benne travaux publics aluminium sur porteur Iveco 8x4, vue arrière                    | 28/01/2022 | v20220128
+pl-benne-08.jpg      | Benne travaux publics aluminium sur porteur Iveco 8x4                                 | 28/01/2022 | v20220128
+pl-benne-09.jpg      | Benne travaux publics aluminium sur porteur Iveco 8x4, vue de côté                    | 28/01/2022 | v20220128
+pl-benne-10.jpg      | Benne travaux publics aluminium sur porteur Iveco 8x4                                 | 28/01/2022 | v20220128
+pl-benne-11.jpg      | Benne travaux publics aluminium sur porteur Iveco 8x4                                 | 28/01/2022 | v20220128
+vul-plateau-14.jpg   | Plateau avec panneau avant sur Iveco Daily, vue de côté                               | 20/02/2023 | v20230220
+vul-plateau-15.jpg   | Plateau avec panneau avant sur Iveco Daily, vue arrière                               | 20/02/2023 | v20230220
+vul-plateau-16.jpg   | Plateau avec panneau avant sur Iveco Daily, vue de côté                               | 20/02/2023 | v20230220
+vul-plateau-17.jpg   | Plateau avec panneau avant sur Iveco Daily                                            | 20/02/2023 | v20230220
+vul-benne-27.jpg     | Benne basculante aluminium avec coffre sur Iveco Daily, vue arrière                   | 01/02/2024 | v20240201
+vul-benne-28.jpg     | Benne basculante sur Iveco Daily double cabine bleu                                   | 02/02/2024 | v20240202
+vul-benne-29.jpg     | Benne basculante sur Iveco Daily double cabine bleu, vue de côté                      | 02/02/2024 | v20240202
+vul-benne-30.jpg     | Benne basculante sur Iveco Daily double cabine bleu, vue arrière                      | 02/02/2024 | v20240202
+vul-benne-31.jpg     | Benne basculante sur Iveco Daily double cabine bleu, vue arrière                      | 02/02/2024 | v20240202
+vul-benne-32.jpg     | Benne basculante orange avec coffre sur Iveco Daily                                   | 12/02/2024 | v20240212
+vul-benne-33.jpg     | Benne basculante orange avec coffre sur Iveco Daily, vue de côté                      | 12/02/2024 | v20240212
+vul-caisse-14.jpg    | Caisse fourgon noire sur Volkswagen Crafter                                           | 15/02/2024 | v20240215
+pl-ampliroll-05.jpg  | Bras de levage (ampliroll) sur porteur Iveco Eurocargo                                | 27/02/2024 | v20240227
+vul-caisse-15.jpg    | Caisse fourgon sur Iveco Daily                                                        | 28/02/2024 | v20240228
+pl-benne-12.jpg      | Benne basculante sur porteur Iveco                                                    | 25/03/2024 | v20240325
+vul-caisse-16.jpg    | Caisse fourgon avec porte latérale sur Mercedes Sprinter                              | 11/04/2024 | v20240411
+vul-fourgon-05.jpg   | Aménagement intérieur de fourgon avec hayon élévateur                                 | 24/04/2024 | v20240424
+vul-fourgon-06.jpg   | Aménagement intérieur de fourgon avec hayon élévateur                                 | 24/04/2024 | v20240424
+vul-fourgon-08.jpg   | Hayon élévateur sur fourgon, vue arrière                                              | 24/04/2024 | v20240424
+vul-plateau-18.jpg   | Plateau aluminium avec grue auxiliaire sur Iveco Daily, vue de côté                   | 02/05/2024 | v20240502
+vul-plateau-19.jpg   | Plateau aluminium avec grue auxiliaire sur Iveco Daily, vue arrière                   | 02/05/2024 | v20240502
+vul-plateau-20.jpg   | Plateau aluminium avec grue auxiliaire sur Iveco Daily                                | 02/05/2024 | v20240502
+vul-benne-34.jpg     | Benne basculante avec grue auxiliaire sur Iveco Daily, vue de côté                    | 17/05/2024 | v20240517
+vul-benne-35.jpg     | Benne basculante avec grue auxiliaire sur Iveco Daily                                 | 17/05/2024 | v20240517
+vul-benne-36.jpg     | Benne basculante avec rehausse grillagée sur Mercedes Sprinter, vue arrière           | 20/05/2024 | v20240520
+vul-benne-37.jpg     | Benne basculante avec rehausse grillagée sur Mercedes Sprinter                        | 20/05/2024 | v20240520
+vul-benne-38.jpg     | Benne basculante avec rehausse grillagée sur Iveco Daily, vue arrière                 | 03/06/2024 | v20240603
+vul-fourgon-07.jpg   | Hayon élévateur sur fourgon, vue arrière                                              | 11/06/2024 | v20240611
+vul-benne-39.jpg     | Benne à grandes rehausses aluminium sur Iveco Daily                                   | 12/06/2024 | v20240612
+vul-benne-40.jpg     | Benne à grandes rehausses aluminium sur Iveco Daily, vue arrière                      | 12/06/2024 | v20240612
+vul-benne-41.jpg     | Benne à grandes rehausses aluminium sur Iveco Daily, vue arrière                      | 17/06/2024 | v20240617
+vul-plateau-21.jpg   | Plateau aluminium sur Iveco Daily                                                     | 25/06/2024 | v20240625
+vul-ampliroll-02.jpg | Bras de levage (ampliroll) sur Iveco Daily                                            | 27/06/2024 | v20240627
+vul-ampliroll-03.jpg | Bras de levage (ampliroll) sur Iveco Daily, vue arrière                               | 27/06/2024 | v20240627
+vul-ampliroll-04.jpg | Bras de levage (ampliroll) sur Iveco Daily, vue arrière                               | 27/06/2024 | v20240627
+vul-plateau-22.jpg   | Plateau aluminium sur Iveco Daily                                                     | 28/06/2024 | v20240628
+vul-caisse-17.jpg    | Caisse fourgon avec hayon élévateur sur Iveco Daily                                   | 12/07/2024 | v20240712
+vul-caisse-18.jpg    | Caisse fourgon avec hayon élévateur sur Iveco Daily, vue arrière                      | 12/07/2024 | v20240712
+vul-caisse-19.jpg    | Caisse fourgon avec hayon élévateur sur Iveco Daily, vue arrière                      | 12/07/2024 | v20240712
+vul-ampliroll-05.jpg | Bras de levage (ampliroll) sur Iveco Daily                                            | 16/07/2024 | v20240716
+vul-caisse-20.jpg    | Caisse fourgon avec hayon élévateur sur Iveco Daily, vue arrière                      | 24/07/2024 | v20240724
+vul-caisse-21.jpg    | Caisse fourgon avec hayon élévateur sur Iveco Daily, vue arrière                      | 24/07/2024 | v20240724
+vul-caisse-22.jpg    | Caisse fourgon avec hayon élévateur, vue arrière                                      | 24/07/2024 | v20240724
+vul-caisse-23.jpg    | Caisse fourgon sur Iveco Daily                                                        | 24/07/2024 | v20240724
+vul-plateau-23.jpg   | Plateau aluminium sur Iveco Daily                                                     | 31/07/2024 | v20240731
+vul-plateau-24.jpg   | Plateau aluminium sur Iveco Daily, vue arrière                                        | 31/07/2024 | v20240731
+vul-plateau-25.jpg   | Plateau aluminium sur Iveco Daily, vue arrière                                        | 31/07/2024 | v20240731
+vul-plateau-26.jpg   | Plancher aluminium d'un plateau                                                       | 31/07/2024 | v20240731
+vul-plateau-27.jpg   | Plateau aluminium, vue arrière                                                        | 31/07/2024 | v20240731
+pl-plateau-03.jpg    | Plateau avec grue auxiliaire HMF sur porteur Iveco Eurocargo                          | 06/08/2024 | v20240806
+pl-plateau-04.jpg    | Plateau avec grue auxiliaire HMF sur porteur Iveco Eurocargo, vue arrière             | 06/08/2024 | v20240806
+vul-caisse-24.jpg    | Caisse fourgon ouverte avec porte latérale, devant notre atelier                      | 18/09/2024 | v20240918
+vul-plateau-28.jpg   | Plateau à ridelles avec portique sur Iveco Daily                                      | 27/09/2024 | v20240927
+vul-plateau-29.jpg   | Plateau à ridelles avec portique sur Iveco Daily, vue arrière                         | 27/09/2024 | v20240927
+vul-plateau-30.jpg   | Plateau à ridelles avec portique sur Iveco Daily, vue arrière                         | 27/09/2024 | v20240927
+vul-plateau-31.jpg   | Plateau aluminium avec grue auxiliaire sur Iveco Daily                                | 08/10/2024 | v20241008
+vul-plateau-32.jpg   | Plateau aluminium avec grue auxiliaire sur Iveco Daily                                | 08/10/2024 | v20241008
+vul-plateau-33.jpg   | Plateau aluminium avec grue auxiliaire sur Iveco Daily, vue arrière                   | 08/10/2024 | v20241008
+pl-caisse-15.jpg     | Caisse à rideaux coulissants sur porteur Iveco Eurocargo                              | 24/10/2024 | v20241024
+pl-caisse-16.jpg     | Caisse à rideaux coulissants sur porteur Iveco Eurocargo, vue de côté                 | 24/10/2024 | v20241024
+vul-caisse-25.jpg    | Caisse fourgon, vue arrière                                                           | 05/12/2024 | v20241205
+vul-caisse-26.jpg    | Intérieur d'une caisse fourgon avec rails d'arrimage                                  | 05/12/2024 | v20241205
+pl-ampliroll-06.jpg  | Bras de levage (ampliroll) avec benne sur porteur Renault 6x4                         | 20/02/2025 | v20250220
+pl-ampliroll-07.jpg  | Bras de levage (ampliroll) avec benne sur porteur Renault 6x4                         | 20/02/2025 | v20250220
+vul-benne-42.jpg     | Benne basculante sur Mercedes Sprinter                                                | 13/03/2025 | v20250313
+vul-benne-43.jpg     | Benne basculante avec rehausse grillagée sur Mercedes Sprinter, vue arrière           | 23/04/2025 | v20250423
+vul-caisse-27.jpg    | Caisse fourgon sur Mercedes Sprinter                                                  | 19/05/2025 | v20250519
+vul-benne-44.jpg     | Coffre de rangement aménagé sur benne                                                 | 01/07/2025 | v20250701
+vul-benne-45.jpg     | Benne basculante à grandes rehausses aluminium sur Mercedes Sprinter                  | 02/10/2025 | v20251002
+vul-benne-46.jpg     | Benne basculante sur Iveco Daily double cabine                                        | 15/10/2025 | v20251015
+vul-benne-47.jpg     | Benne basculante sur Iveco Daily double cabine, vue de côté                           | 15/10/2025 | v20251015
+vul-plateau-34.jpg   | Porte-vitres sur mesure sur Renault Master, vue arrière                               | 22/12/2025 | v20251222
+vul-plateau-35.jpg   | Porte-vitres sur mesure sur Renault Master                                            | 22/12/2025 | v20251222
+vul-benne-48.jpg     | Benne basculante avec rehausse grillagée sur Volkswagen Crafter                       | 08/01/2026 | v20260108
+vul-benne-49.jpg     | Benne basculante avec rehausse grillagée sur Volkswagen Crafter                       | 08/01/2026 | v20260108
+vul-benne-50.jpg     | Benne à grandes rehausses aluminium sur Iveco Daily                                   | 01/02/2026 | v20260201
+vul-fourgon-09.jpg   | Hayon élévateur sur fourgon Mercedes Sprinter                                         | 24/02/2026 | v20260224
+vul-caisse-28.jpg    | Caisse fourgon sur Iveco Daily                                                        | 31/03/2026 | v20260331
+vul-plateau-36.jpg   | Plateau aluminium sur Iveco Daily, vue arrière                                        | 15/04/2026 | v20260415
+vul-benne-51.jpg     | Benne à grandes rehausses sur Iveco Daily double cabine                               | 22/04/2026 | v20260422a
+vul-ampliroll-06.jpg | Bras de levage (ampliroll) sur Iveco Daily                                            | 18/06/2026 | v20260618b
+vul-benne-52.jpg     | Benne à grandes rehausses sur Iveco Daily, vue arrière                                | 30/07/2026 | v20260730
+vul-benne-53.jpg     | Benne à grandes rehausses sur Iveco Daily                                             | 30/07/2026 | v20260730
+vul-benne-54.jpg     | Benne basculante avec rehausse aluminium sur Volkswagen Crafter                       | 06/08/2026 | v20260806
+vul-benne-55.jpg     | Benne basculante avec rehausse aluminium sur Volkswagen Crafter                       | 07/09/2026 | v20260907
+vul-benne-56.jpg     | Benne basculante avec rehausse aluminium sur Volkswagen Crafter, vue arrière          | 24/09/2026 | v20260924
+vul-benne-57.jpg     | Benne basculante avec rehausse grillagée sur Mercedes Sprinter, vue arrière           | 02/10/2026 | v20261002
+vul-benne-58.jpg     | Benne basculante avec rehausse grillagée sur Mercedes Sprinter                        | 02/10/2026 | v20261002
+vul-benne-59.jpg     | Benne basculante à grandes rehausses sur Iveco Daily, dans notre atelier              | 09/10/2026 | v20261009
+vul-benne-60.jpg     | Benne basculante à grandes rehausses sur Iveco Daily                                  | 09/10/2026 | v20261009
+vul-benne-61.jpg     | Benne basculante à grandes rehausses sur Iveco Daily, dans notre atelier              | 09/10/2026 | v20261009
+vul-plateau-37.jpg   | Plateau acier avec structure spécifique sur mesure, vue arrière, devant l'atelier     | 01/08/2016 | v20160801
+vul-plateau-38.jpg   | Plateau acier avec structure spécifique sur mesure, dans notre atelier                | 11/04/2018 | v20180411
+vul-plateau-39.jpg   | Plateau acier avec structure spécifique sur mesure sur Renault Master                 | 01/08/2016 | v20160801
+
+# --- Retirées du carrousel le 15/10/2026 (cabine ou marque visible) ---
+pl-ampliroll-02.jpg  | Ampliroll avec benne sur porteur Renault 6x4               | 20/02/2025 | v20250220
+pl-benne-01.jpg      | Benne basculante sur porteur Iveco                         | 25/03/2024 | v20240325
+pl-caisse-01.jpg     | Caisse fourgon sur porteur Iveco                           | 29/01/2024 | v20240129
+vul-benne-03.jpg     | Benne basculante avec grue auxiliaire sur Iveco Daily                   | 23/06/2026 | v20260623
+vul-benne-05.jpg     | Benne basculante à grandes rehausses sur Volkswagen Crafter             | 16/09/2026 | v20260916
+vul-caisse-01.jpg    | Caisse fourgon noire sur Volkswagen Crafter                             | 15/02/2024 | v20240215
+vul-caisse-02.jpg    | Caisse fourgon sur Renault Master                                       | 05/12/2024 | v20241205
+vul-caisse-03.jpg    | Caisse fourgon sur Volkswagen Crafter                                   | 03/07/2025 | v20250703
+vul-caisse-04.jpg    | Caisse fourgon sur Mercedes Sprinter                                    | 07/11/2025 | v20251107
+vul-caisse-06.jpg    | Caisse fourgon sur Iveco Daily                                          | 02/07/2026 | v20260702
+vul-plateau-01.jpg   | Plateau porte-vitres sur Iveco Daily                                    | 30/01/2026 | v20260130
+vul-benne-14.jpg     | Benne à grandes rehausses sur Iveco Daily double cabine, vue de côté                  | 22/04/2026 | v20260422a
+vul-plateau-05.jpg   | Plateau aluminium avec ridelles sur Iveco Daily                                       | 22/04/2026 | v20260422b
+pl-grue-01.jpg       | Plateau avec grue auxiliaire HMF sur porteur Iveco Eurocargo | 16/12/2020 | v20201216
+vul-benne-21.jpg     | Benne basculante aluminium avec coffre sur Iveco Daily                                | 01/02/2024 | v20240201
+vul-grue-01.jpg      | Plateau avec grue auxiliaire déployée sur Iveco Daily                                 | 04/10/2024 | v20241008
+vul-plateau-11.jpg   | Porte-vitres sur mesure sur Renault Master                                            | 22/12/2025 | v20251222

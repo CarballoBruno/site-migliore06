@@ -1,0 +1,18 @@
+# Annonce permanente (pas de date de fin), simple information : pas de lien
+# sous l'annonce. Mode d'emploi : voir _modele.txt
+# Texte rédigé par le client le 15/10/2026.
+# Affichée sous « Contrôles obligatoires des appareils de levage » (ordre
+# alphabétique des noms de fichiers : controles-… puis vehicule-…).
+titre: Achat d'un véhicule d'occasion à l'étranger : restez vigilant
+afficher_du:
+afficher_au:
+bouton:
+bouton_lien:
+---
+Vous envisagez d'acheter à l'étranger un véhicule d'occasion (VL, utilitaire ou poids lourd) ? Avant tout achat, consultez la DREAL ou un carrossier qualifié UTAC ou spécialisé dans la réception des véhicules. Ils pourront vous informer des difficultés possibles pour l'immatriculer en France :
+
+- les documents du véhicule (certificat de conformité, papiers d'origine) ;
+- la carrosserie et les aménagements réalisés ;
+- les normes et réglementations.
+
+! Renseignez-vous avant d'acheter.

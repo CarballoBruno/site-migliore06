@@ -141,9 +141,22 @@
        5. LARGEURS ET MISE EN PAGE
        ---------------------------------------------------------------------- */
 
+    /* ÉCHELLE DU SITE SUR LES GRANDS ÉCRANS.
+       Tout le site est dimensionné en « rem » (multiples de la taille de
+       base du texte). Sur un écran de bureau ou un portable, la taille de
+       base reste de 16 px. Sur un grand écran (au-delà de 1707 px de large),
+       elle grandit avec la largeur de l'écran : le site garde exactement les
+       mêmes proportions qu'à 1707 px, en plus grand, au lieu de s'étaler
+       avec un texte minuscule. À 2560 px, cela donne l'aspect d'un affichage
+       à 150 % (taille de base 24 px, plafond).
+       --largeur-reference-ecran : largeur à partir de laquelle on agrandit ;
+       --taille-base-maximale    : plafond (pour les écrans encore plus grands). */
+    --largeur-reference-ecran: 1707;
+    --taille-base-maximale: 24px;
+
     /* Largeur maximale du contenu : au-delà, le contenu reste centré
        (évite des lignes de texte trop longues sur les grands écrans). */
-    --largeur-max-contenu: 1200px;
+    --largeur-max-contenu: 75rem;            /* ~1200 px */
 
     /* Largeur maximale d'une colonne de texte (pages de texte comme les
        mentions légales) : environ 75 caractères par ligne, confortable à lire. */
@@ -161,6 +174,9 @@
        largeur de la présentation (« cqi » : 22cqi = 22 %). */
     --largeur-image-dans-texte: 22cqi;
 
+    /* Hauteur des logos des partenaires en bas des cartes « Nos aménagements ». */
+    --hauteur-logo-partenaire: 2.5rem;
+
     /* Marge sur les côtés de l'écran (surtout utile sur téléphone). */
     --marge-cotes-ecran: 1rem;
 
@@ -171,7 +187,7 @@
     --hauteur-bande-bleue-epaisse: 2.5rem;  /* ~40 px : bande qui contient le menu */
 
     /* Carrousel de la page d'accueil. */
-    --hauteur-photo-carrousel: 180px;       /* hauteur des photos (largeur automatique) */
+    --hauteur-photo-carrousel: 11.25rem;    /* ~180 px : hauteur des photos (largeur automatique) */
     --ecart-photos-carrousel: 0.625rem;     /* ~10 px entre deux photos */
     --duree-par-photo-carrousel: 6s;        /* temps de passage d'une photo (plus grand =
                                                plus lent). La durée d'un tour complet est
@@ -185,8 +201,8 @@
     --largeur-cote-pied-de-page: 23rem;
 
     /* Hauteur des logos qui encadrent le bandeau du haut. */
-    --hauteur-logo-ncm: 80px;
-    --hauteur-logo-utac: 34px;
+    --hauteur-logo-ncm: 5rem;       /* ~80 px */
+    --hauteur-logo-utac: 2.125rem;  /* ~34 px */
 
 
     /* ----------------------------------------------------------------------

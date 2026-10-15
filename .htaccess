@@ -28,6 +28,10 @@ AddDefaultCharset UTF-8
 # page d'accueil (ex. : /images/ ne montre pas la liste des photos).
 Options -Indexes
 
+# Adresse introuvable : afficher la page « introuvable » du site (404.php),
+# avec le bandeau et le menu, plutôt qu'une page d'erreur technique.
+ErrorDocument 404 /404.php
+
 
 # --------------------------------------------------------------------------
 # 1 et 2. REDIRECTIONS

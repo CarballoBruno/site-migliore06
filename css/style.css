@@ -29,6 +29,12 @@
 }
 
 /* Page entière : fond, police et couleur du texte courant. */
+/* Taille de base de tout le site : 16 px, puis proportionnelle à la largeur
+   de l'écran au-delà de --largeur-reference-ecran (voir variables.css). */
+html {
+    font-size: clamp(16px, calc(100vw * 16 / var(--largeur-reference-ecran)), var(--taille-base-maximale));
+}
+
 body {
     margin: 0;
     background-color: var(--couleur-fond-page);
@@ -236,11 +242,13 @@ a:hover {
     flex-wrap: wrap;
     justify-content: center;
     column-gap: var(--espace-grand);
+    align-items: center;   /* liens sur une ligne centrés face aux liens sur deux lignes */
 }
 
-/* Chaque lien : police principale, en blanc.
-   Un petit trait (transparent par défaut) est prévu sous chaque lien. */
-.menu-principal-liste a {
+/* Chaque lien (et le bouton du menu déroulant) : police principale, en
+   blanc. Un petit trait (transparent par défaut) est prévu sous chaque lien. */
+.menu-principal-liste a,
+.menu-deroulant-bouton {
     display: block;
     padding: var(--espace-tres-petit) var(--espace-petit) var(--espace-minuscule);
     font-family: var(--police-principale);
@@ -261,20 +269,92 @@ a:hover {
 }
 
 /* Au survol de la souris : le petit trait apparaît en bleu clair. */
-.menu-principal-liste a:hover {
+.menu-principal-liste a:hover,
+.menu-deroulant-bouton:hover {
     color: var(--couleur-blanc);
     border-bottom-color: var(--couleur-bleu-logo-clair);
 }
 
 /* Page en cours : petit trait blanc sous le lien. */
-.menu-principal-liste a.lien-actif {
+.menu-principal-liste a.lien-actif,
+.menu-deroulant-bouton.lien-actif {
     border-bottom-color: var(--couleur-blanc);
 }
 
 /* Contour de sélection au clavier en blanc (le bleu serait invisible
    sur la bande bleue). */
-.menu-principal-liste a:focus-visible {
+.menu-principal-liste a:focus-visible,
+.menu-deroulant-bouton:focus-visible {
     outline-color: var(--couleur-blanc);
+}
+
+/* --- Menu déroulant « Nos aménagements » ---------------------------- */
+
+.menu-deroulant {
+    position: relative;   /* la liste se place juste sous le bouton */
+}
+
+/* Le bouton ressemble aux autres liens du menu (pas d'aspect « bouton »). */
+.menu-deroulant-bouton {
+    background: none;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    cursor: pointer;
+}
+
+/* Petite flèche ▾, qui se retourne quand la liste est ouverte. */
+.menu-deroulant-fleche {
+    display: inline-block;
+    font-size: 0.75em;
+    transition: transform var(--duree-transition);
+}
+
+.menu-deroulant-bouton[aria-expanded="true"] .menu-deroulant-fleche {
+    transform: rotate(180deg);
+}
+
+/* La liste : carte blanche sous le bouton, cachée par défaut. */
+.menu-deroulant-liste {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;   /* au-dessus du carrousel */
+    min-width: 13rem;
+    margin: 0;
+    padding: var(--espace-tres-petit) 0;
+    list-style: none;
+    background-color: var(--couleur-blanc);
+    border: var(--epaisseur-bordure) solid var(--couleur-gris-bordure);
+    border-top: var(--epaisseur-trait-menu) solid var(--couleur-bleu-logo);
+    border-radius: 0 0 var(--arrondi-moyen) var(--arrondi-moyen);
+    box-shadow: var(--ombre-carte-survol);
+}
+
+/* Ouverte : au survol de la souris (ordinateur), ou après un toucher /
+   clic sur le bouton (js/main.js passe alors aria-expanded à « true »). */
+.menu-deroulant:hover .menu-deroulant-liste,
+.menu-deroulant-bouton[aria-expanded="true"] + .menu-deroulant-liste {
+    display: block;
+}
+
+/* Liens de la liste : bleu foncé sur blanc, fond bleu très clair au survol. */
+.menu-principal-liste .menu-deroulant-liste a {
+    padding: var(--espace-petit) var(--espace-grand);
+    color: var(--couleur-bleu-fonce);
+    border-bottom: 0;
+    white-space: nowrap;
+}
+
+.menu-principal-liste .menu-deroulant-liste a:hover,
+.menu-principal-liste .menu-deroulant-liste a.lien-actif {
+    background-color: var(--couleur-fond-annonce);
+}
+
+.menu-principal-liste .menu-deroulant-liste a:focus-visible {
+    outline-color: var(--couleur-bleu-logo);
 }
 
 
@@ -942,7 +1022,7 @@ a:hover {
     padding: var(--espace-tres-grand) 0;
     display: flex;
     flex-direction: column;
-    gap: var(--espace-entre-sections);
+    gap: var(--espace-tres-grand);   /* même écart qu'entre présentation et certification */
 }
 
 /* Partie haute : grille de 2 colonnes, le contenu principal prend
@@ -1060,6 +1140,97 @@ a:hover {
     color: var(--couleur-bleu-fonce);
 }
 
+/* --- Certification « Opérateur qualifié UTAC » (sous la présentation) --- */
+
+.accueil-principal {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espace-tres-grand);
+}
+
+.certification {
+    padding-top: var(--espace-grand);
+    border-top: var(--epaisseur-soulignement) solid var(--couleur-gris-bordure);
+}
+
+.certification-titre {
+    margin: 0 0 var(--espace-moyen);
+    font-family: var(--police-principale);
+    font-size: var(--taille-titre-presentation);
+    line-height: var(--hauteur-ligne-titres);
+    color: var(--couleur-bleu-fonce);
+    text-wrap: balance;
+}
+
+.certification > p {
+    margin: 0 0 var(--espace-moyen);
+    font-size: var(--taille-texte-grand);
+    line-height: var(--hauteur-ligne-texte);
+    text-align: justify;
+    hyphens: auto;
+}
+
+.certification strong {
+    color: var(--couleur-bleu-fonce);
+}
+
+/* Les 7 étapes : petites cartes blanches sur 2 colonnes, chacune avec son
+   numéro dans une pastille bleue (compteur CSS, pas de numéro dans le texte). */
+.etapes {
+    list-style: none;
+    margin: 0 0 var(--espace-moyen);
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--espace-moyen);
+    counter-reset: etape;
+}
+
+.etapes li {
+    counter-increment: etape;
+    position: relative;
+    padding: var(--espace-moyen) var(--espace-moyen) var(--espace-moyen) 3.25rem;
+    background-color: var(--couleur-blanc);
+    border: var(--epaisseur-bordure) solid var(--couleur-gris-bordure);
+    border-radius: var(--arrondi-moyen);
+}
+
+.etapes li::before {
+    content: counter(etape);
+    position: absolute;
+    left: var(--espace-moyen);
+    top: var(--espace-moyen);
+    width: 1.75rem;
+    height: 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--couleur-bleu-logo);
+    color: var(--couleur-blanc);
+    font-weight: var(--epaisseur-grasse);
+}
+
+/* La dernière étape (dossier technique) occupe toute la largeur si elle
+   est seule sur sa ligne. */
+.etapes li:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+}
+
+.etapes h3 {
+    margin: 0 0 var(--espace-tres-petit);
+    font-size: var(--taille-texte-grand);
+    line-height: var(--hauteur-ligne-titres);
+    color: var(--couleur-bleu-fonce);
+}
+
+.etapes p {
+    margin: 0;
+    font-size: var(--taille-texte-normal);
+    line-height: var(--hauteur-ligne-texte);
+}
+
+
 /* Colonne de droite : ses encarts s'empilent les uns sous les autres. */
 .colonne-droite {
     display: flex;
@@ -1172,9 +1343,25 @@ a:hover {
     margin: 0 0 var(--espace-tres-petit);
     font-size: var(--taille-texte-petit);
     line-height: var(--hauteur-ligne-texte);
+    text-align: justify;   /* texte aligné à gauche et à droite */
+    hyphens: auto;         /* césure des mots longs (évite les grands blancs) */
 }
 
 .annonce p:last-child {
+    margin-bottom: 0;
+}
+
+/* Liste à puces (lignes commençant par « - » dans le fichier). */
+.annonce-liste {
+    margin: 0 0 var(--espace-tres-petit);
+    padding-left: var(--espace-moyen);
+    font-size: var(--taille-texte-petit);
+    line-height: var(--hauteur-ligne-texte);
+    text-align: justify;
+    hyphens: auto;
+}
+
+.annonce-liste:last-child {
     margin-bottom: 0;
 }
 
@@ -1230,19 +1417,195 @@ a:hover {
 .accueil-sections {
     display: flex;
     flex-direction: column;
-    gap: var(--espace-entre-sections);
+    gap: var(--espace-tres-grand);
 }
 
-/* PROVISOIRE : repères de mise en page (cadres en pointillés), le temps de
-   valider les emplacements. À supprimer quand le vrai contenu sera en place. */
-.zone-provisoire {
-    min-height: 12rem;
+/* Liseré gris au-dessus de chaque section pleine largeur (Nos aménagements,
+   fin de page), comme celui qui sépare la présentation de la certification. */
+.accueil-sections > * {
+    padding-top: var(--espace-grand);
+    border-top: var(--epaisseur-soulignement) solid var(--couleur-gris-bordure);
+}
+
+/* --- Nos aménagements : cartes photo + titre + texte (pleine largeur) --- */
+
+.titre-section {
+    margin: 0 0 var(--espace-grand);
+    font-family: var(--police-principale);
+    font-size: var(--taille-titre-presentation);
+    line-height: var(--hauteur-ligne-titres);
+    color: var(--couleur-bleu-fonce);
+}
+
+/* 3 cartes par ligne (2 lignes pour 6 cartes). */
+.cartes-amenagements {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 1fr;   /* toutes les cartes ont la même hauteur */
+    gap: var(--espace-grand);
+}
+
+/* Une carte : carré blanc, photo en haut, titre et texte dessous. */
+.carte-amenagement {
+    background-color: var(--couleur-blanc);
+    border: var(--epaisseur-bordure) solid var(--couleur-gris-bordure);
+    border-radius: var(--arrondi-moyen);
+    box-shadow: var(--ombre-carte);
+    overflow: hidden;
+    transition: box-shadow var(--duree-transition);
+}
+
+.carte-amenagement img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+}
+
+/* Carte cliquable (quand sa page existe) : toute la carte est le lien. */
+.carte-amenagement-lien {
+    display: block;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+}
+
+.carte-amenagement:has(.carte-amenagement-lien):hover {
+    box-shadow: var(--ombre-carte-survol);
+}
+
+.carte-amenagement-texte {
+    padding: var(--espace-moyen) var(--espace-grand) var(--espace-grand);
+}
+
+.carte-amenagement h3 {
+    margin: 0 0 var(--espace-petit);
+    font-size: var(--taille-titre-carte);
+    line-height: var(--hauteur-ligne-titres);
+    color: var(--couleur-bleu-fonce);
+}
+
+.carte-amenagement p {
+    margin: 0;
+    font-size: var(--taille-texte-grand);
+    line-height: var(--hauteur-ligne-texte);
+    text-align: justify;   /* bords gauche et droit alignés */
+    hyphens: auto;
+}
+
+/* La carte est une colonne : le bandeau partenaire se place tout en bas. */
+.carte-amenagement {
+    display: flex;
+    flex-direction: column;
+}
+
+.carte-amenagement-lien,
+.carte-amenagement-texte {
+    flex: 1;
+}
+
+/* Bandeau partenaire en bas de carte (ex. logo JPM + « Membre du réseau
+   JPM »), séparé du texte par un trait fin ; lien vers le site du partenaire. */
+.carte-partenaire {
+    display: flex;
+    align-items: center;
+    justify-content: center;   /* logo et mention centrés dans la carte */
+    gap: var(--espace-moyen);
+    /* Hauteur fixe (celle du plus grand logo) : le trait gris au-dessus est
+       ainsi au même niveau sur toutes les cartes, avec ou sans logos. */
+    height: calc(var(--hauteur-logo-partenaire) * 1.6 + var(--espace-petit) * 2);
+    margin: 0 var(--espace-grand) var(--espace-moyen);
+    padding-top: var(--espace-petit);
+    border-top: var(--epaisseur-bordure) solid var(--couleur-gris-bordure);
+    font-weight: var(--epaisseur-grasse);
+    color: var(--couleur-bleu-fonce);
+    text-decoration: none;
+}
+
+.carte-partenaire a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.carte-partenaire-mention:hover {
+    text-decoration: underline;
+}
+
+/* Plusieurs logos : répartis régulièrement sur toute la largeur. */
+.carte-partenaire:not(:has(.carte-partenaire-mention)) {
+    justify-content: space-evenly;
+}
+
+/* À hauteur égale, un logo carré paraît bien plus petit qu'un logo allongé :
+   les logos presque carrés (HMF, JPM) ou plus hauts que larges (Schneider)
+   sont affichés plus grands, les logos de forme moyenne (BOB, NCM) un peu
+   plus grands. Forme calculée par lireFormatLogo() (fonctions-contenu.php). */
+.carte-amenagement .carte-partenaire img.logo-moyen {
+    height: calc(var(--hauteur-logo-partenaire) * 1.35);
+}
+
+.carte-amenagement .carte-partenaire img.logo-carre {
+    height: calc(var(--hauteur-logo-partenaire) * 1.6);
+}
+
+/* Logos de même hauteur, largeur selon leur forme. */
+.carte-amenagement .carte-partenaire img {
+    width: auto;
+    height: var(--hauteur-logo-partenaire);
+    max-width: 7rem;
+    aspect-ratio: auto;
+    object-fit: contain;
+}
+
+.carte-amenagement-suite {
+    display: inline-block;
+    margin-top: var(--espace-petit);
+    font-weight: var(--epaisseur-grasse);
+    color: var(--couleur-bleu-logo);
+}
+
+.carte-amenagement-suite::after {
+    content: " \2192"; /* flèche → */
+}
+
+
+/* --- Fin de la page : slogan + « Nous joindre », côte à côte ----------- */
+
+.fin-de-page {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--espace-grand);
+}
+
+/* Bouton centré sous les coordonnées. */
+.fin-de-page-joindre {
+    text-align: center;
+}
+
+/* Slogan : grand, centré dans une carte blanche de même hauteur que
+   « Nous joindre ». */
+.fin-de-page-slogan {
+    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: var(--epaisseur-soulignement) dashed var(--couleur-gris-bordure);
-    color: var(--couleur-gris-texte);
-    background-color: var(--couleur-gris-clair);
+    padding: var(--espace-grand);
+    text-align: center;
+    font-family: var(--police-principale);
+    font-size: var(--taille-titre-presentation);
+    font-weight: var(--epaisseur-grasse);
+    font-style: italic;
+    line-height: var(--hauteur-ligne-titres);
+    color: var(--couleur-bleu-fonce);
+    background-color: var(--couleur-blanc);
+    border: var(--epaisseur-bordure) solid var(--couleur-gris-bordure);
+    border-radius: var(--arrondi-moyen);
+    box-shadow: var(--ombre-carte);
 }
 
 
@@ -1297,6 +1660,11 @@ a:hover {
 
     /* Accueil : la colonne de droite passe sous le contenu principal. */
     .accueil-haut {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* Fin de page : « Nous joindre » sous le slogan. */
+    .fin-de-page {
         grid-template-columns: minmax(0, 1fr);
     }
 
@@ -1371,6 +1739,16 @@ a:hover {
         width: auto;
         margin-left: var(--marge-cotes-ecran);
         margin-right: var(--marge-cotes-ecran);
+    }
+
+    /* Accueil : cartes « Nos aménagements » sur 2 colonnes. */
+    .cartes-amenagements {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* Accueil : étapes de la certification sur une seule colonne. */
+    .etapes {
+        grid-template-columns: minmax(0, 1fr);
     }
 
     /* Accueil : présentation sur une seule colonne (trop étroit pour que

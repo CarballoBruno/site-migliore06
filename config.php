@@ -46,6 +46,10 @@ $telephoneAffiche = '04 93 54 86 17';
 // « cliquer pour appeler » sur les téléphones portables.
 $telephoneLien = '+33493548617';
 
+// Adresse du site sur Internet (avec le « / » final). Sert aux liens
+// complets lus par Google et par les réseaux sociaux (aperçu de partage).
+$adresseSite = 'https://www.migliore06.fr/';
+
 // Adresse email affichée sur le site.
 $emailContact = 'info@migliore06.fr';
 
@@ -65,9 +69,9 @@ $capitalSocial  = '82 588,01 €';
 $numeroRcs      = 'RCS Nice 326 726 619';
 $numeroSiret    = '326 726 619 00017';
 
-// Numéro de TVA intracommunautaire (calculé à partir du SIREN ; à vérifier
-// sur une facture de l'entreprise).
-$numeroTva      = 'FR 10 326 726 619';
+// Numéro de TVA intracommunautaire, au format officiel sans espaces
+// (vérifié par le client sur une facture le 15/10/2026).
+$numeroTva      = 'FR10326726619';
 
 
 /* --------------------------------------------------------------------------

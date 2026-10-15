@@ -20,6 +20,9 @@
 # LE TEXTE : sous la ligne « --- ». Une ligne vide sépare deux paragraphes.
 # Un « ! » au tout début d'un paragraphe le met en valeur (plus gros, en
 # gras) ; le « ! » lui-même n'est pas affiché.
+# LISTE À PUCES : un paragraphe dont chaque ligne commence par « - »,
+#   ex.   - les documents du véhicule ;
+#         - la carrosserie et les aménagements réalisés.
 #
 # UN LIEN SOUS L'ANNONCE (facultatif) : remplir les deux lignes
 #   bouton: Contactez-nous                 (texte du lien)

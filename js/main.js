@@ -5,7 +5,8 @@
    seulement des petits « plus » :
      1. Affichage de la carte Google Maps au clic (page Contact) ;
      2. Bouton pause / lecture du carrousel (page d'accueil) ;
-     3. Trait blanc du menu sous la bonne section de l'accueil.
+     3. Trait blanc du menu sous la bonne section de l'accueil ;
+     4. Ouverture du menu déroulant « Nos aménagements » au toucher / clic.
    ========================================================================== */
 
 
@@ -118,7 +119,9 @@ function marquerLienMenu(liens, lienActif) {
     });
 }
 
-const liensMenu = Array.from(document.querySelectorAll('.menu-principal-liste a'));
+// Liens du menu (y compris le bouton du menu déroulant, qui reçoit le trait
+// quand on clique sur un aménagement).
+const liensMenu = Array.from(document.querySelectorAll('.menu-principal-liste a, .menu-deroulant-bouton'));
 // Lien marqué par le serveur au chargement (la maison, sur l'accueil).
 const lienMarqueParServeur = liensMenu.find(function (lien) {
     return lien.classList.contains('lien-actif');
@@ -135,13 +138,74 @@ function marquerLienMenuSelonSection() {
     if (!lienMarqueParServeur || lienMarqueParServeur.getAttribute('href') !== 'index.php') {
         return;
     }
-    const lienSection = liensMenu.find(function (lien) {
+    const liensSection = liensMenu.filter(function (lien) {
         return location.hash !== '' && lien.getAttribute('href') === 'index.php' + location.hash;
     });
-    marquerLienMenu(liensMenu, lienSection || lienMarqueParServeur);
+    if (location.hash === '') {
+        marquerLienMenu(liensMenu, lienMarqueParServeur);
+    } else if (liensSection.length === 1) {
+        marquerLienMenu(liensMenu, liensSection[0]);
+    }
+    // Plusieurs liens mènent à la même section (ex. les aménagements dont la
+    // page n'existe pas encore mènent tous à « #amenagements ») : on ne sait
+    // pas lequel a été cliqué ici, c'est le clic (ci-dessous) qui le marque.
 }
 
 marquerLienMenuSelonSection();
 // Clic sur un autre lien de section alors qu'on est déjà sur l'accueil :
 // la page ne se recharge pas, seule la fin de l'adresse change.
 window.addEventListener('hashchange', marquerLienMenuSelonSection);
+
+// Clic sur un lien de section de l'accueil : le trait blanc va sous le lien
+// cliqué (utile quand plusieurs liens mènent à la même section). Pour un
+// aménagement du menu déroulant, c'est le bouton « Nos aménagements » qui
+// est souligné.
+liensMenu.forEach(function (lien) {
+    lien.addEventListener('click', function () {
+        const adresse = lien.getAttribute('href') || '';
+        if (lienMarqueParServeur && lienMarqueParServeur.getAttribute('href') === 'index.php'
+            && adresse.startsWith('index.php#')) {
+            const deroulant = lien.closest('.menu-deroulant');
+            marquerLienMenu(liensMenu, deroulant ? deroulant.querySelector('.menu-deroulant-bouton') : lien);
+        }
+    });
+});
+
+
+/* --------------------------------------------------------------------------
+   4. MENU DÉROULANT « NOS AMÉNAGEMENTS »
+   Sur ordinateur, la liste s'ouvre au simple survol de la souris (géré
+   par style.css). Ce programme permet aussi de l'ouvrir et de la fermer
+   en touchant ou en cliquant sur le bouton (téléphone, tablette, clavier),
+   et la referme quand on touche ailleurs ou qu'on appuie sur Échap.
+   -------------------------------------------------------------------------- */
+
+const boutonDeroulant = document.querySelector('.menu-deroulant-bouton');
+
+/**
+ * Ouvre ou ferme la liste du menu déroulant.
+ *
+ * @param {boolean} ouvrir  true pour ouvrir, false pour fermer
+ */
+function basculerMenuDeroulant(ouvrir) {
+    boutonDeroulant.setAttribute('aria-expanded', ouvrir ? 'true' : 'false');
+}
+
+if (boutonDeroulant) {
+    boutonDeroulant.addEventListener('click', function () {
+        basculerMenuDeroulant(boutonDeroulant.getAttribute('aria-expanded') !== 'true');
+    });
+    // Toucher ou clic en dehors du menu déroulant : on le referme.
+    document.addEventListener('click', function (evenement) {
+        if (!evenement.target.closest('.menu-deroulant')) {
+            basculerMenuDeroulant(false);
+        }
+    });
+    // Touche Échap : on le referme et on revient sur le bouton.
+    document.addEventListener('keydown', function (evenement) {
+        if (evenement.key === 'Escape' && boutonDeroulant.getAttribute('aria-expanded') === 'true') {
+            basculerMenuDeroulant(false);
+            boutonDeroulant.focus();
+        }
+    });
+}

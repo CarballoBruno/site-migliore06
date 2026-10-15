@@ -1,0 +1,44 @@
+# ==========================================================================
+# contenu/amenagements.txt — Cartes « Nos aménagements » de la page d'accueil
+# --------------------------------------------------------------------------
+# Une ligne par carte, dans l'ordre d'affichage :
+#
+#     Titre | photo.jpg | Texte | page.php | Mention | logo1.png, logo2.png | lien1, lien2
+#
+#   - Titre : nom du type d'aménagement (ex. Bennes) ;
+#   - photo : une photo du dossier images/carrousel/ (540 x 360 pixels).
+#             Choisir de préférence une vue ARRIÈRE ou TROIS-QUARTS ARRIÈRE,
+#             où la marque du véhicule se voit le moins (ne paraître partial
+#             envers aucun constructeur ni concessionnaire) ;
+#   - Texte : une ou deux phrases courtes ;
+#   - page  : la page détaillée vers laquelle la carte renverra (ex.
+#             bennes.php ; ce sont les mêmes pages que
+#             dans le menu, voir inc/header.php). Tant que cette page
+#             n'existe pas dans le site,
+#             la carte s'affiche sans lien : rien à changer le jour où la
+#             page est créée, la carte devient cliquable toute seule ;
+#   - partenaires (FACULTATIF, les 3 dernières colonnes) : une mention
+#             (ex. Membre du réseau JPM, ou vide), un ou plusieurs logos
+#             (rangés dans images/logos/) et les liens vers les sites des
+#             partenaires, DANS LE MÊME ORDRE que les logos, séparés par
+#             des virgules. Prendre les logos officiels sur leurs sites.
+#   - description de la photo (FACULTATIF, 8e colonne) : seulement pour
+#             une photo qui n'est pas dans contenu/carrousel.txt ; elle
+#             est lue par Google et par les personnes malvoyantes.
+#             Un tiret - à la place du lien = logo sans lien (ex. logo NCM).
+#
+# Les textes parlent MÉTIERS et options adaptées, sans jargon technique.
+#
+# Pour retirer une carte : supprimer sa ligne (ou mettre un # devant).
+# Les lignes qui commencent par # sont des commentaires (ignorées).
+# ==========================================================================
+
+Bennes                   | vul-benne-20.jpg | Maçons, paysagistes, entreprises de travaux publics, collectivités : nous montons votre benne, acier ou aluminium, et l'équipons selon votre activité : rehausses aluminium, coffre dos cabine, porte universelle, bâche, attelage... | bennes.php | Membre du réseau JPM | logo-jpm.png | https://jpm-group.com/ | Benne basculante blanche sur Mercedes Sprinter, vue de trois-quarts arrière
+Caisses                  | vul-caisse-10.jpg | Déménageurs, livreurs, artisans, transporteurs : nous construisons votre caisse sur mesure et l'aménageons selon votre activité : porte latérale, rails d'arrimage, tringles, capitons, éclairage, capucine, déflecteur, hayon élévateur... | caisses.php |  | logo-palkit.png, logo-aluteam.png | https://www.palkit.fr/, https://www.schneider-fc.com/
+Hayons                   | vul-fourgon-01.jpg | Livreurs, déménageurs, grossistes, loueurs : nous installons le hayon élévateur adapté à votre véhicule et à vos charges, sur caisse, fourgon ou plateau : rabattable, repliable sous le châssis, rétractable, plateforme acier ou aluminium... | hayons.php |  | logo-dhollandia.png | https://www.dhollandia.com/FR/fr
+Bras de levage           | pl-ampliroll-04.jpg | Travaux publics, recyclage, collectivités, loueurs de bennes : nous installons votre bras de levage (ampliroll), choisi selon vos caissons et vos charges, et l'équipons selon votre activité : commande en cabine ou télécommande, verrouillage hydraulique avant et arrière des caissons, rouleau anti-cabrage, attelage... | bras-de-levage.php |  | logo-bob.png, logo-ampliner.png | https://bobspa.com/fr/, https://bobspa.com/fr/
+Plateaux                 | vul-plateau-07.jpg | Artisans du bâtiment, paysagistes, vitriers, apiculteurs, loueurs de matériel : nous fabriquons dans notre atelier votre plateau acier sur mesure, ou installons votre plateau aluminium, avec ou sans ridelles, et l'équipons selon votre activité : coffres, face avant, barre anti-encastrement arrière, attelage... | plateaux.php |  | logo-ncm.svg | -
+Grues                    | pl-grue-01-carte.jpg | Négociants en matériaux, paysagistes, maçons, couvreurs, collectivités : nous installons votre grue de chargement, choisie selon les charges à lever et la portée nécessaire, sur plateau, sur bras de levage ou sur benne, dans le respect de la conformité du véhicule, du code de la route et de l'étude de stabilité. | grues.php |  | logo-hmf.png | https://fr.hmfcranes.com/ | Grue auxiliaire HMF montée sur porteur Iveco Eurocargo
+Aménagements de fourgons | vul-fourgon-02.jpg | Artisans, plombiers, électriciens, livreurs, services techniques : nous aménageons votre fourgon selon votre activité : plancher et habillage bois, rangements, galerie de toit, pupitre, porte-échelle, balisage, signalisation, rampe de chargement, marchepied, attelage, hayon élévateur... | amenagements-fourgons.php |  | logo-mdp.png | https://www.mdp-utilitaire.fr/
+Travaux sur mesure       | vul-plateau-11.jpg | Vitriers, élagueurs, viticulteurs, entreprises de nettoyage, collectivités : quel que soit votre métier, quand aucune solution standard ne convient, nous étudions et réalisons l'équipement spécifique à votre activité : porte-vitres, porte-engins, supports de cuves ou de matériel, aménagements police, structures spéciales... | amenagements-specifiques.php |  | logo-ncm.svg | - | Porte-vitres sur mesure sur Renault Master
+Entretien et réparation  | pl-grue-02-carte.jpg | Artisans, transporteurs, collectivités, loueurs : nous assurons l'entretien, la réparation et les essais de vos carrosseries et de vos équipements (bennes, hayons, grues, bras de levage), sur utilitaire comme sur poids lourd, pour prolonger leur vie et garder votre véhicule conforme. | entretien-reparation.php |  | logo-ncm.svg | - | Essai d'une grue auxiliaire avec des masses de contrôle devant notre atelier
