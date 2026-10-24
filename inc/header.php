@@ -196,8 +196,9 @@ $adressePage = $adresseSite . ($fichierPageEnCours === 'index.php' ? '' : $fichi
                     </svg>
                 </a>
             </li>
-            <!-- Contact juste après la maison (demande du client, 23/10/2026) : il reste
-                 toujours au même endroit ; les autres liens viendront à la suite. -->
+            <!-- Qualification UTAC puis Contact, juste après la maison (demandes du client,
+                 23/10/2026) ; les autres liens viendront à la suite. -->
+            <li><a href="qualification-utac.php"<?= marquerLienActif('qualification-utac', $pageActive) ?>>Qualification UTAC</a></li>
             <li><a href="contact.php"<?= marquerLienActif('contact', $pageActive) ?>>Contact</a></li>
             <?php if ($afficherMenuComplet): ?>
             <!-- Menu déroulant « Nos aménagements » : la liste s'ouvre au survol

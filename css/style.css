@@ -1305,6 +1305,29 @@ a:hover {
     color: var(--couleur-bleu-fonce);
 }
 
+/* Encadré « Opérateur qualifié UTAC » de l'accueil (23/10/2026, branche d'essai) :
+   court texte + bouton vers la page qualification-utac.php. */
+.encart-utac .bouton-encart-utac {
+    margin-top: var(--espace-petit);
+}
+
+/* Page « Qualification UTAC » : même largeur que le bandeau, comme la page
+   Contact ; pas de liseré au-dessus du titre (il est en haut de la page). */
+.page-utac {
+    width: var(--largeur-bandeau-haut);
+    margin: 0 auto;
+    padding: var(--espace-tres-grand) 0;
+}
+
+.page-utac .certification {
+    padding-top: 0;
+    border-top: none;
+}
+
+.page-utac-titre {
+    font-size: var(--taille-titre-page);
+}
+
 /* Les 7 étapes : petites cartes blanches sur 2 colonnes, chacune avec son
    numéro dans une pastille bleu marine (compteur CSS, pas de numéro dans le texte). */
 .etapes {
@@ -1348,6 +1371,7 @@ a:hover {
     grid-column: 1 / -1;
 }
 
+.etapes h2,
 .etapes h3 {
     margin: 0 0 var(--espace-tres-petit);
     font-size: var(--taille-texte-grand);
@@ -1900,7 +1924,8 @@ a:hover {
     .carrousel,
     .bande-bleue-carrousel,
     .accueil-corps,
-    .page-contact {
+    .page-contact,
+    .page-utac {
         width: auto;
         margin-left: var(--marge-cotes-ecran);
         margin-right: var(--marge-cotes-ecran);

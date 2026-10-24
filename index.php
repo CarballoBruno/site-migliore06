@@ -238,66 +238,17 @@ require __DIR__ . '/inc/header.php';
                     </div>
                 </section>
 
-                <!-- Certification : à quoi sert la qualification « Opérateur
-                     qualifié UTAC », et la démarche suivie pour chaque véhicule
-                     (d'après le Manuel Qualité de l'entreprise). -->
-                <section class="certification" aria-labelledby="titre-certification">
-                    <h2 id="titre-certification" class="certification-titre">
-                        Opérateur qualifié UTAC&nbsp;: ce que cela change pour votre véhicule neuf
-                    </h2>
-
+                <!-- Qualification UTAC : court encadré (23/10/2026, branche d'essai) ; le
+                     texte complet (7 étapes de la démarche qualité) est sur sa propre
+                     page, qualification-utac.php. -->
+                <section class="certification encart-utac" aria-labelledby="titre-certification">
+                    <h2 id="titre-certification" class="certification-titre">Opérateur qualifié UTAC</h2>
                     <p>
-                        Un véhicule neuf que l'on carrosse ou que l'on aménage doit être reconnu
-                        conforme au code de la route avant sa première immatriculation. Opérateur
-                        qualifié UTAC pour le poids lourd, l'utilitaire et l'aménagement, nous
-                        réalisons nous-mêmes ce <strong>contrôle de conformité initial</strong>. Votre
-                        véhicule est livré avec le procès-verbal qui permet de l'immatriculer
-                        directement, sans passer par une réception à titre isolé auprès de la
-                        <strong>DREAL</strong> (Direction régionale de l'environnement, de l'aménagement
-                        et du logement), le service de l'État chargé de la réception des véhicules.
+                        Pour le poids lourd, l'utilitaire et l'aménagement, nous réalisons nous-mêmes
+                        le <strong>contrôle de conformité</strong> de votre véhicule neuf&nbsp;: il vous est
+                        livré avec son procès-verbal, prêt à être immatriculé, sans passer par la DREAL.
                     </p>
-
-                    <p>
-                        Cette qualification repose sur une démarche qualité appliquée à chaque
-                        véhicule, de votre demande jusqu'à la livraison&nbsp;:
-                    </p>
-
-                    <!-- Les 7 étapes (le numéro est ajouté par la feuille de style) -->
-                    <ol class="etapes">
-                        <li>
-                            <h3>L'étude de votre demande</h3>
-                            <p>Répartition des charges, faisabilité, conformité au code de la route&nbsp;: tout est vérifié avant le devis.</p>
-                        </li>
-                        <li>
-                            <h3>Des équipements homologués</h3>
-                            <p>Chaque équipement réglementé est accompagné de son procès-verbal d'homologation.</p>
-                        </li>
-                        <li>
-                            <h3>La vérification de votre véhicule à son arrivée</h3>
-                            <p>Nous contrôlons qu'il correspond exactement au véhicule étudié.</p>
-                        </li>
-                        <li>
-                            <h3>La réalisation dans notre atelier</h3>
-                            <p>Dans le respect des directives de carrossage du constructeur.</p>
-                        </li>
-                        <li>
-                            <h3>Les essais des appareils de levage</h3>
-                            <p>Hayons, grues et bras de levage sont essayés avant la livraison.</p>
-                        </li>
-                        <li>
-                            <h3>Le contrôle de conformité et la pesée</h3>
-                            <p>Chaque véhicule terminé est contrôlé, photographié et pesé.</p>
-                        </li>
-                        <li>
-                            <h3>Un dossier technique complet</h3>
-                            <p>Conservé au moins 10&nbsp;ans.</p>
-                        </li>
-                    </ol>
-
-                    <p>
-                        Cette démarche est vérifiée <strong>tous les deux ans par les audits de
-                        l'UTAC</strong>, qui conditionnent le maintien de notre qualification.
-                    </p>
+                    <a class="bouton-principal bouton-encart-utac" href="qualification-utac.php">Découvrir notre démarche qualité</a>
                 </section>
 
             </div>

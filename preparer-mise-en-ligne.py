@@ -11,6 +11,7 @@ Copie le site (NCM_SiteWeb/) SANS les éléments privés ou inutiles en ligne :
   - fichiers techniques de Windows (Thumbs.db, desktop.ini) ;
   - _NCM_EnLigne et _NCM_SiteArchive eux-mêmes (copie à envoyer, sauvegarde
     de l'ancien site), _NCM_FicheGoogle (photos préparées pour la fiche Google).
+  - _NCM_Versions (copies du site dans d'autres versions, pour les comparer en local).
 Le dossier _NCM_EnLigne/ est entièrement recréé à chaque lancement.
 
 Lancement (dans le dossier Z:\\NCM\\NCM_Dev\\NCM_SiteWeb) :  python preparer-mise-en-ligne.py
@@ -23,7 +24,7 @@ SOURCE = os.path.dirname(os.path.abspath(__file__))
 DESTINATION = os.path.join(SOURCE, '_NCM_EnLigne')
 
 DOSSIERS_EXCLUS = {'.git', '.claude', 'photos-a-traiter', 'photos-retouchees', 'photos-pages',
-                   '_NCM_EnLigne', '_NCM_SiteArchive', '_NCM_FicheGoogle'}
+                   '_NCM_EnLigne', '_NCM_SiteArchive', '_NCM_FicheGoogle', '_NCM_Versions'}
 FICHIERS_EXCLUS = {'Thumbs.db', 'desktop.ini', '.gitignore',
                    'CLAUDE.md', 'cox.html', 'preparer-mise-en-ligne.py'}
 

@@ -54,6 +54,11 @@ _NCM_SiteArchive/
 # --- Photos préparées pour la fiche Google (non publiées sur le site) ---
 _NCM_FicheGoogle/
 
+# --- Versions du site à comparer en local (copies Git « worktree ») ---
+# Chaque sous-dossier est le site dans une autre version (en ligne, refonte…),
+# ouvert sur son propre port (localhost:8001, 8002…). Jamais publié.
+_NCM_Versions/
+
 # --- Fichiers de travail (jamais publiés) ---
 # CLAUDE.md : mémoire de contexte de Claude Code (gardée hors du dépôt) ;
 # cox.html : copie d'une page du site cox-bennes.com (source du logo Cox).
