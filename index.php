@@ -333,7 +333,7 @@ require __DIR__ . '/inc/header.php';
                                 <?php endif; ?>
                             <?php endforeach; ?>
                             <?php if ($annonce['bouton'] !== ''): ?>
-                                <a class="annonce-lien" href="<?= htmlspecialchars($annonce['bouton_lien']) ?>"><?= htmlspecialchars($annonce['bouton']) ?></a>
+                                <a class="bouton-principal bouton-annonce" href="<?= htmlspecialchars($annonce['bouton_lien']) ?>"><?= htmlspecialchars($annonce['bouton']) ?></a>
                             <?php endif; ?>
                         </div>
                     <?php endforeach; ?>

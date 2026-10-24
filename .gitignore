@@ -46,7 +46,16 @@ images/photos-retouchees/
 
 # --- Mise en ligne ---
 # _NCM_EnLigne : copie propre du site, prête à envoyer chez IONOS (recréée
-#   par preparer-mise-en-ligne.py, dans le dossier parent) ;
+#   par preparer-mise-en-ligne.py, rangé dans ce dossier) ;
 # _NCM_SiteArchive : sauvegarde de l'ancien site migliore06.fr.
 _NCM_EnLigne/
 _NCM_SiteArchive/
+
+# --- Photos préparées pour la fiche Google (non publiées sur le site) ---
+_NCM_FicheGoogle/
+
+# --- Fichiers de travail (jamais publiés) ---
+# CLAUDE.md : mémoire de contexte de Claude Code (gardée hors du dépôt) ;
+# cox.html : copie d'une page du site cox-bennes.com (source du logo Cox).
+CLAUDE.md
+cox.html

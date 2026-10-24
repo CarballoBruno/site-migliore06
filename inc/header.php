@@ -196,6 +196,9 @@ $adressePage = $adresseSite . ($fichierPageEnCours === 'index.php' ? '' : $fichi
                     </svg>
                 </a>
             </li>
+            <!-- Contact juste après la maison (demande du client, 23/10/2026) : il reste
+                 toujours au même endroit ; les autres liens viendront à la suite. -->
+            <li><a href="contact.php"<?= marquerLienActif('contact', $pageActive) ?>>Contact</a></li>
             <?php if ($afficherMenuComplet): ?>
             <!-- Menu déroulant « Nos aménagements » : la liste s'ouvre au survol
                  de la souris, ou au toucher / clic sur le bouton (téléphone,
@@ -221,7 +224,6 @@ $adressePage = $adresseSite . ($fichierPageEnCours === 'index.php' ? '' : $fichi
                 <li><a href="<?= donnerAdresseLienMenu($fichierPage, $adresseDeSecours) ?>"<?= marquerLienActif(basename($fichierPage, '.php'), $pageActive) ?>><?= htmlspecialchars($nomMenu) ?></a></li>
             <?php endforeach; ?>
             <?php endif; ?>
-            <li><a href="contact.php"<?= marquerLienActif('contact', $pageActive) ?>>Contact</a></li>
         </ul>
     </nav>
 

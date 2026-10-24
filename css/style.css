@@ -35,6 +35,11 @@ html {
     font-size: clamp(16px, calc(100vw * 16 / var(--largeur-reference-ecran)), var(--taille-base-maximale));
 }
 
+/* Titres de tout le site en demi-gras (site allégé, 23/10/2026). */
+h1, h2, h3, h4 {
+    font-weight: var(--epaisseur-titres);
+}
+
 body {
     margin: 0;
     background-color: var(--couleur-fond-page);
@@ -62,22 +67,29 @@ img {
     display: block;
 }
 
-/* Liens : bleu moyen, sans soulignement ; bleu logo au survol. */
+/* Liens — règle des éléments cliquables de tout le site (23/10/2026) :
+   bleu marine au repos, bleu moyen au survol ; les liens dans un texte
+   (paragraphe, adresse) se soulignent en plus au survol. (Avant : bleu
+   moyen au repos, bleu logo au survol.) */
 a {
-    color: var(--couleur-bleu-moyen);
+    color: var(--couleur-accent);
     text-decoration: none;
     transition: color var(--duree-transition);
 }
 
 a:hover {
-    color: var(--couleur-bleu-logo);
+    color: var(--couleur-bleu-moyen);
+}
+
+:where(p, address) a:hover {
+    text-decoration: underline;
 }
 
 /* Contour bien visible autour de l'élément sélectionné au clavier
    (touche Tab) : indispensable pour les personnes qui n'utilisent pas
    de souris. */
 :focus-visible {
-    outline: var(--epaisseur-soulignement) solid var(--couleur-bleu-moyen);
+    outline: var(--epaisseur-soulignement) solid var(--couleur-accent);
     outline-offset: 3px;
 }
 
@@ -221,16 +233,36 @@ a:hover {
 }
 
 
-/* --- 2.2 Bande bleue épaisse : contient le menu ---------------------- */
+/* --- 2.2 Ligne du menu, entre deux liserés bleus ---------------------- */
 
-/* La bande sépare la présentation de l'entreprise du contenu de la page.
-   Le menu y est écrit en blanc, centré. */
+/* Depuis le 23/10/2026 (demande du client : la bande bleue épaisse était trop
+   prononcée), le menu est écrit en bleu sur le fond de la page, centré, avec un
+   liseré bleu fin qui part de la gauche, s'arrête avant la maison, et reprend
+   après le dernier lien jusqu'à droite. Le nom de la classe est resté le même. */
 .bande-bleue-epaisse {
     min-height: var(--hauteur-bande-bleue-epaisse);
-    background-color: var(--couleur-bleu-logo);
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: var(--espace-moyen);
+}
+
+/* Les deux liserés. Depuis le 23/10/2026 (demande du client), le menu n'est plus
+   centré mais placé à gauche : un COURT liseré de la largeur du logo NCM (le menu
+   commence ainsi au bord droit du logo), puis la maison, Contact et les autres
+   liens, puis un liseré qui prend toute la place restante jusqu'à droite. */
+.bande-bleue-epaisse::before,
+.bande-bleue-epaisse::after {
+    content: "";
+    border-top: var(--epaisseur-lisere) solid var(--couleur-lisere);
+}
+
+.bande-bleue-epaisse::before {
+    flex: 0 0 var(--largeur-lisere-menu-gauche);
+}
+
+.bande-bleue-epaisse::after {
+    flex: 1 1 0;
 }
 
 /* Liens du menu alignés à l'horizontale, centrés. */
@@ -246,7 +278,7 @@ a:hover {
 }
 
 /* Chaque lien (et le bouton du menu déroulant) : police principale, en
-   blanc. Un petit trait (transparent par défaut) est prévu sous chaque lien. */
+   bleu. Un petit trait (transparent par défaut) est prévu sous chaque lien. */
 .menu-principal-liste a,
 .menu-deroulant-bouton {
     display: block;
@@ -254,7 +286,7 @@ a:hover {
     font-family: var(--police-principale);
     font-size: var(--taille-menu);
     line-height: var(--hauteur-ligne-titres);
-    color: var(--couleur-blanc);
+    color: var(--couleur-accent);
     border-bottom: var(--epaisseur-trait-menu) solid transparent;
     transition: border-color var(--duree-transition);
 }
@@ -268,24 +300,24 @@ a:hover {
     fill: currentColor;
 }
 
-/* Au survol de la souris : le petit trait apparaît en bleu clair. */
+/* Au survol de la souris : le lien passe en bleu moyen, avec le petit trait
+   (règle des éléments cliquables, 23/10/2026). */
 .menu-principal-liste a:hover,
 .menu-deroulant-bouton:hover {
-    color: var(--couleur-blanc);
-    border-bottom-color: var(--couleur-bleu-logo-clair);
+    color: var(--couleur-bleu-moyen);
+    border-bottom-color: var(--couleur-bleu-moyen);
 }
 
-/* Page en cours : petit trait blanc sous le lien. */
+/* Page en cours : petit trait sous le lien, de la couleur du menu. */
 .menu-principal-liste a.lien-actif,
 .menu-deroulant-bouton.lien-actif {
-    border-bottom-color: var(--couleur-blanc);
+    border-bottom-color: var(--couleur-accent);
 }
 
-/* Contour de sélection au clavier en blanc (le bleu serait invisible
-   sur la bande bleue). */
+/* Contour de sélection au clavier en bleu marine. */
 .menu-principal-liste a:focus-visible,
 .menu-deroulant-bouton:focus-visible {
-    outline-color: var(--couleur-blanc);
+    outline-color: var(--couleur-accent);
 }
 
 /* --- Menu déroulant « Nos aménagements » ---------------------------- */
@@ -328,7 +360,7 @@ a:hover {
     list-style: none;
     background-color: var(--couleur-blanc);
     border: var(--epaisseur-bordure) solid var(--couleur-gris-bordure);
-    border-top: var(--epaisseur-trait-menu) solid var(--couleur-bleu-logo);
+    border-top: var(--epaisseur-trait-menu) solid var(--couleur-accent);
     border-radius: 0 0 var(--arrondi-moyen) var(--arrondi-moyen);
     box-shadow: var(--ombre-carte-survol);
 }
@@ -354,23 +386,26 @@ a:hover {
 }
 
 .menu-principal-liste .menu-deroulant-liste a:focus-visible {
-    outline-color: var(--couleur-bleu-logo);
+    outline-color: var(--couleur-accent);
 }
 
 
 /* ==========================================================================
    3. PIED DE PAGE (inc/footer.php)
-   Bande bleue de la même largeur que le bandeau du haut, texte blanc,
+   Même largeur que le bandeau du haut. Depuis le 23/10/2026 (demande du
+   client, comme le menu) : plus de bande bleue pleine, mais le fond de la
+   page avec un liseré bleu marine au-dessus, texte bleu marine, nom de
+   l'entreprise en Impact bleu vif comme en haut de page.
    3 colonnes : juridique + contact | identité (la plus large) | liens
-   légaux + copyright, séparées par des traits verticaux blancs.
+   légaux + copyright, séparées par de fins traits verticaux bleu marine.
    ========================================================================== */
 
 .pied-de-page {
     width: var(--largeur-bandeau-haut);
     margin: var(--espace-tres-grand) auto var(--espace-petit);
     padding: var(--espace-tres-petit) var(--espace-grand);
-    background-color: var(--couleur-bleu-logo);
-    color: var(--couleur-blanc);
+    border-top: var(--epaisseur-lisere) solid var(--couleur-lisere);
+    color: var(--couleur-accent);
     font-family: var(--police-principale);
     font-size: var(--taille-texte-petit);
     line-height: var(--hauteur-ligne-titres);
@@ -418,8 +453,8 @@ a:hover {
 .colonne-identite {
     grid-area: identite;
     padding: 0 var(--espace-moyen);
-    border-left: var(--epaisseur-trait-pied-de-page) solid var(--couleur-blanc);
-    border-right: var(--epaisseur-trait-pied-de-page) solid var(--couleur-blanc);
+    border-left: var(--epaisseur-trait-pied-de-page) solid var(--couleur-trait-pied-de-page);
+    border-right: var(--epaisseur-trait-pied-de-page) solid var(--couleur-trait-pied-de-page);
 }
 
 .colonne-legale {
@@ -453,30 +488,29 @@ a:hover {
     margin: 0 calc(var(--espace-petit) - var(--espace-moyen));
 }
 
-/* « Nouvelle Carrosserie Migliore » : en Impact, en grand, comme le titre
-   du bandeau du haut. Exceptionnellement en blanc et non en bleu : du
-   bleu sur la bande bleue serait invisible. */
+/* « Nouvelle Carrosserie Migliore » : en Impact, en bleu vif, comme le titre
+   du bandeau du haut (en blanc jusqu'au 23/10/2026, sur l'ancienne bande bleue). */
 .pied-de-page-nom {
+    color: var(--couleur-bleu-logo);
     font-family: var(--police-titre-entreprise);
     font-size: var(--taille-nom-pied-de-page);
     font-weight: var(--epaisseur-normale);   /* Impact est déjà très épaisse */
     letter-spacing: 0.02em;
 }
 
-/* Liens du pied de page : blancs, soulignés au survol. */
+/* Liens du pied de page : bleu marine, soulignés au survol. */
 .pied-de-page a {
-    color: var(--couleur-blanc);
+    color: var(--couleur-accent);
 }
 
 .pied-de-page a:hover {
-    color: var(--couleur-blanc);
+    color: var(--couleur-accent);
     text-decoration: underline;
 }
 
-/* Contour de sélection au clavier en blanc (le bleu serait invisible
-   sur la bande bleue). */
+/* Contour de sélection au clavier en bleu marine. */
 .pied-de-page a:focus-visible {
-    outline-color: var(--couleur-blanc);
+    outline-color: var(--couleur-accent);
 }
 
 
@@ -501,7 +535,7 @@ a:hover {
     font-size: var(--taille-titre-section);
     line-height: var(--hauteur-ligne-titres);
     color: var(--couleur-bleu-fonce);
-    border-bottom: var(--epaisseur-soulignement) solid var(--couleur-bleu-logo);
+    border-bottom: var(--epaisseur-soulignement) solid var(--couleur-accent);   /* bleu marine (23/10/2026) */
 }
 
 /* Le premier titre de la page n'a pas d'espace au-dessus. */
@@ -561,11 +595,13 @@ a:hover {
    dans une carte blanche qui ressort du fond.
    ========================================================================== */
 
+/* Même largeur que le bandeau du haut et que l'accueil : le contenu commence au
+   bord gauche du logo NCM et finit au bord droit du bloc UTAC (23/10/2026,
+   demande du client ; avant : largeur maximale de 75rem, plus étroite). */
 .page-contact {
-    width: 100%;
-    max-width: var(--largeur-max-contenu);
+    width: var(--largeur-bandeau-haut);
     margin: 0 auto;
-    padding: var(--espace-tres-grand) var(--marge-cotes-ecran);
+    padding: var(--espace-tres-grand) 0;
 }
 
 /* Titre « Contact » et texte d'introduction. */
@@ -588,7 +624,31 @@ a:hover {
     display: grid;
     grid-template-columns: 3fr 2fr;
     gap: var(--espace-tres-grand);
-    align-items: start;
+    /* Les deux cadres ont la même hauteur et finissent au même niveau en bas
+       (23/10/2026, demande du client). Dans le cadre du formulaire, c'est la case
+       « Votre message » qui s'agrandit pour occuper la place (voir plus bas). */
+    align-items: stretch;
+}
+
+/* Cadre du formulaire : le formulaire occupe toute la hauteur du cadre… */
+#formulaire.carte-contact {
+    display: flex;
+    flex-direction: column;
+}
+
+#formulaire .formulaire-contact {
+    flex: 1 1 auto;
+}
+
+/* … et la case « Votre message » prend la place restante. */
+.formulaire-champ.champ-message-extensible {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.champ-message-extensible textarea {
+    flex: 1 1 auto;
 }
 
 /* Carte blanche (formulaire, coordonnées). */
@@ -641,8 +701,11 @@ a:hover {
 
 /* --- 5.2 Formulaire ---------------------------------------------------- */
 
+/* Les champs l'un sous l'autre (en colonne « flex », pour que la case du message
+   puisse s'agrandir, 23/10/2026). */
 .formulaire-contact {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: var(--espace-moyen);
 }
 
@@ -694,7 +757,7 @@ a:hover {
 /* Zone de saisie active : bordure bleue. */
 .formulaire-champ input:focus,
 .formulaire-champ textarea:focus {
-    border-color: var(--couleur-bleu-moyen);
+    border-color: var(--couleur-accent);
     background-color: var(--couleur-blanc);
 }
 
@@ -725,22 +788,28 @@ a:hover {
 .bouton-envoyer,
 .bouton-principal {
     justify-self: start;
+    align-self: flex-start;   /* garde sa largeur dans une colonne « flex » (formulaire) */
     padding: var(--espace-petit) var(--espace-tres-grand);
     font-family: var(--police-principale);
     font-size: var(--taille-texte-grand);
     font-weight: var(--epaisseur-grasse);
     color: var(--couleur-blanc);
-    background-color: var(--couleur-bleu-logo);
+    background-color: var(--couleur-accent);   /* bleu marine des titres (23/10/2026) */
     border: none;
     border-radius: var(--arrondi-petit);
     cursor: pointer;
-    transition: background-color var(--duree-transition);
+    transition: background-color var(--duree-transition), box-shadow var(--duree-transition),
+                transform var(--duree-transition);
 }
 
+/* Au survol (règle des éléments cliquables, 23/10/2026) : le fond passe au bleu
+   moyen et le bouton se soulève légèrement, avec une ombre. */
 .bouton-envoyer:hover,
 .bouton-principal:hover {
     color: var(--couleur-blanc);
-    background-color: var(--couleur-bleu-fonce);
+    background-color: var(--couleur-bleu-moyen);
+    box-shadow: var(--ombre-carte-survol);
+    transform: translateY(-1px);
 }
 
 /* Le bouton principal est un lien : on enlève le soulignement des liens. */
@@ -772,7 +841,22 @@ a:hover {
 }
 
 .telephone-en-clair a {
-    color: var(--couleur-bleu-logo);
+    color: var(--couleur-accent);
+}
+
+/* Téléphones en grand (accueil « Nous joindre », page Contact) : petit combiné
+   devant le numéro, pour montrer qu'un clic lance l'appel ; souligné au survol
+   (règle des éléments cliquables, 23/10/2026). */
+.encart-telephone a::before,
+.telephone-en-clair a::before {
+    content: "\260E"; /* combiné ☎ */
+    margin-right: 0.35em;
+}
+
+.encart-telephone a:hover,
+.telephone-en-clair a:hover {
+    color: var(--couleur-accent);
+    text-decoration: underline;
 }
 
 /* Adresse postale et email, une information par ligne. */
@@ -879,17 +963,18 @@ a:hover {
     font-family: var(--police-principale);
     font-size: var(--taille-texte-normal);
     font-weight: var(--epaisseur-semi-grasse);
-    color: var(--couleur-bleu-logo);
+    color: var(--couleur-accent);
     background-color: var(--couleur-blanc);
-    border: var(--epaisseur-soulignement) solid var(--couleur-bleu-logo);
+    border: var(--epaisseur-soulignement) solid var(--couleur-accent);
     border-radius: var(--arrondi-petit);
     cursor: pointer;
     transition: background-color var(--duree-transition), color var(--duree-transition);
 }
 
+/* Au survol : se remplit en bleu marine (règle des éléments cliquables, 23/10/2026). */
 .bouton-carte:hover {
     color: var(--couleur-blanc);
-    background-color: var(--couleur-bleu-logo);
+    background-color: var(--couleur-accent);
 }
 
 .lien-carte {
@@ -970,9 +1055,9 @@ a:hover {
     align-items: center;
     justify-content: center;
     font-size: var(--taille-texte-petit);
-    color: var(--couleur-bleu-logo);
+    color: var(--couleur-accent);
     background-color: var(--couleur-blanc);
-    border: var(--epaisseur-soulignement) solid var(--couleur-bleu-logo);
+    border: var(--epaisseur-soulignement) solid var(--couleur-accent);
     border-radius: 50%;
     cursor: pointer;
     opacity: 0.9;
@@ -994,21 +1079,28 @@ a:hover {
         animation: none;
     }
 
+    /* Boutons et flèches : changement de couleur seulement, sans mouvement. */
+    .bouton-envoyer:hover,
+    .bouton-principal:hover,
+    .carte-amenagement-lien:hover .carte-amenagement-suite::after {
+        transform: none;
+    }
+
     .carrousel-fenetre {
         overflow-x: auto;
     }
 }
 
 
-/* --- 6.2 Bande bleue sous le carrousel ---------------------------------- */
+/* --- 6.2 Liseré bleu sous le carrousel -------------------------------- */
 
-/* Simple séparation, de la même largeur et de la même hauteur que la
-   bande bleue du menu. */
+/* Simple séparation, de la même largeur que le bandeau. Depuis le 23/10/2026
+   (demande du client), un liseré bleu fin à la place de la bande bleue épaisse.
+   Le nom de la classe est resté le même. */
 .bande-bleue-carrousel {
     width: var(--largeur-bandeau-haut);
-    height: var(--hauteur-bande-bleue-epaisse);
-    margin: 0 auto;
-    background-color: var(--couleur-bleu-logo);
+    margin: var(--espace-moyen) auto 0;
+    border-top: var(--epaisseur-lisere) solid var(--couleur-lisere);
 }
 
 
@@ -1033,7 +1125,10 @@ a:hover {
     display: grid;
     grid-template-columns: minmax(0, var(--parts-contenu-principal)) minmax(var(--largeur-min-colonne-droite), 1fr);
     gap: var(--espace-tres-grand);
-    align-items: start;
+    /* Les deux colonnes ont la même hauteur (23/10/2026, demande du client) : le
+       bas de la colonne de droite tombe sur la dernière ligne du texte de gauche
+       (le dernier encart s'allonge, voir .colonne-droite). */
+    align-items: stretch;
 }
 
 /* Présentation de l'entreprise (en haut de la zone principale).
@@ -1070,6 +1165,35 @@ a:hover {
     gap: var(--espace-petit);
 }
 
+/* Alignement exact sur le texte (demande du client, 23/10/2026 : texte et images
+   « justifiés » en haut, en bas, à gauche et à droite). Quand le texte et les
+   images sont côte à côte (au-dessus de 600 px), la colonne d'images ne décide
+   plus de la hauteur (« contain: size ») : elle prend exactement celle du texte,
+   et ses deux images se réduisent si besoin (sans être déformées ni coupées)
+   pour que le haut de la première et le bas de la seconde tombent sur le haut et
+   le bas du texte. */
+@media (min-width: 601px) {
+    .presentation-images {
+        contain: size;
+    }
+
+    .presentation-images .image-dans-texte {
+        display: flex;
+        flex-direction: column;
+        flex: 0 1 auto;
+        min-height: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .presentation-images .image-dans-texte img {
+        flex: 0 1 auto;
+        min-height: 0;
+        height: auto;
+        object-fit: contain;
+    }
+}
+
 /* Bouton de la colonne : un peu plus compact, pour tenir sur une ligne. */
 .bouton-colonne-images {
     margin-top: auto;
@@ -1094,7 +1218,7 @@ a:hover {
    évite les grands espaces que la justification crée parfois. */
 .presentation p {
     margin: 0 0 var(--espace-moyen);
-    font-size: var(--taille-texte-grand);
+    font-size: var(--taille-texte-normal);   /* 18 → 16 px : site allégé (23/10/2026) */
     line-height: var(--hauteur-ligne-texte);
     text-align: justify;
     hyphens: auto;
@@ -1136,7 +1260,7 @@ a:hover {
 /* Mots clés mis en valeur dans le texte de présentation : en gras et du
    même bleu foncé que le titre (avec modération : quelques expressions). */
 .presentation strong {
-    font-weight: var(--epaisseur-grasse);
+    font-weight: var(--epaisseur-mise-en-valeur);
     color: var(--couleur-bleu-fonce);
 }
 
@@ -1150,7 +1274,7 @@ a:hover {
 
 .certification {
     padding-top: var(--espace-grand);
-    border-top: var(--epaisseur-soulignement) solid var(--couleur-gris-bordure);
+    border-top: var(--epaisseur-lisere) solid var(--couleur-lisere);
 }
 
 .certification-titre {
@@ -1164,18 +1288,25 @@ a:hover {
 
 .certification > p {
     margin: 0 0 var(--espace-moyen);
-    font-size: var(--taille-texte-grand);
+    font-size: var(--taille-texte-normal);   /* 18 → 16 px : site allégé (23/10/2026) */
     line-height: var(--hauteur-ligne-texte);
     text-align: justify;
     hyphens: auto;
 }
 
+/* Le dernier paragraphe de la certification n'a pas de marge dessous : c'est sur
+   sa dernière ligne que s'aligne le bas de la colonne de droite (23/10/2026). */
+.certification > p:last-child {
+    margin-bottom: 0;
+}
+
 .certification strong {
+    font-weight: var(--epaisseur-mise-en-valeur);
     color: var(--couleur-bleu-fonce);
 }
 
 /* Les 7 étapes : petites cartes blanches sur 2 colonnes, chacune avec son
-   numéro dans une pastille bleue (compteur CSS, pas de numéro dans le texte). */
+   numéro dans une pastille bleu marine (compteur CSS, pas de numéro dans le texte). */
 .etapes {
     list-style: none;
     margin: 0 0 var(--espace-moyen);
@@ -1206,7 +1337,7 @@ a:hover {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background-color: var(--couleur-bleu-logo);
+    background-color: var(--couleur-accent);   /* bleu marine des titres (23/10/2026) */
     color: var(--couleur-blanc);
     font-weight: var(--epaisseur-grasse);
 }
@@ -1236,6 +1367,11 @@ a:hover {
     display: flex;
     flex-direction: column;
     gap: var(--espace-grand);
+    /* La colonne a la hauteur du texte de gauche (voir .accueil-haut) : le bas du
+       dernier encart tombe sur la dernière ligne de gauche. S'il reste un peu de
+       place, elle est répartie ENTRE les encarts, et non laissée en blanc au fond
+       du dernier (demande du client, 23/10/2026). */
+    justify-content: space-between;
 }
 
 /* Encart de la colonne de droite (horaires…) : carte blanche qui ressort
@@ -1256,22 +1392,37 @@ a:hover {
     font-size: var(--taille-titre-carte);
     line-height: var(--hauteur-ligne-titres);
     color: var(--couleur-bleu-fonce);
-    border-bottom: var(--epaisseur-soulignement) solid var(--couleur-bleu-logo);
+    border-bottom: var(--epaisseur-soulignement) solid var(--couleur-accent);   /* bleu marine (23/10/2026) */
 }
 
+/* Horaires de l'encart : la taille suit la largeur de l'encart (« cqi » = 1 %
+   de sa largeur), sans dépasser la taille normale, pour que chaque jour tienne
+   toujours sur une seule ligne (réglé le 23/10/2026 avec Public Sans, plus
+   large que Times New Roman). */
 .encart-colonne .horaires {
-    font-size: var(--taille-texte-normal);
+    font-size: clamp(var(--taille-texte-tres-petit), var(--taille-horaires-encart), var(--taille-texte-normal));
 }
 
-/* Encart étroit (ordinateur portable) : horaires un peu plus petits, pour
-   que chaque jour tienne sur une seule ligne. */
+.encart-colonne .horaires-ligne {
+    gap: var(--espace-petit);
+}
+
+/* Encart étroit (ordinateur portable, ~1366 px) : même en petit, une ligne ne
+   suffit pas. Pour TOUS les jours, la plage du matin et celle de l'après-midi
+   passent l'une sous l'autre (même présentation pour chaque jour), en taille
+   lisible, sans le « / ». */
 @container (max-width: 18rem) {
     .encart-colonne .horaires {
         font-size: var(--taille-texte-petit);
     }
 
-    .encart-colonne .horaires-ligne {
-        gap: var(--espace-petit);
+    .encart-colonne .horaires dd {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .encart-colonne .horaires dd span:not(:last-child)::after {
+        content: none;
     }
 }
 
@@ -1310,7 +1461,7 @@ a:hover {
 .annonce {
     padding: var(--espace-petit) var(--espace-moyen);
     background-color: var(--couleur-fond-annonce);
-    border-left: var(--epaisseur-bordure-accent) solid var(--couleur-bleu-moyen);
+    border-left: var(--epaisseur-bordure-accent) solid var(--couleur-accent);   /* bleu marine (23/10/2026) */
     border-radius: var(--arrondi-petit);
 }
 
@@ -1373,16 +1524,14 @@ a:hover {
     color: var(--couleur-bleu-fonce);
 }
 
-/* Lien sous l'annonce (« bouton: » dans le fichier), ex. « Contactez-nous ». */
-.annonce-lien {
-    display: inline-block;
+/* Bouton sous l'annonce (« bouton: » dans le fichier), ex. « Contactez-nous » :
+   depuis le 23/10/2026 (demande du client), même aspect que « Parlez-nous de
+   votre projet » (classe bouton-principal), en un peu plus petit car la colonne
+   est étroite. */
+.bouton-annonce {
     margin-top: var(--espace-petit);
-    font-weight: var(--epaisseur-grasse);
-    color: var(--couleur-bleu-logo);
-}
-
-.annonce-lien::after {
-    content: " \2192"; /* flèche → */
+    padding: var(--espace-tres-petit) var(--espace-grand);
+    font-size: var(--taille-texte-normal);
 }
 
 /* « Nous joindre » : téléphone en grand, adresse, bouton. */
@@ -1394,7 +1543,7 @@ a:hover {
 }
 
 .encart-telephone a {
-    color: var(--couleur-bleu-logo);
+    color: var(--couleur-accent);
     text-decoration: none;
 }
 
@@ -1420,11 +1569,12 @@ a:hover {
     gap: var(--espace-tres-grand);
 }
 
-/* Liseré gris au-dessus de chaque section pleine largeur (Nos aménagements,
-   fin de page), comme celui qui sépare la présentation de la certification. */
+/* Liseré bleu au-dessus de chaque section pleine largeur (Nos aménagements,
+   fin de page), comme celui qui sépare la présentation de la certification
+   (bleu depuis le 23/10/2026, demande du client ; gris avant). */
 .accueil-sections > * {
     padding-top: var(--espace-grand);
-    border-top: var(--epaisseur-soulignement) solid var(--couleur-gris-bordure);
+    border-top: var(--epaisseur-lisere) solid var(--couleur-lisere);
 }
 
 /* --- Nos aménagements : cartes photo + titre + texte (pleine largeur) --- */
@@ -1562,15 +1712,29 @@ a:hover {
     object-fit: contain;
 }
 
+/* « Découvrir → » d'une carte : comme « Contactez-nous → » (règle des éléments
+   cliquables, 23/10/2026) : bleu marine en gras ; au survol de la carte,
+   souligné et la flèche avance un peu. */
 .carte-amenagement-suite {
     display: inline-block;
     margin-top: var(--espace-petit);
     font-weight: var(--epaisseur-grasse);
-    color: var(--couleur-bleu-logo);
+    color: var(--couleur-accent);
 }
 
 .carte-amenagement-suite::after {
-    content: " \2192"; /* flèche → */
+    content: "\2192"; /* flèche → */
+    display: inline-block;
+    margin-left: 0.3em;
+    transition: transform var(--duree-transition);
+}
+
+.carte-amenagement-lien:hover .carte-amenagement-suite {
+    text-decoration: underline;
+}
+
+.carte-amenagement-lien:hover .carte-amenagement-suite::after {
+    transform: translateX(0.25em);
 }
 
 
@@ -1640,12 +1804,12 @@ a:hover {
     .colonne-identite {
         border-left: none;
         border-right: none;
-        border-bottom: var(--epaisseur-trait-pied-de-page) solid var(--couleur-blanc);
+        border-bottom: var(--epaisseur-trait-pied-de-page) solid var(--couleur-trait-pied-de-page);
         padding: 0 0 var(--espace-petit);
     }
 
     .colonne-gauche {
-        border-right: var(--epaisseur-trait-pied-de-page) solid var(--couleur-blanc);
+        border-right: var(--epaisseur-trait-pied-de-page) solid var(--couleur-trait-pied-de-page);
     }
 }
 
@@ -1690,7 +1854,7 @@ a:hover {
     .colonne-gauche {
         border-right: none;
         padding: 0 0 var(--espace-petit);
-        border-bottom: var(--epaisseur-trait-pied-de-page) solid var(--couleur-blanc);
+        border-bottom: var(--epaisseur-trait-pied-de-page) solid var(--couleur-trait-pied-de-page);
     }
 
     /* Sur petit écran, les lignes de la colonne 1 sont simplement centrées. */
@@ -1735,7 +1899,8 @@ a:hover {
     .pied-de-page,
     .carrousel,
     .bande-bleue-carrousel,
-    .accueil-corps {
+    .accueil-corps,
+    .page-contact {
         width: auto;
         margin-left: var(--marge-cotes-ecran);
         margin-right: var(--marge-cotes-ecran);

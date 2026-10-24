@@ -36,6 +36,11 @@
        sous-titre « - Carrossier Constructeur - », comme sur l'ancien site. */
     --couleur-bleu-logo-clair: #8080FF;
 
+    /* Couleur d'accent (23/10/2026, choix du client) : le bleu marine des titres
+       (« Carrossier constructeur depuis 1948… »), repris pour les liserés, le menu,
+       les pastilles numérotées et le bouton « Parlez-nous de votre projet ». */
+    --couleur-accent: var(--couleur-bleu-fonce);
+
     /* Gris clair : fond des sections alternées, pour rythmer la page. */
     --couleur-gris-clair: #F2F3F6;
 
@@ -81,13 +86,20 @@
           cette seule ligne. Exemples possibles (déjà présentes dans le
           dossier /polices/) :
             "Public Sans", "Segoe UI", Arial, sans-serif
-            "Barlow Condensed", "Arial Narrow", Arial, sans-serif */
-    --police-principale: "Times New Roman", Times, Georgia, serif;
+            "Barlow Condensed", "Arial Narrow", Arial, sans-serif
+          Source Sans 3 depuis le 23/10/2026 (choix du client : plus fine et plus
+          élégante que Public Sans, essayée le même jour et jugée « très mastoc » ;
+          Times New Roman avant, comme l'ancien site). */
+    --police-principale: "Source Sans 3", "Segoe UI", Arial, sans-serif;
 
     /* Épaisseurs de police utilisées. */
     --epaisseur-normale: 400;
     --epaisseur-semi-grasse: 600;
     --epaisseur-grasse: 700;
+    /* Site allégé (23/10/2026, validé par le client sur comparaison) : titres et mots
+       mis en valeur dans le texte en demi-gras plutôt qu'en gras épais. */
+    --epaisseur-titres: var(--epaisseur-semi-grasse);
+    --epaisseur-mise-en-valeur: var(--epaisseur-semi-grasse);
 
 
     /* ----------------------------------------------------------------------
@@ -99,6 +111,8 @@
        ---------------------------------------------------------------------- */
 
     --taille-texte-petit: 0.875rem;                         /* ~14 px : mentions, dates */
+    --taille-texte-tres-petit: 0.75rem;                     /* ~12 px : plancher des horaires de l'encart */
+    --taille-horaires-encart: 5cqi;                         /* horaires de l'encart : 5 % de sa largeur */
     --taille-texte-normal: 1rem;                            /* ~16 px : texte courant */
     --taille-texte-grand: 1.125rem;                         /* ~18 px : paragraphes d'introduction */
 
@@ -167,7 +181,11 @@
        colonne 1 part : 3fr = colonne d'1/4 de la largeur (4fr = 1/5,
        2fr = 1/3). La colonne ne descend jamais sous la largeur minimale
        (sinon trop étroite sur les ordinateurs portables). */
-    --parts-contenu-principal: 3fr;
+    /* 23/10/2026 (demande du client : bas de la colonne de droite aligné sur
+       la dernière ligne du texte de gauche, sans grand blanc) : 2.6fr = colonne
+       d'environ 28 % sur les grands écrans (mesuré à 1440, 1707, 1920 px) ;
+       2.4fr (~29 %) sur les portables, voir plus bas (écrans de 1400 px et moins). */
+    --parts-contenu-principal: 2.6fr;
     --largeur-min-colonne-droite: 16rem;    /* ~256 px */
 
     /* Largeur des images de la présentation de l'accueil, en part de la
@@ -202,6 +220,9 @@
 
     /* Hauteur des logos qui encadrent le bandeau du haut. */
     --hauteur-logo-ncm: 5rem;       /* ~80 px */
+    /* Court liseré à gauche du menu : de la largeur du logo NCM (proportions du
+       logo : 262 × 161), pour que le menu commence au bord droit du logo. */
+    --largeur-lisere-menu-gauche: calc(var(--hauteur-logo-ncm) * 262 / 161);
     --hauteur-logo-utac: 2.125rem;  /* ~34 px */
 
 
@@ -216,7 +237,12 @@
     --epaisseur-bordure-accent: 4px; /* liseré bleu sur le côté d'un encart */
     --epaisseur-soulignement: 2px;   /* contour de sélection au clavier */
     --epaisseur-trait-menu: 3px;     /* petit trait blanc sous la page active du menu */
-    --epaisseur-trait-pied-de-page: 2px; /* traits blancs entre les colonnes du pied de page */
+    --epaisseur-trait-pied-de-page: 1px; /* fins traits entre les colonnes du pied de page (2px blancs avant le 23/10/2026) */
+    --couleur-trait-pied-de-page: var(--couleur-accent);
+    /* Liseré bleu fin (23/10/2026 : remplace les deux bandes bleues épaisses, jugées trop
+       prononcées) : de part et d'autre du menu, sous les photos, entre les parties de la page. */
+    --epaisseur-lisere: 2px;
+    --couleur-lisere: var(--couleur-accent);
 
     /* Ombre légère sous les cartes blanches, pour les détacher du fond. */
     --ombre-carte: 0 2px 8px rgba(0, 26, 102, 0.08);
@@ -230,4 +256,14 @@
 
     /* Durée des petits effets (changement de couleur au survol, etc.). */
     --duree-transition: 0.2s;
+}
+
+
+/* Ordinateurs portables (écrans de 1400 px et moins) : colonne de droite un peu
+   plus large, pour que son bas tombe sur la dernière ligne du texte de gauche
+   (mesuré à 1280 et 1366 px, 23/10/2026). */
+@media (max-width: 1400px) {
+    :root {
+        --parts-contenu-principal: 2.4fr;
+    }
 }

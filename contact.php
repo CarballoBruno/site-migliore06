@@ -185,7 +185,9 @@ require __DIR__ . '/inc/header.php';
                     <textarea id="champ-adresse" name="adresse" rows="2" maxlength="300" autocomplete="street-address"><?= htmlspecialchars($champs['adresse']) ?></textarea>
                 </div>
 
-                <div class="formulaire-champ">
+                <!-- « champ-message-extensible » : la case s'agrandit pour que le cadre du
+                     formulaire finisse au même niveau que celui des coordonnées. -->
+                <div class="formulaire-champ champ-message-extensible">
                     <label for="champ-message">Votre message <span class="etoile" aria-hidden="true">*</span></label>
                     <textarea id="champ-message" name="message" rows="7" required maxlength="5000"
                               placeholder="Type de véhicule, aménagement souhaité, délais…"<?= marquerChampEnErreur('message', $erreurs) ?>><?= htmlspecialchars($champs['message']) ?></textarea>

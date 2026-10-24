@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ======================================================================
-     sitemap.xml — Plan du site pour les moteurs de recherche (Google…)
-     ----------------------------------------------------------------------
-     Liste des pages publiques du site. À COMPLÉTER à chaque nouvelle page
-     (ex. bennes.php) : copier un bloc <url>…</url> et changer l'adresse.
-     Une fois le site en ligne, ce plan est à déclarer dans Google Search
-     Console (rubrique « Sitemaps »).
-     ====================================================================== -->
+<!-- ==================================================================
+     sitemap.xml : plan du site pour les moteurs de recherche (Google...)
+     Liste des pages publiques du site. A COMPLETER a chaque nouvelle page
+     (ex. bennes.php) : copier un bloc <url> ... </url> et changer l'adresse.
+     Une fois le site en ligne, ce plan est declare dans Google Search
+     Console (rubrique Sitemaps).
+     Attention : ne jamais ecrire deux tirets a la suite dans ce
+     commentaire (interdit en XML, Google refuserait le fichier).
+     ================================================================== -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://www.migliore06.fr/</loc>

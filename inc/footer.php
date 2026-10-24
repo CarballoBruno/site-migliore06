@@ -2,8 +2,8 @@
 /* ==========================================================================
    inc/footer.php — Fin commune à toutes les pages du site
    --------------------------------------------------------------------------
-   Pied de page : une bande bleue de la même largeur que le bandeau du haut
-   (85 % de l'écran), en 3 colonnes :
+   Pied de page : de la même largeur que le bandeau du haut (85 % de l'écran),
+   sous un liseré bleu marine (bande bleue pleine jusqu'au 23/10/2026), en 3 colonnes :
 
      colonne 1                      ┃   colonne 2 (la plus large)     ┃ colonne 3
      SARL au capital de …  SIRET …  ┃ NOUVELLE CARROSSERIE MIGLIORE   ┃ Mentions légales  Confid.  © année
@@ -11,9 +11,9 @@
 
    (le numéro RCS figure dans la page des mentions légales)
 
-   - colonnes 1 et 3 de même largeur : le nom (Impact, blanc, plus gros)
+   - colonnes 1 et 3 de même largeur : le nom (Impact, bleu vif, plus gros)
      est exactement au centre, aligné avec le titre du bandeau du haut ;
-   - colonnes séparées par des traits verticaux blancs.
+   - colonnes séparées par de fins traits verticaux bleu marine.
    Écrans moyens : le nom et l'adresse passent au-dessus, sur toute la
    largeur, les colonnes 1 et 3 en dessous. Téléphone : tout s'empile.
 
