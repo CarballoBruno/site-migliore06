@@ -36,6 +36,14 @@
        sous-titre « - Carrossier Constructeur - », comme sur l'ancien site. */
     --couleur-bleu-logo-clair: #8080FF;
 
+    /* VERSION E (refonte, 24/10/2026, choix du client) : le nom « Nouvelle
+       Carrosserie Migliore » et le logo NCM passent au bleu marine des titres ;
+       le sous-titre « - Carrossier Constructeur - » en bleu marine éclairci de
+       moitié (même logique que l'ancien bleu lavande = bleu vif éclairci). */
+    --couleur-bleu-marine-eclairci: #808CB3;
+    --couleur-nom-entreprise: var(--couleur-bleu-fonce);
+    --couleur-sous-titre-entreprise: var(--couleur-bleu-marine-eclairci);
+
     /* Couleur d'accent (23/10/2026, choix du client) : le bleu marine des titres
        (« Carrossier constructeur depuis 1948… »), repris pour les liserés, le menu,
        les pastilles numérotées et le bouton « Parlez-nous de votre projet ». */
@@ -66,6 +74,10 @@
 
     /* Fond des annonces « Informations importantes » (bleu très pâle). */
     --couleur-fond-annonce: #EEF1FF;
+
+    /* Fond de la bande « Nos aménagements » (refonte, 24/10/2026) : gris-bleu
+       très clair, à peine plus soutenu que le fond de la page. */
+    --couleur-fond-bande: #EEF1F7;
 
 
     /* ----------------------------------------------------------------------

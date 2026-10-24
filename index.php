@@ -253,42 +253,30 @@ require __DIR__ . '/inc/header.php';
 
             </div>
 
-            <aside class="colonne-droite" aria-label="Informations pratiques">
+            <aside class="colonne-droite" aria-label="Horaires et coordonnées">
                 <!-- Horaires d'ouverture (modifiables dans config.php) -->
                 <section class="encart-colonne" aria-labelledby="titre-horaires">
                     <h2 id="titre-horaires" class="encart-colonne-titre">Horaires d'ouverture</h2>
                     <?php require __DIR__ . '/inc/horaires.php'; ?>
-                </section>
-
-                <!-- Informations importantes : d'abord « ouvert / fermé en ce
-                     moment » (calculé à chaque visite), puis les annonces lues
-                     dans contenu/infos/ (affichées automatiquement entre leurs dates) -->
-                <section id="informations" class="encart-colonne" aria-labelledby="titre-infos">
-                    <h2 id="titre-infos" class="encart-colonne-titre">Informations importantes</h2>
                     <p class="etat-ouverture <?= $etatOuverture['ouvert'] ? 'etat-ouvert' : 'etat-ferme' ?>">
                         <span class="etat-ouverture-pastille" aria-hidden="true"></span>
                         <span><?= htmlspecialchars($etatOuverture['message']) ?></span>
                     </p>
-                    <?php foreach ($annoncesActives as $annonce): ?>
-                        <div class="annonce<?= $annonce['temporaire'] ? ' annonce-temporaire' : '' ?><?= $annonce['fermeture'] ? ' annonce-fermeture' : '' ?>">
-                            <h3 class="annonce-titre"><?= htmlspecialchars($annonce['titre']) ?></h3>
-                            <?php foreach ($annonce['paragraphes'] as $paragraphe): ?>
-                                <?php if ($paragraphe['liste'] !== []): ?>
-                                    <ul class="annonce-liste">
-                                        <?php foreach ($paragraphe['liste'] as $element): ?>
-                                            <li><?= htmlspecialchars($element) ?></li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                <?php else: ?>
-                                    <p<?= $paragraphe['en_valeur'] ? ' class="annonce-en-valeur"' : '' ?>><?= htmlspecialchars($paragraphe['texte']) ?></p>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                            <?php if ($annonce['bouton'] !== ''): ?>
-                                <a class="bouton-principal bouton-annonce" href="<?= htmlspecialchars($annonce['bouton_lien']) ?>"><?= htmlspecialchars($annonce['bouton']) ?></a>
-                            <?php endif; ?>
-                        </div>
-                    <?php endforeach; ?>
                 </section>
+
+                <!-- Nous joindre (refonte, 24/10/2026) : remonté du bas de page à côté de
+                     la présentation, sous les horaires. -->
+                <section class="encart-colonne encart-joindre" aria-labelledby="titre-joindre">
+                        <h2 id="titre-joindre" class="encart-colonne-titre">Nous joindre</h2>
+                        <p class="encart-telephone">
+                            <a href="tel:<?= htmlspecialchars($telephoneLien) ?>"><?= htmlspecialchars($telephoneAffiche) ?></a>
+                        </p>
+                        <address class="encart-adresse">
+                            <?= htmlspecialchars($adresseRue) ?><br>
+                            <?= htmlspecialchars($adresseCodePostal . ' ' . $adresseVille) ?>
+                        </address>
+                        <a class="bouton-principal" href="contact.php#formulaire">Parlez-nous de votre projet</a>
+                    </section>
 
             </aside>
 
@@ -301,7 +289,7 @@ require __DIR__ . '/inc/header.php';
             <!-- Nos aménagements : une carte par type de carrosserie (contenu
                  dans contenu/amenagements.txt). Une carte devient un lien vers
                  sa page détaillée dès que cette page existe. -->
-            <section id="amenagements" class="amenagements" aria-labelledby="titre-amenagements">
+            <section id="amenagements" class="amenagements bande-teintee" aria-labelledby="titre-amenagements">
                 <h2 id="titre-amenagements" class="titre-section">Nos aménagements</h2>
                 <ul class="cartes-amenagements">
                     <?php foreach ($cartesAmenagements as $carte): ?>
@@ -343,22 +331,36 @@ require __DIR__ . '/inc/header.php';
             </section>
             <?php endif; ?>
 
-            <!-- Fin de la page : notre slogan à gauche, « Nous joindre » à droite
-                 (il fait écho à celui du bandeau du haut). -->
-            <div class="fin-de-page">
-                <p class="fin-de-page-slogan">«&nbsp;Une Écoute, Un Conseil, Un Savoir-faire&nbsp;»</p>
-                <section class="encart-colonne fin-de-page-joindre" aria-labelledby="titre-joindre">
-                    <h2 id="titre-joindre" class="encart-colonne-titre">Nous joindre</h2>
-                    <p class="encart-telephone">
-                        <a href="tel:<?= htmlspecialchars($telephoneLien) ?>"><?= htmlspecialchars($telephoneAffiche) ?></a>
-                    </p>
-                    <address class="encart-adresse">
-                        <?= htmlspecialchars($adresseRue) ?><br>
-                        <?= htmlspecialchars($adresseCodePostal . ' ' . $adresseVille) ?>
-                    </address>
-                    <a class="bouton-principal" href="contact.php#formulaire">Parlez-nous de votre projet</a>
-                </section>
-            </div>
+            <?php if ($annoncesActives !== []): ?>
+            <!-- Informations importantes (refonte, 24/10/2026) : sur toute la largeur,
+                 après « Nos aménagements », annonces côte à côte (lues dans
+                 contenu/infos/, affichées automatiquement entre leurs dates). -->
+            <section id="informations" class="informations" aria-labelledby="titre-infos">
+                <h2 id="titre-infos" class="titre-section">Informations importantes</h2>
+                <div class="informations-annonces">
+                        <?php foreach ($annoncesActives as $annonce): ?>
+                            <div class="annonce<?= $annonce['temporaire'] ? ' annonce-temporaire' : '' ?><?= $annonce['fermeture'] ? ' annonce-fermeture' : '' ?>">
+                                <h3 class="annonce-titre"><?= htmlspecialchars($annonce['titre']) ?></h3>
+                                <?php foreach ($annonce['paragraphes'] as $paragraphe): ?>
+                                    <?php if ($paragraphe['liste'] !== []): ?>
+                                        <ul class="annonce-liste">
+                                            <?php foreach ($paragraphe['liste'] as $element): ?>
+                                                <li><?= htmlspecialchars($element) ?></li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    <?php else: ?>
+                                        <p<?= $paragraphe['en_valeur'] ? ' class="annonce-en-valeur"' : '' ?>><?= htmlspecialchars($paragraphe['texte']) ?></p>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                                <?php if ($annonce['bouton'] !== ''): ?>
+                                    <a class="bouton-principal bouton-annonce" href="<?= htmlspecialchars($annonce['bouton_lien']) ?>"><?= htmlspecialchars($annonce['bouton']) ?></a>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                </div>
+            </section>
+            <?php endif; ?>
+
         </div>
 
     </div>

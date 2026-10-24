@@ -161,12 +161,12 @@ a:hover {
     font-size: var(--taille-titre-entreprise);
     font-weight: var(--epaisseur-normale);   /* Impact est déjà très épaisse */
     line-height: var(--hauteur-ligne-titres);
-    color: var(--couleur-bleu-logo);
+    color: var(--couleur-nom-entreprise);
 }
 
-/* Le titre reste bleu logo au survol de la souris. */
+/* Le titre garde sa couleur au survol de la souris. */
 .titre-entreprise:hover {
-    color: var(--couleur-bleu-logo);
+    color: var(--couleur-nom-entreprise);
 }
 
 /* « - Carrossier Constructeur - » : Impact, bleu éclairci. */
@@ -177,7 +177,7 @@ a:hover {
     font-family: var(--police-titre-entreprise);
     font-size: var(--taille-sous-titre-entreprise);
     line-height: var(--hauteur-ligne-titres);
-    color: var(--couleur-bleu-logo-clair);
+    color: var(--couleur-sous-titre-entreprise);
 }
 
 /* Slogan : police principale, en gras, centré sous le titre. */
@@ -488,10 +488,10 @@ a:hover {
     margin: 0 calc(var(--espace-petit) - var(--espace-moyen));
 }
 
-/* « Nouvelle Carrosserie Migliore » : en Impact, en bleu vif, comme le titre
-   du bandeau du haut (en blanc jusqu'au 23/10/2026, sur l'ancienne bande bleue). */
+/* « Nouvelle Carrosserie Migliore » : en Impact, de la couleur du nom, comme le
+   titre du bandeau du haut (en blanc jusqu'au 23/10/2026, sur l'ancienne bande bleue). */
 .pied-de-page-nom {
-    color: var(--couleur-bleu-logo);
+    color: var(--couleur-nom-entreprise);
     font-family: var(--police-titre-entreprise);
     font-size: var(--taille-nom-pied-de-page);
     font-weight: var(--epaisseur-normale);   /* Impact est déjà très épaisse */
@@ -874,7 +874,7 @@ a:hover {
     font-size: var(--taille-nom-coordonnees);
     line-height: var(--hauteur-ligne-titres);
     letter-spacing: 0.02em;
-    color: var(--couleur-bleu-logo);
+    color: var(--couleur-nom-entreprise);
 }
 
 /* Horaires : les jours en gras, et les heures juste en dessous. */
@@ -1494,7 +1494,7 @@ a:hover {
 }
 
 .annonce-temporaire {
-    border-left-color: var(--couleur-bleu-logo);
+    border-left-color: var(--couleur-bleu-moyen);
 }
 
 /* Fermeture exceptionnelle : en rouge, comme l'indicateur « Fermé ». */
@@ -1518,7 +1518,7 @@ a:hover {
     margin: 0 0 var(--espace-tres-petit);
     font-size: var(--taille-texte-petit);
     line-height: var(--hauteur-ligne-texte);
-    text-align: justify;   /* texte aligné à gauche et à droite */
+    text-align: left;      /* aligné à gauche (refonte, 24/10/2026) : pas de trous entre les mots dans une colonne étroite */
     hyphens: auto;         /* césure des mots longs (évite les grands blancs) */
 }
 
@@ -1532,7 +1532,7 @@ a:hover {
     padding-left: var(--espace-moyen);
     font-size: var(--taille-texte-petit);
     line-height: var(--hauteur-ligne-texte);
-    text-align: justify;
+    text-align: left;      /* aligné à gauche (refonte, 24/10/2026) : pas de trous entre les mots dans une colonne étroite */
     hyphens: auto;
 }
 
@@ -1667,7 +1667,7 @@ a:hover {
     margin: 0;
     font-size: var(--taille-texte-grand);
     line-height: var(--hauteur-ligne-texte);
-    text-align: justify;   /* bords gauche et droit alignés */
+    text-align: left;      /* aligné à gauche (refonte, 24/10/2026) : pas de trous entre les mots dans une colonne étroite */
     hyphens: auto;
 }
 
@@ -1972,5 +1972,59 @@ a:hover {
        pour ne pas dépasser de la bande bleue. */
     .pied-de-page-nom > * {
         white-space: normal;
+    }
+}
+
+
+/* ==========================================================================
+   9. REFONTE « VERSION E » DE L'ACCUEIL (24/10/2026, branche essai-refonte-e)
+   ========================================================================== */
+
+/* « Nos aménagements » sur une bande de fond légèrement teintée, d'un bord à
+   l'autre de l'écran (l'ombre « box-shadow » prolonge le fond sur les côtés,
+   « clip-path » l'arrête en haut et en bas) : l'œil sent qu'on change de partie. */
+.accueil-sections > .bande-teintee {
+    border-top: none;
+    padding-block: var(--espace-tres-grand);
+    background-color: var(--couleur-fond-bande);
+    box-shadow: 0 0 0 100vmax var(--couleur-fond-bande);
+    clip-path: inset(0 -100vmax);
+}
+
+/* Après la bande, pas de liseré : le bord de la bande sépare déjà. */
+.accueil-sections > .bande-teintee + * {
+    border-top: none;
+    padding-top: 0;
+}
+
+/* Informations importantes : annonces côte à côte sur toute la largeur. */
+.informations-annonces {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--espace-grand);
+    align-items: start;
+}
+
+.informations-annonces .annonce + .annonce {
+    margin-top: 0;
+}
+
+/* « Nous joindre » dans la colonne de droite : contenu centré. */
+.encart-joindre {
+    text-align: center;
+}
+
+.encart-joindre .bouton-principal {
+    align-self: center;
+}
+
+/* « Ouvert / fermé en ce moment », sous les horaires. */
+.encart-colonne .etat-ouverture {
+    margin: var(--espace-moyen) 0 0;
+}
+
+@media (max-width: 900px) {
+    .informations-annonces {
+        grid-template-columns: minmax(0, 1fr);
     }
 }
