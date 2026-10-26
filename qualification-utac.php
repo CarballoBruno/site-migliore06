@@ -15,8 +15,8 @@ require __DIR__ . '/config.php';
 
 // Informations propres à cette page, utilisées par inc/header.php
 $titrePage       = 'Qualification UTAC - Nouvelle Carrosserie Migliore';
-$descriptionPage = 'Opérateur qualifié UTAC pour le poids lourd, l\'utilitaire et l\'aménagement : '
-                 . 'votre véhicule neuf carrossé à La Trinité (06) est livré avec son procès-verbal, prêt à être immatriculé.';
+$descriptionPage = 'Opérateur qualifié UTAC : votre véhicule neuf carrossé à La Trinité (06) est livré avec '
+                 . 'son procès-verbal, prêt à être immatriculé.';   // ≤ 155 caractères (26/10/2026)
 $pageActive      = 'qualification-utac';
 
 // Bandeau du haut (commun à toutes les pages)

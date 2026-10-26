@@ -98,7 +98,7 @@ $jeton = creerJetonFormulaire($cleSecreteFormulaire);
    -------------------------------------------------------------------------- */
 
 // Informations propres à cette page, utilisées par inc/header.php
-$titrePage       = 'Contact - Nouvelle Carrosserie Migliore, carrossier constructeur à La Trinité (06)';
+$titrePage       = 'Contact et devis | Nouvelle Carrosserie Migliore (06)';   // ≤ 60 caractères (26/10/2026)
 $descriptionPage = 'Contactez la Nouvelle Carrosserie Migliore : formulaire de demande de devis, téléphone '
                  . $telephoneAffiche . ', adresse et horaires de l\'atelier à La Trinité (06).';
 $pageActive      = 'contact';

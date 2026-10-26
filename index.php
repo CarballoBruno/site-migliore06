@@ -21,10 +21,11 @@ require __DIR__ . '/inc/fonctions-contenu.php';
 require __DIR__ . '/inc/fonctions-horaires.php';
 
 // Informations propres à cette page, utilisées par inc/header.php
-$titrePage       = 'Nouvelle Carrosserie Migliore - Carrossier constructeur à La Trinité (06)';
-$descriptionPage = 'Carrosserie industrielle depuis 1948 : bennes, plateaux, caisses, hayons, grues '
-                 . 'et aménagements pour utilitaires et poids lourds. Certifiée UTAC. '
-                 . 'Alpes-Maritimes, Var, Alpes-de-Haute-Provence, Hautes-Alpes, Bouches-du-Rhône.';
+// Titre (≤ 60 caractères) et description (≤ 155) : longueurs affichées en entier
+// par Google (raccourcis le 26/10/2026, validés par le client).
+$titrePage       = 'Carrossier constructeur à La Trinité (06) | NCM Migliore';
+$descriptionPage = 'Carrossier constructeur depuis 1948 : bennes, caisses, plateaux, hayons et grues '
+                 . 'pour utilitaires et poids lourds. Opérateur qualifié UTAC, La Trinité (06).';
 $pageActive      = 'accueil';
 
 // Données structurées : fiche d'identité de l'entreprise lue par Google
