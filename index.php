@@ -238,45 +238,57 @@ require __DIR__ . '/inc/header.php';
                     </div>
                 </section>
 
-                <!-- Qualification UTAC : court encadré (23/10/2026, branche d'essai) ; le
-                     texte complet (7 étapes de la démarche qualité) est sur sa propre
-                     page, qualification-utac.php. -->
-                <section class="certification encart-utac" aria-labelledby="titre-certification">
-                    <h2 id="titre-certification" class="certification-titre">Opérateur qualifié UTAC</h2>
-                    <p>
-                        Pour le poids lourd, l'utilitaire et l'aménagement, nous réalisons nous-mêmes
-                        le <strong>contrôle de conformité</strong> de votre véhicule neuf&nbsp;: il vous est
-                        livré avec son procès-verbal, prêt à être immatriculé, sans passer par la DREAL.
-                    </p>
-                    <a class="bouton-principal bouton-encart-utac" href="qualification-utac.php">Découvrir notre démarche qualité</a>
-                </section>
 
             </div>
 
-            <aside class="colonne-droite" aria-label="Horaires et coordonnées">
-                <!-- Horaires d'ouverture (modifiables dans config.php) -->
+            <aside class="colonne-droite" aria-label="Informations pratiques">
+                <!-- Horaires d'ouverture (modifiables dans config.php). Version 8003 : les
+                     horaires et les informations restent dans deux encarts SÉPARÉS (demande
+                     du client, 26/10/2026) ; c'est la présentation, avec des images plus
+                     grandes, qui s'allonge pour que les deux colonnes finissent au même niveau. -->
                 <section class="encart-colonne" aria-labelledby="titre-horaires">
                     <h2 id="titre-horaires" class="encart-colonne-titre">Horaires d'ouverture</h2>
                     <?php require __DIR__ . '/inc/horaires.php'; ?>
+                </section>
+
+                <!-- Informations importantes : d'abord « ouvert / fermé en ce moment »
+                     (calculé à chaque visite), puis les titres des annonces de contenu/infos/
+                     (affichées automatiquement entre leurs dates). -->
+                <section id="informations" class="encart-colonne" aria-labelledby="titre-infos">
+                    <h2 id="titre-infos" class="encart-colonne-titre">Informations importantes</h2>
                     <p class="etat-ouverture <?= $etatOuverture['ouvert'] ? 'etat-ouvert' : 'etat-ferme' ?>">
                         <span class="etat-ouverture-pastille" aria-hidden="true"></span>
                         <span><?= htmlspecialchars($etatOuverture['message']) ?></span>
                     </p>
+                    <!-- Annonces repliées (version 8003, 26/10/2026, demande du client) : seul
+                         le TITRE est affiché ; un clic ouvre l'annonce complète dans un encart
+                         qui vient PAR-DESSUS la page (élément <dialog>, ouvert par js/main.js,
+                         partie 5). Sans JavaScript, les annonces restent affichées en entier. -->
+                    <?php foreach ($annoncesActives as $numeroAnnonce => $annonce):
+                        $classesAnnonce = ($annonce['temporaire'] ? ' annonce-temporaire' : '') . ($annonce['fermeture'] ? ' annonce-fermeture' : '');
+                        $idAnnonce = 'annonce-' . ($numeroAnnonce + 1); ?>
+                        <button type="button" class="annonce-ouvrir<?= $classesAnnonce ?>" aria-haspopup="dialog"
+                                aria-controls="<?= $idAnnonce ?>" hidden><?= htmlspecialchars($annonce['titre']) ?></button>
+                        <dialog id="<?= $idAnnonce ?>" class="annonce annonce-dialogue<?= $classesAnnonce ?>" aria-labelledby="<?= $idAnnonce ?>-titre">
+                            <button type="button" class="annonce-fermer" aria-label="Fermer" hidden>&times;</button>
+                            <h3 id="<?= $idAnnonce ?>-titre" class="annonce-titre"><?= htmlspecialchars($annonce['titre']) ?></h3>
+                            <?php foreach ($annonce['paragraphes'] as $paragraphe): ?>
+                                <?php if ($paragraphe['liste'] !== []): ?>
+                                    <ul class="annonce-liste">
+                                        <?php foreach ($paragraphe['liste'] as $element): ?>
+                                            <li><?= htmlspecialchars($element) ?></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                <?php else: ?>
+                                    <p<?= $paragraphe['en_valeur'] ? ' class="annonce-en-valeur"' : '' ?>><?= htmlspecialchars($paragraphe['texte']) ?></p>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                            <?php if ($annonce['bouton'] !== ''): ?>
+                                <a class="bouton-principal bouton-annonce" href="<?= htmlspecialchars($annonce['bouton_lien']) ?>"><?= htmlspecialchars($annonce['bouton']) ?></a>
+                            <?php endif; ?>
+                        </dialog>
+                    <?php endforeach; ?>
                 </section>
-
-                <!-- Nous joindre (refonte, 24/10/2026) : remonté du bas de page à côté de
-                     la présentation, sous les horaires. -->
-                <section class="encart-colonne encart-joindre" aria-labelledby="titre-joindre">
-                        <h2 id="titre-joindre" class="encart-colonne-titre">Nous joindre</h2>
-                        <p class="encart-telephone">
-                            <a href="tel:<?= htmlspecialchars($telephoneLien) ?>"><?= htmlspecialchars($telephoneAffiche) ?></a>
-                        </p>
-                        <address class="encart-adresse">
-                            <?= htmlspecialchars($adresseRue) ?><br>
-                            <?= htmlspecialchars($adresseCodePostal . ' ' . $adresseVille) ?>
-                        </address>
-                        <a class="bouton-principal" href="contact.php#formulaire">Parlez-nous de votre projet</a>
-                    </section>
 
             </aside>
 
@@ -284,6 +296,25 @@ require __DIR__ . '/inc/header.php';
 
         <!-- 2.2 Suite de la page : sections sur toute la largeur -->
         <div class="accueil-sections">
+
+            <!-- Qualification UTAC : court encadré sur TOUTE LA LARGEUR, entre deux liserés
+                 (version 8003, 26/10/2026) ; le
+                 texte complet (7 étapes de la démarche qualité) est sur sa propre
+                 page, qualification-utac.php. -->
+            <section class="certification encart-utac" aria-labelledby="titre-certification">
+                <h2 id="titre-certification" class="certification-titre">Opérateur qualifié UTAC</h2>
+                <p>
+                    Pour le poids lourd, l'utilitaire et l'aménagement, nous réalisons nous-mêmes
+                    le <strong>contrôle de conformité</strong> de votre véhicule neuf&nbsp;: il vous est
+                    livré avec son procès-verbal, prêt à être immatriculé, sans passer par la DREAL.
+                </p>
+                <!-- Bouton puis logo UTAC sur la même ligne, à la hauteur du bouton
+                     (version 8003, 26/10/2026, demande du client) -->
+                <div class="encart-utac-action">
+                    <a class="bouton-principal bouton-encart-utac" href="qualification-utac.php">Découvrir notre démarche qualité</a>
+                    <img class="encart-utac-logo" src="images/logos/logo-utac.svg" alt="UTAC" width="213" height="45">
+                </div>
+            </section>
 
             <?php if ($cartesAmenagements !== []): ?>
             <!-- Nos aménagements : une carte par type de carrosserie (contenu
@@ -331,36 +362,22 @@ require __DIR__ . '/inc/header.php';
             </section>
             <?php endif; ?>
 
-            <?php if ($annoncesActives !== []): ?>
-            <!-- Informations importantes (refonte, 24/10/2026) : sur toute la largeur,
-                 après « Nos aménagements », annonces côte à côte (lues dans
-                 contenu/infos/, affichées automatiquement entre leurs dates). -->
-            <section id="informations" class="informations" aria-labelledby="titre-infos">
-                <h2 id="titre-infos" class="titre-section">Informations importantes</h2>
-                <div class="informations-annonces">
-                        <?php foreach ($annoncesActives as $annonce): ?>
-                            <div class="annonce<?= $annonce['temporaire'] ? ' annonce-temporaire' : '' ?><?= $annonce['fermeture'] ? ' annonce-fermeture' : '' ?>">
-                                <h3 class="annonce-titre"><?= htmlspecialchars($annonce['titre']) ?></h3>
-                                <?php foreach ($annonce['paragraphes'] as $paragraphe): ?>
-                                    <?php if ($paragraphe['liste'] !== []): ?>
-                                        <ul class="annonce-liste">
-                                            <?php foreach ($paragraphe['liste'] as $element): ?>
-                                                <li><?= htmlspecialchars($element) ?></li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    <?php else: ?>
-                                        <p<?= $paragraphe['en_valeur'] ? ' class="annonce-en-valeur"' : '' ?>><?= htmlspecialchars($paragraphe['texte']) ?></p>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                                <?php if ($annonce['bouton'] !== ''): ?>
-                                    <a class="bouton-principal bouton-annonce" href="<?= htmlspecialchars($annonce['bouton_lien']) ?>"><?= htmlspecialchars($annonce['bouton']) ?></a>
-                                <?php endif; ?>
-                            </div>
-                        <?php endforeach; ?>
-                </div>
-            </section>
-            <?php endif; ?>
-
+            <!-- Fin de la page : notre slogan à gauche, « Nous joindre » à droite
+                 (il fait écho à celui du bandeau du haut). -->
+            <div class="fin-de-page">
+                <!-- Slogan retiré ici (version E) : il est déjà sous le nom, en haut de page. -->
+                <section class="encart-colonne fin-de-page-joindre" aria-labelledby="titre-joindre">
+                    <h2 id="titre-joindre" class="encart-colonne-titre">Nous joindre</h2>
+                    <p class="encart-telephone">
+                        <a href="tel:<?= htmlspecialchars($telephoneLien) ?>"><?= htmlspecialchars($telephoneAffiche) ?></a>
+                    </p>
+                    <address class="encart-adresse">
+                        <?= htmlspecialchars($adresseRue) ?><br>
+                        <?= htmlspecialchars($adresseCodePostal . ' ' . $adresseVille) ?>
+                    </address>
+                    <a class="bouton-principal" href="contact.php#formulaire">Parlez-nous de votre projet</a>
+                </section>
+            </div>
         </div>
 
     </div>

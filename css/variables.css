@@ -79,6 +79,10 @@
        très clair, à peine plus soutenu que le fond de la page. */
     --couleur-fond-bande: #EEF1F7;
 
+    /* Version 8003 (26/10/2026) : fond assombri derrière une annonce ouverte
+       par-dessus la page (bleu marine à 40 %), et largeur de cet encart. */
+    --couleur-fond-sous-encart: rgba(0, 26, 102, 0.4);
+
 
     /* ----------------------------------------------------------------------
        2. POLICES DE CARACTÈRES
@@ -202,7 +206,7 @@
 
     /* Largeur des images de la présentation de l'accueil, en part de la
        largeur de la présentation (« cqi » : 22cqi = 22 %). */
-    --largeur-image-dans-texte: 22cqi;
+    --largeur-image-dans-texte: 33cqi;   /* 22 → 33 % (version 8003, 26/10/2026) : images plus grandes, présentation plus haute */
 
     /* Hauteur des logos des partenaires en bas des cartes « Nos aménagements ». */
     --hauteur-logo-partenaire: 2.5rem;
@@ -234,7 +238,11 @@
     --hauteur-logo-ncm: 5rem;       /* ~80 px */
     /* Court liseré à gauche du menu : de la largeur du logo NCM (proportions du
        logo : 262 × 161), pour que le menu commence au bord droit du logo. */
-    --largeur-lisere-menu-gauche: calc(var(--hauteur-logo-ncm) * 262 / 161);
+    --largeur-lisere-menu-gauche: calc(var(--hauteur-logo-ncm) * 262 / 161 / 2);   /* version 8003 : moitié de la largeur du logo (menu un peu plus à gauche) */
+    --largeur-encart-annonce: 38rem;   /* annonce ouverte par-dessus la page (version 8003) */
+    --largeur-encart-joindre: 30rem;   /* « Nous joindre » seul en bas de l'accueil (version E) */
+    --hauteur-logo-utac-bande: 2.5rem; /* logo UTAC à côté du bouton de la bande « Opérateur qualifié UTAC » (version 8003) */
+    --largeur-image-presentation-portable: 26cqi;  /* images de la présentation quand elle prend toute la largeur (portables, version 8003) */
     --hauteur-logo-utac: 2.125rem;  /* ~34 px */
 
 

@@ -7,6 +7,7 @@
      2. Bouton pause / lecture du carrousel (page d'accueil) ;
      3. Trait blanc du menu sous la bonne section de l'accueil ;
      4. Ouverture du menu déroulant « Nos aménagements » au toucher / clic.
+     5. Annonces « Informations importantes » ouvertes par-dessus la page.
    ========================================================================== */
 
 
@@ -209,3 +210,43 @@ if (boutonDeroulant) {
         }
     });
 }
+
+
+/* --------------------------------------------------------------------------
+   5. ANNONCES « INFORMATIONS IMPORTANTES » PAR-DESSUS LA PAGE (accueil)
+   Version 8003 (26/10/2026, demande du client) : dans la colonne de droite,
+   seul le titre de chaque annonce est affiché ; un clic ouvre l'annonce
+   complète dans un encart qui vient par-dessus la page (élément <dialog>).
+   On le ferme avec la croix, la touche Échap ou un clic à côté de l'encart.
+   Sans JavaScript, ce code ne s'exécute pas : les boutons restent cachés et
+   les annonces restent affichées en entier (voir style.css, partie 9).
+   -------------------------------------------------------------------------- */
+
+document.documentElement.classList.add('avec-javascript');
+
+document.querySelectorAll('.annonce-ouvrir').forEach(function (boutonOuvrir) {
+    const encart = document.getElementById(boutonOuvrir.getAttribute('aria-controls'));
+    if (!encart || typeof encart.showModal !== 'function') {
+        return;   // navigateur trop ancien : l'annonce reste affichée en entier
+    }
+    const boutonFermer = encart.querySelector('.annonce-fermer');
+
+    boutonOuvrir.hidden = false;
+    if (boutonFermer) {
+        boutonFermer.hidden = false;
+        boutonFermer.addEventListener('click', function () {
+            encart.close();
+        });
+    }
+
+    boutonOuvrir.addEventListener('click', function () {
+        encart.showModal();
+    });
+
+    // Clic à côté de l'encart (sur le fond assombri) : on le ferme.
+    encart.addEventListener('click', function (evenement) {
+        if (evenement.target === encart) {
+            encart.close();
+        }
+    });
+});

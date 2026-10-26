@@ -1391,11 +1391,14 @@ a:hover {
     display: flex;
     flex-direction: column;
     gap: var(--espace-grand);
-    /* La colonne a la hauteur du texte de gauche (voir .accueil-haut) : le bas du
-       dernier encart tombe sur la dernière ligne de gauche. S'il reste un peu de
-       place, elle est répartie ENTRE les encarts, et non laissée en blanc au fond
-       du dernier (demande du client, 23/10/2026). */
-    justify-content: space-between;
+    /* La colonne a la hauteur du texte de gauche (voir .accueil-haut). Version
+       8003 (26/10/2026, demande du client) : « Informations importantes » est
+       collé sous « Horaires d'ouverture », et c'est lui qui s'allonge pour que
+       son bas tombe sur la dernière ligne de la présentation. */
+}
+
+.colonne-droite > :last-child {
+    flex-grow: 1;
 }
 
 /* Encart de la colonne de droite (horaires…) : carte blanche qui ressort
@@ -1494,7 +1497,7 @@ a:hover {
 }
 
 .annonce-temporaire {
-    border-left-color: var(--couleur-bleu-moyen);
+    border-left-color: var(--couleur-bleu-moyen);   /* version E : plus de bleu vif */
 }
 
 /* Fermeture exceptionnelle : en rouge, comme l'indicateur « Fermé ». */
@@ -1518,7 +1521,7 @@ a:hover {
     margin: 0 0 var(--espace-tres-petit);
     font-size: var(--taille-texte-petit);
     line-height: var(--hauteur-ligne-texte);
-    text-align: left;      /* aligné à gauche (refonte, 24/10/2026) : pas de trous entre les mots dans une colonne étroite */
+    text-align: left;      /* aligné à gauche (refonte E) : pas de trous entre les mots dans une colonne étroite */
     hyphens: auto;         /* césure des mots longs (évite les grands blancs) */
 }
 
@@ -1532,7 +1535,7 @@ a:hover {
     padding-left: var(--espace-moyen);
     font-size: var(--taille-texte-petit);
     line-height: var(--hauteur-ligne-texte);
-    text-align: left;      /* aligné à gauche (refonte, 24/10/2026) : pas de trous entre les mots dans une colonne étroite */
+    text-align: left;      /* aligné à gauche (refonte E) : pas de trous entre les mots dans une colonne étroite */
     hyphens: auto;
 }
 
@@ -1667,7 +1670,7 @@ a:hover {
     margin: 0;
     font-size: var(--taille-texte-grand);
     line-height: var(--hauteur-ligne-texte);
-    text-align: left;      /* aligné à gauche (refonte, 24/10/2026) : pas de trous entre les mots dans une colonne étroite */
+    text-align: left;      /* aligné à gauche (refonte E) : pas de trous entre les mots dans une colonne étroite */
     hyphens: auto;
 }
 
@@ -1977,7 +1980,186 @@ a:hover {
 
 
 /* ==========================================================================
-   9. REFONTE « VERSION E » DE L'ACCUEIL (24/10/2026, branche essai-refonte-e)
+   9. VERSION 8003 (26/10/2026, branche essai-8003)
+   Annonces « Informations importantes » repliées : le titre seul dans la
+   colonne ; un clic ouvre l'annonce complète par-dessus la page (<dialog>,
+   js/main.js partie 5).
+   ========================================================================== */
+
+/* Sans JavaScript : pas de bouton, l'annonce reste affichée en entier. */
+html:not(.avec-javascript) .annonce-dialogue {
+    display: block;
+    position: static;
+    margin: var(--espace-moyen) 0 0;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+}
+
+/* Titre d'annonce cliquable : comme un petit encart, avec une flèche. */
+.annonce-ouvrir {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--espace-petit);
+    width: 100%;
+    margin-top: var(--espace-moyen);
+    padding: var(--espace-petit) var(--espace-moyen);
+    font-family: var(--police-principale);
+    font-size: var(--taille-texte-normal);
+    font-weight: var(--epaisseur-semi-grasse);
+    line-height: var(--hauteur-ligne-titres);
+    text-align: left;
+    color: var(--couleur-accent);
+    background-color: var(--couleur-fond-annonce);
+    border: none;
+    border-left: var(--epaisseur-bordure-accent) solid var(--couleur-accent);
+    border-radius: var(--arrondi-petit);
+    cursor: pointer;
+    transition: color var(--duree-transition), background-color var(--duree-transition);
+}
+
+.annonce-ouvrir::after {
+    content: "\203A";   /* flèche › : on peut ouvrir */
+    font-size: 1.4em;
+    line-height: 1;
+}
+
+.annonce-ouvrir:hover {
+    color: var(--couleur-bleu-moyen);
+    text-decoration: underline;
+}
+
+.annonce-ouvrir[hidden] {
+    display: none;
+}
+
+.annonce-ouvrir.annonce-temporaire {
+    border-left-color: var(--couleur-bleu-moyen);   /* version E : plus de bleu vif */
+}
+
+.annonce-ouvrir.annonce-fermeture {
+    color: var(--couleur-message-erreur);
+    background-color: var(--couleur-fond-erreur);
+    border-left-color: var(--couleur-message-erreur);
+}
+
+/* L'encart ouvert : carte au milieu de l'écran, page assombrie derrière. */
+.annonce-dialogue[open] {
+    width: min(var(--largeur-encart-annonce), calc(100vw - 2 * var(--marge-cotes-ecran)));
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    padding: var(--espace-grand);
+    border: none;
+    border-left: var(--epaisseur-bordure-accent) solid var(--couleur-accent);
+    border-radius: var(--arrondi-moyen);
+    box-shadow: var(--ombre-carte-survol);
+}
+
+.annonce-dialogue::backdrop {
+    background-color: var(--couleur-fond-sous-encart);
+}
+
+.annonce-dialogue .annonce-titre {
+    padding-right: var(--espace-grand);   /* place pour la croix */
+    font-size: var(--taille-titre-carte);
+}
+
+.annonce-dialogue p,
+.annonce-dialogue .annonce-liste {
+    font-size: var(--taille-texte-normal);
+}
+
+/* Croix de fermeture, en haut à droite de l'encart. */
+.annonce-fermer {
+    position: absolute;
+    top: var(--espace-petit);
+    right: var(--espace-petit);
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--couleur-accent);
+    background: none;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.annonce-fermer:hover {
+    color: var(--couleur-blanc);
+    background-color: var(--couleur-accent);
+}
+
+.annonce-fermer[hidden] {
+    display: none;
+}
+
+/* Encart « Informations importantes » (version 8003) : « ouvert / fermé en ce
+   moment », puis les titres des annonces. */
+#informations .annonce-ouvrir {
+    margin-top: var(--espace-petit);
+}
+
+/* Pas de mot isolé en fin de paragraphe (ex. « éclairée. » seul sur sa ligne) :
+   le navigateur équilibre les dernières lignes (demande du client, 26/10/2026).
+   Les navigateurs qui ne connaissent pas cette règle l'ignorent simplement. */
+p {
+    text-wrap: pretty;
+}
+
+/* Bande « Opérateur qualifié UTAC » (version 8003, 26/10/2026) : texte sur toute
+   la largeur, puis le bouton et, à sa droite, le logo UTAC à la hauteur du bouton
+   (s'il manque de place, sur téléphone, le logo passe sous le bouton). */
+.encart-utac-action {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--espace-moyen) var(--espace-tres-grand);
+    margin-top: var(--espace-petit);
+}
+
+.encart-utac-action .bouton-encart-utac {
+    margin-top: 0;
+}
+
+.encart-utac-logo {
+    height: var(--hauteur-logo-utac-bande);
+    width: auto;
+}
+
+/* Ordinateurs portables (moins de 1600 px de large ; demande du client,
+   26/10/2026) : à côté de la présentation, la colonne de droite rétrécissait
+   trop le texte (lignes courtes, trous entre les mots). La présentation prend
+   donc toute la largeur, et « Horaires d'ouverture » et « Informations
+   importantes » passent juste en dessous, côte à côte, à la même hauteur. */
+@media (max-width: 1599px) {
+    .accueil-haut {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .colonne-droite {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--espace-grand);
+        align-items: stretch;
+    }
+
+    .presentation {
+        --largeur-image-dans-texte: var(--largeur-image-presentation-portable);
+    }
+}
+
+/* Téléphones : les deux encarts l'un sous l'autre. */
+@media (max-width: 600px) {
+    .colonne-droite {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* ==========================================================================
+   10. VERSION E (refonte, branche essai-refonte-e) : en plus de la mise en page
+   de la version 8003 (26/10/2026, demande du client)
    ========================================================================== */
 
 /* « Nos aménagements » sur une bande de fond légèrement teintée, d'un bord à
@@ -1994,37 +2176,11 @@ a:hover {
 /* Après la bande, pas de liseré : le bord de la bande sépare déjà. */
 .accueil-sections > .bande-teintee + * {
     border-top: none;
-    padding-top: 0;
 }
 
-/* Informations importantes : annonces côte à côte sur toute la largeur. */
-.informations-annonces {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--espace-grand);
-    align-items: start;
-}
-
-.informations-annonces .annonce + .annonce {
-    margin-top: 0;
-}
-
-/* « Nous joindre » dans la colonne de droite : contenu centré. */
-.encart-joindre {
-    text-align: center;
-}
-
-.encart-joindre .bouton-principal {
-    align-self: center;
-}
-
-/* « Ouvert / fermé en ce moment », sous les horaires. */
-.encart-colonne .etat-ouverture {
-    margin: var(--espace-moyen) 0 0;
-}
-
-@media (max-width: 900px) {
-    .informations-annonces {
-        grid-template-columns: minmax(0, 1fr);
-    }
+/* Bas de page : le slogan (déjà sous le nom, en haut) n'est plus répété ;
+   « Nous joindre » reste seul, centré. */
+.fin-de-page {
+    grid-template-columns: minmax(0, var(--largeur-encart-joindre));
+    justify-content: center;
 }
