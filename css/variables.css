@@ -59,7 +59,7 @@
     --couleur-gris-texte: #5A6070;
 
     /* Fond principal de la page : blanc légèrement cassé (pas de blanc pur). */
-    --couleur-fond-page: #EEF1F7;   /* bleu-gris très clair sur tout le site (26/10/2026, demande du client ; #FAFAFA gris avant) */
+    --couleur-fond-page: #FAFAFA;   /* gris blanc sur tout le site, du bandeau du haut au pied de page (26/10/2026, choix du client ; bleu-gris #EEF1F7 essayé puis écarté) */
 
     /* Blanc pur : cartes et encarts, pour qu'ils ressortent du fond. */
     --couleur-blanc: #FFFFFF;
