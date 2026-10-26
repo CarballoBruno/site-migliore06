@@ -205,12 +205,22 @@ require __DIR__ . '/inc/header.php';
                                 <strong>approbation éclairée</strong>.
                             </p>
 
+                            <!-- Qualification UTAC (essai du 26/10/2026, demande du client) : le
+                                 paragraphe et l'ancienne bande « Opérateur qualifié UTAC » réunis
+                                 ici, suivis du bouton vers qualification-utac.php et du logo UTAC. -->
                             <p>
                                 <strong>Opérateur qualifié UTAC</strong> pour le poids lourd, l'utilitaire et l'aménagement,
-                                nous travaillons depuis notre atelier de La Trinité avec les concessionnaires
-                                de la région. Vous pouvez également nous consulter directement&nbsp;:
-                                <strong>nous ferons le lien avec votre concessionnaire</strong>.
+                                nous réalisons nous-mêmes le <strong>contrôle de conformité</strong> de votre véhicule
+                                neuf&nbsp;: il vous est livré avec son procès-verbal, prêt à être immatriculé, sans
+                                démarche supplémentaire auprès de l'administration (DREAL). Nous travaillons depuis
+                                notre atelier de La Trinité avec les concessionnaires de la région&nbsp;; vous pouvez
+                                également nous consulter directement&nbsp;: <strong>nous ferons le lien avec votre
+                                concessionnaire</strong>.
                             </p>
+                            <div class="encart-utac-action">
+                                <a class="bouton-principal bouton-encart-utac" href="qualification-utac.php">Découvrir notre démarche qualité</a>
+                                <img class="encart-utac-logo" src="images/logos/logo-utac.svg" alt="UTAC" width="213" height="45">
+                            </div>
                         </div>
 
                         <!-- Colonne de droite, sur toute la hauteur du texte : une image
@@ -297,24 +307,6 @@ require __DIR__ . '/inc/header.php';
         <!-- 2.2 Suite de la page : sections sur toute la largeur -->
         <div class="accueil-sections">
 
-            <!-- Qualification UTAC : court encadré sur TOUTE LA LARGEUR, entre deux liserés
-                 (version 8003, 26/10/2026) ; le
-                 texte complet (7 étapes de la démarche qualité) est sur sa propre
-                 page, qualification-utac.php. -->
-            <section class="certification encart-utac" aria-labelledby="titre-certification">
-                <h2 id="titre-certification" class="certification-titre">Opérateur qualifié UTAC</h2>
-                <p>
-                    Pour le poids lourd, l'utilitaire et l'aménagement, nous réalisons nous-mêmes
-                    le <strong>contrôle de conformité</strong> de votre véhicule neuf&nbsp;: il vous est
-                    livré avec son procès-verbal, prêt à être immatriculé, sans passer par la DREAL.
-                </p>
-                <!-- Bouton puis logo UTAC sur la même ligne, à la hauteur du bouton
-                     (version 8003, 26/10/2026, demande du client) -->
-                <div class="encart-utac-action">
-                    <a class="bouton-principal bouton-encart-utac" href="qualification-utac.php">Découvrir notre démarche qualité</a>
-                    <img class="encart-utac-logo" src="images/logos/logo-utac.svg" alt="UTAC" width="213" height="45">
-                </div>
-            </section>
 
             <?php if ($cartesAmenagements !== []): ?>
             <!-- Nos aménagements : une carte par type de carrosserie (contenu

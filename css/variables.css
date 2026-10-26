@@ -201,12 +201,12 @@
        la dernière ligne du texte de gauche, sans grand blanc) : 2.6fr = colonne
        d'environ 28 % sur les grands écrans (mesuré à 1440, 1707, 1920 px) ;
        2.4fr (~29 %) sur les portables, voir plus bas (écrans de 1400 px et moins). */
-    --parts-contenu-principal: 2.6fr;
+    --parts-contenu-principal: 2.9fr;   /* 26/10/2026 : colonne de droite ~26 % (texte UTAC remonté dans la présentation) */
     --largeur-min-colonne-droite: 16rem;    /* ~256 px */
 
     /* Largeur des images de la présentation de l'accueil, en part de la
        largeur de la présentation (« cqi » : 22cqi = 22 %). */
-    --largeur-image-dans-texte: 33cqi;   /* 22 → 33 % (version 8003, 26/10/2026) : images plus grandes, présentation plus haute */
+    --largeur-image-dans-texte: 22cqi;   /* 26/10/2026 : réglée pour que la présentation (avec le texte UTAC) finisse au niveau de la colonne de droite ; 24cqi sur les très grands écrans (voir plus bas) */
 
     /* Hauteur des logos des partenaires en bas des cartes « Nos aménagements ». */
     --hauteur-logo-partenaire: 2.5rem;
@@ -284,5 +284,14 @@
 @media (max-width: 1400px) {
     :root {
         --parts-contenu-principal: 2.4fr;
+    }
+}
+
+/* Très grands écrans (1800 px et plus) : images de la présentation un peu plus
+   grandes, pour que la présentation finisse au niveau de la colonne de droite
+   (mesuré à 1920 px, 26/10/2026). */
+@media (min-width: 1800px) {
+    :root {
+        --largeur-image-dans-texte: 24cqi;
     }
 }
