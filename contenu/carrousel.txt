@@ -5,7 +5,9 @@
 #
 #     nom-du-fichier.jpg | Description | Date de la photo | Véhicule
 #
-#   - fichier     : photo rangée dans images/carrousel/ (540 x 360 pixels) ;
+#   - fichier     : photo rangée dans images/carrousel/ (360 pixels de haut ; la
+#                   largeur suit le cadrage : depuis le 26/10/2026, certaines photos
+#                   sont recadrées au plus près du véhicule, le carrousel s'adapte) ;
 #   - description : n'est PAS affichée sur la photo ; elle sert à Google et
 #                   aux personnes malvoyantes (lecteurs d'écran) ;
 #   - date        : date de prise de vue, JJ/MM/AAAA (sert à favoriser les
@@ -79,7 +81,7 @@ vul-plateau-03.jpg   | Plateau aluminium sur Iveco Daily, vue arrière          
 vul-plateau-04.jpg   | Plateau aluminium sur Iveco Daily, vue de côté                                        | 15/04/2026 | v20260415
 vul-benne-13.jpg     | Benne à grandes rehausses sur Iveco Daily double cabine, vue arrière                  | 22/04/2026 | v20260422a
 vul-caisse-09.jpg    | Caisse fourgon avec hayon élévateur sur Iveco Daily                                   | 15/06/2026 | v20260615
-vul-ampliroll-01.jpg | Ampliroll sur Iveco Daily, vue arrière                                                | 18/06/2026 | v20260618b
+# RETIRÉE le 26/10/2026 (cadrage, choix du client) : vul-ampliroll-01.jpg | Ampliroll sur Iveco Daily, vue arrière                                                | 18/06/2026 | v20260618b
 vul-caisse-10.jpg    | Caisse fourgon sur Iveco Daily, vue arrière                                           | 02/07/2026 | v20260702
 vul-benne-15.jpg     | Benne à grandes rehausses sur Iveco Daily, vue arrière                                | 30/07/2026 | v20260730
 vul-benne-16.jpg     | Benne basculante avec rehausse grillagée sur Mercedes Sprinter                        | 02/10/2026 | v20261002
@@ -105,7 +107,7 @@ vul-caisse-11.jpg    | Caisse fourgon avec hayon élévateur sur Iveco Daily, vu
 vul-caisse-12.jpg    | Caisse fourgon devant notre atelier, vue arrière                                      | 18/09/2024 | v20240918
 vul-plateau-09.jpg   | Plateau à ridelles avec portique sur Iveco Daily, vue arrière                         | 27/09/2024 | v20240927
 vul-plateau-10.jpg   | Plateau aluminium avec grue auxiliaire, vue arrière                                   | 08/10/2024 | v20241008
-vul-benne-26.jpg     | Benne basculante avec grue auxiliaire sur Iveco Daily, vue arrière                    | 17/05/2024 | v20240517
+# RETIRÉE le 26/10/2026 (cadrage, choix du client) : vul-benne-26.jpg     | Benne basculante avec grue auxiliaire sur Iveco Daily, vue arrière                    | 17/05/2024 | v20240517
 
 # --- Ajouts du 15/10/2026 ---
 vul-plateau-12.jpg   | Plateau acier avec structure spécifique sur mesure, dans notre atelier                | 11/04/2018 | v20180411
