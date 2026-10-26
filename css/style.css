@@ -77,11 +77,14 @@ a {
     transition: color var(--duree-transition);
 }
 
+/* Au survol (26/10/2026, demande du client) : on reste en bleu marine, plus de
+   bleu moyen ; les liens écrits dans un texte (paragraphe, adresse, liste) se
+   soulignent. */
 a:hover {
-    color: var(--couleur-bleu-moyen);
+    color: var(--couleur-accent);
 }
 
-:where(p, address) a:hover {
+:where(p, address, li) a:hover {
     text-decoration: underline;
 }
 
@@ -300,12 +303,13 @@ a:hover {
     fill: currentColor;
 }
 
-/* Au survol de la souris : le lien passe en bleu moyen, avec le petit trait
-   (règle des éléments cliquables, 23/10/2026). */
+/* Au survol de la souris : le lien reste bleu marine et le petit trait bleu
+   marine apparaît dessous (26/10/2026, demande du client ; bleu moyen avant). */
 .menu-principal-liste a:hover,
 .menu-deroulant-bouton:hover {
-    color: var(--couleur-bleu-moyen);
-    border-bottom-color: var(--couleur-bleu-moyen);
+    color: var(--couleur-accent);
+    border-bottom-color: var(--couleur-accent);
+    text-decoration: none;
 }
 
 /* Page en cours : petit trait sous le lien, de la couleur du menu. */
@@ -2041,7 +2045,7 @@ html:not(.avec-javascript) .annonce-dialogue {
 }
 
 .annonce-ouvrir:hover {
-    color: var(--couleur-bleu-moyen);
+    color: var(--couleur-accent);
     text-decoration: underline;
 }
 
