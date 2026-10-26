@@ -1521,7 +1521,7 @@ a:hover {
     margin: 0 0 var(--espace-tres-petit);
     font-size: var(--taille-texte-petit);
     line-height: var(--hauteur-ligne-texte);
-    text-align: left;      /* aligné à gauche (refonte E) : pas de trous entre les mots dans une colonne étroite */
+    text-align: justify;   /* justifié (choix du client, 26/10/2026, dans toutes les versions) */
     hyphens: auto;         /* césure des mots longs (évite les grands blancs) */
 }
 
@@ -1535,7 +1535,7 @@ a:hover {
     padding-left: var(--espace-moyen);
     font-size: var(--taille-texte-petit);
     line-height: var(--hauteur-ligne-texte);
-    text-align: left;      /* aligné à gauche (refonte E) : pas de trous entre les mots dans une colonne étroite */
+    text-align: justify;   /* justifié (choix du client, 26/10/2026, dans toutes les versions) */
     hyphens: auto;
 }
 
@@ -1670,7 +1670,7 @@ a:hover {
     margin: 0;
     font-size: var(--taille-texte-grand);
     line-height: var(--hauteur-ligne-texte);
-    text-align: left;      /* aligné à gauche (refonte E) : pas de trous entre les mots dans une colonne étroite */
+    text-align: justify;   /* justifié (choix du client, 26/10/2026, dans toutes les versions) */
     hyphens: auto;
 }
 
