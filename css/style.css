@@ -2177,3 +2177,25 @@ p {
 .accueil-sections > .bande-teintee + * {
     border-top: none;
 }
+
+/* Image à gauche de la présentation (26/10/2026, demande du client) : aucune
+   ligne ne doit passer sous l'image (« approbation éclairée » se retrouvait
+   seule dessous).
+   - Pas d'écart entre le paragraphe qui contient l'image et le suivant
+     (« …du code de la route. » / « Nous établissons ensuite un devis… »).
+   - Le paragraphe suivant reste en bloc à côté de l'image (« flow-root ») :
+     s'il dépasse le bas de l'image, il ne vient jamais se glisser dessous.
+   - Marges du haut et du bas du cadre de l'image réduites. */
+.presentation-texte p:has(> .image-a-gauche) {
+    margin-bottom: 0;
+}
+
+.presentation-texte p:has(> .image-a-gauche) + p {
+    display: flow-root;
+}
+
+.presentation .image-a-gauche {
+    margin-top: 0;
+    margin-bottom: var(--espace-petit);
+    padding-block: var(--espace-tres-petit);
+}

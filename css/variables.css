@@ -206,7 +206,7 @@
 
     /* Largeur des images de la présentation de l'accueil, en part de la
        largeur de la présentation (« cqi » : 22cqi = 22 %). */
-    --largeur-image-dans-texte: 22cqi;   /* 26/10/2026 : réglée pour que la présentation (avec le texte UTAC) finisse au niveau de la colonne de droite ; 24cqi sur les très grands écrans (voir plus bas) */
+    --largeur-image-dans-texte: 23cqi;   /* 26/10/2026 : réglée pour que la présentation (avec le texte UTAC) finisse au niveau de la colonne de droite ; 24cqi sur les très grands écrans (voir plus bas) */
 
     /* Hauteur des logos des partenaires en bas des cartes « Nos aménagements ». */
     --hauteur-logo-partenaire: 2.5rem;
