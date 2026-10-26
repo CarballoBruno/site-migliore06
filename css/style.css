@@ -795,21 +795,21 @@ a:hover {
     font-weight: var(--epaisseur-grasse);
     color: var(--couleur-blanc);
     background-color: var(--couleur-accent);   /* bleu marine des titres (23/10/2026) */
-    border: none;
+    /* Contour bleu marine présent dès le départ (invisible sur le fond bleu) : au
+       survol, il garde la forme du bouton sans en changer la taille. */
+    border: var(--epaisseur-soulignement) solid var(--couleur-accent);
     border-radius: var(--arrondi-petit);
     cursor: pointer;
-    transition: background-color var(--duree-transition), box-shadow var(--duree-transition),
-                transform var(--duree-transition);
+    transition: background-color var(--duree-transition), color var(--duree-transition);
 }
 
-/* Au survol (règle des éléments cliquables, 23/10/2026) : le fond passe au bleu
-   moyen et le bouton se soulève légèrement, avec une ombre. */
+/* Au survol (26/10/2026, demande du client) : les couleurs s'inversent, fond
+   blanc et texte bleu marine, encadré par le contour bleu marine. On reste dans
+   les deux couleurs du site (avant : bleu moyen, ombre et léger soulèvement). */
 .bouton-envoyer:hover,
 .bouton-principal:hover {
-    color: var(--couleur-blanc);
-    background-color: var(--couleur-bleu-moyen);
-    box-shadow: var(--ombre-carte-survol);
-    transform: translateY(-1px);
+    color: var(--couleur-accent);
+    background-color: var(--couleur-blanc);
 }
 
 /* Le bouton principal est un lien : on enlève le soulignement des liens. */
