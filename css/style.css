@@ -2177,10 +2177,3 @@ p {
 .accueil-sections > .bande-teintee + * {
     border-top: none;
 }
-
-/* Bas de page : le slogan (déjà sous le nom, en haut) n'est plus répété ;
-   « Nous joindre » reste seul, centré. */
-.fin-de-page {
-    grid-template-columns: minmax(0, var(--largeur-encart-joindre));
-    justify-content: center;
-}

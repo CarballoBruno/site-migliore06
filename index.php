@@ -365,7 +365,7 @@ require __DIR__ . '/inc/header.php';
             <!-- Fin de la page : notre slogan à gauche, « Nous joindre » à droite
                  (il fait écho à celui du bandeau du haut). -->
             <div class="fin-de-page">
-                <!-- Slogan retiré ici (version E) : il est déjà sous le nom, en haut de page. -->
+                <p class="fin-de-page-slogan">«&nbsp;Une Écoute, Un Conseil, Un Savoir-faire&nbsp;»</p>
                 <section class="encart-colonne fin-de-page-joindre" aria-labelledby="titre-joindre">
                     <h2 id="titre-joindre" class="encart-colonne-titre">Nous joindre</h2>
                     <p class="encart-telephone">
