@@ -2212,3 +2212,10 @@ p {
     margin-bottom: var(--espace-petit);
     padding-block: var(--espace-tres-petit);
 }
+
+/* Photos proposées en WebP (26/10/2026, fonction imageAvecWebp()) : la balise
+   <picture> qui entoure l'image ne doit rien changer à la mise en page. */
+.carrousel-photo picture,
+.carte-amenagement picture {
+    display: contents;
+}

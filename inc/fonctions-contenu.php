@@ -14,6 +14,32 @@
 
 
 /**
+ * Écrit une photo du dossier images/carrousel/ en proposant sa version WebP
+ * (plus légère) aux navigateurs qui la lisent, et le .jpg aux autres
+ * (26/10/2026). Si la version .webp n'existe pas encore (photo ajoutée
+ * depuis le dernier lancement de preparer-mise-en-ligne.py), seule la
+ * photo .jpg est écrite : rien ne casse.
+ *
+ * @param string $fichierJpg  nom de la photo (ex. vul-benne-02.jpg)
+ * @param string $attributs   autres attributs de la balise <img>, déjà
+ *                            protégés (alt, width, height, loading…)
+ * @return string             code HTML : <picture> avec WebP, ou <img> seul
+ */
+function imageAvecWebp(string $fichierJpg, string $attributs): string
+{
+    $adresseJpg = 'images/carrousel/' . htmlspecialchars($fichierJpg);
+    $image      = '<img src="' . $adresseJpg . '" ' . $attributs . '>';
+
+    $fichierWebp = preg_replace('/\.jpe?g$/i', '.webp', $fichierJpg);
+    if ($fichierWebp === $fichierJpg || !is_file(__DIR__ . '/../images/carrousel/' . $fichierWebp)) {
+        return $image;
+    }
+    return '<picture><source srcset="images/carrousel/' . htmlspecialchars($fichierWebp)
+         . '" type="image/webp">' . $image . '</picture>';
+}
+
+
+/**
  * Lit le stock de photos du carrousel dans le fichier contenu/carrousel.txt.
  * Chaque ligne utile a la forme
  *     « nom-du-fichier.jpg | Légende | JJ/MM/AAAA | repère du véhicule ».

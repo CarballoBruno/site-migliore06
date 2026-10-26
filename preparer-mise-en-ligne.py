@@ -14,6 +14,12 @@ Copie le site (NCM_SiteWeb/) SANS les éléments privés ou inutiles en ligne :
   - _NCM_Versions (copies du site dans d'autres versions, pour les comparer en local).
 Le dossier _NCM_EnLigne/ est entièrement recréé à chaque lancement.
 
+Avant la copie, le script crée la version WebP (format plus léger, environ un tiers de
+moins à qualité égale) de chaque photo .jpg de images/carrousel/ qui n'en a pas encore,
+ou dont le .jpg a été modifié depuis. Le site affiche le WebP aux navigateurs qui le
+lisent et garde le .jpg pour les autres (fonction imageAvecWebp(), inc/fonctions-contenu.php).
+Il faut pour cela la bibliothèque Pillow (pip install pillow).
+
 Lancement (dans le dossier Z:\\NCM\\NCM_Dev\\NCM_SiteWeb) :  python preparer-mise-en-ligne.py
 """
 import os
@@ -27,6 +33,30 @@ DOSSIERS_EXCLUS = {'.git', '.claude', 'photos-a-traiter', 'photos-retouchees', '
                    '_NCM_EnLigne', '_NCM_SiteArchive', '_NCM_FicheGoogle', '_NCM_Versions'}
 FICHIERS_EXCLUS = {'Thumbs.db', 'desktop.ini', '.gitignore',
                    'CLAUDE.md', 'cox.html', 'preparer-mise-en-ligne.py'}
+
+
+def creer_webp_manquants(dossier_photos, qualite=80):
+    """
+    Crée nom.webp à côté de chaque nom.jpg du dossier, s'il n'existe pas encore ou s'il est
+    plus ancien que le .jpg (photo remplacée ou recadrée). Renvoie le nombre de fichiers créés.
+    """
+    from PIL import Image
+    crees = 0
+    for nom in sorted(os.listdir(dossier_photos)):
+        if not nom.lower().endswith('.jpg'):
+            continue
+        jpg = os.path.join(dossier_photos, nom)
+        webp = os.path.splitext(jpg)[0] + '.webp'
+        if os.path.exists(webp) and os.path.getmtime(webp) >= os.path.getmtime(jpg):
+            continue
+        with Image.open(jpg) as photo:
+            photo.convert('RGB').save(webp, 'WEBP', quality=qualite, method=6)
+        crees += 1
+    return crees
+
+
+nouveaux_webp = creer_webp_manquants(os.path.join(SOURCE, 'images', 'carrousel'))
+print(f'{nouveaux_webp} photo(s) WebP créée(s) dans images/carrousel/')
 
 # On VIDE le dossier au lieu de le supprimer : Windows refuse de supprimer un dossier
 # ouvert dans l'Explorateur ou dans WinSCP, mais accepte d'en effacer le contenu.

@@ -122,9 +122,9 @@ require __DIR__ . '/inc/header.php';
                         <!-- La description (alt) n'est pas affichée sur la photo : elle
                              est lue par Google et par les lecteurs d'écran. -->
                         <figure class="carrousel-photo"<?= $estCopie ? ' aria-hidden="true"' : '' ?>>
-                            <img src="images/carrousel/<?= htmlspecialchars($photo['fichier']) ?>"
-                                 alt="<?= $estCopie ? '' : htmlspecialchars($photo['legende']) ?>"
-                                 width="<?= (int) $photo['largeur'] ?>" height="<?= (int) $photo['hauteur'] ?>">
+                            <?= imageAvecWebp($photo['fichier'],
+                                'alt="' . ($estCopie ? '' : htmlspecialchars($photo['legende'])) . '"'
+                                . ' width="' . (int) $photo['largeur'] . '" height="' . (int) $photo['hauteur'] . '"') ?>
                         </figure>
                     <?php endforeach; ?>
                 <?php endforeach; ?>
@@ -319,8 +319,9 @@ require __DIR__ . '/inc/header.php';
                     <?php foreach ($cartesAmenagements as $carte): ?>
                         <li class="carte-amenagement">
                             <?php if ($carte['page'] !== ''): ?><a class="carte-amenagement-lien" href="<?= htmlspecialchars($carte['page']) ?>"><?php endif; ?>
-                            <img src="images/carrousel/<?= htmlspecialchars($carte['photo']) ?>"
-                                 alt="<?= htmlspecialchars($carte['description_photo'] !== '' ? $carte['description_photo'] : ($legendesPhotos[$carte['photo']] ?? $carte['titre'])) ?>" width="<?= (int) $carte['largeur'] ?>" height="<?= (int) $carte['hauteur'] ?>" loading="lazy">
+                            <?= imageAvecWebp($carte['photo'],
+                                'alt="' . htmlspecialchars($carte['description_photo'] !== '' ? $carte['description_photo'] : ($legendesPhotos[$carte['photo']] ?? $carte['titre'])) . '"'
+                                . ' width="' . (int) $carte['largeur'] . '" height="' . (int) $carte['hauteur'] . '" loading="lazy"') ?>
                             <div class="carte-amenagement-texte">
                                 <h3><?= htmlspecialchars($carte['titre']) ?></h3>
                                 <p><?= htmlspecialchars($carte['texte']) ?></p>
