@@ -312,7 +312,7 @@ require __DIR__ . '/inc/header.php';
             <!-- Nos aménagements : une carte par type de carrosserie (contenu
                  dans contenu/amenagements.txt). Une carte devient un lien vers
                  sa page détaillée dès que cette page existe. -->
-            <section id="amenagements" class="amenagements bande-teintee" aria-labelledby="titre-amenagements">
+            <section id="amenagements" class="amenagements" aria-labelledby="titre-amenagements">
                 <h2 id="titre-amenagements" class="titre-section">Nos aménagements</h2>
                 <ul class="cartes-amenagements">
                     <?php foreach ($cartesAmenagements as $carte): ?>

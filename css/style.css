@@ -1767,10 +1767,13 @@ a:hover {
 
 /* --- Fin de la page : slogan + « Nous joindre », côte à côte ----------- */
 
+/* Calé sur les deux colonnes du haut de l'accueil (26/10/2026, demande du client) :
+   le slogan a la largeur de la présentation, « Nous joindre » celle de la colonne
+   des horaires (mêmes colonnes et même écart que .accueil-haut). */
 .fin-de-page {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--espace-grand);
+    grid-template-columns: minmax(0, var(--parts-contenu-principal)) minmax(var(--largeur-min-colonne-droite), 1fr);
+    gap: var(--espace-tres-grand);
 }
 
 /* Bouton centré sous les coordonnées. */
@@ -2145,6 +2148,12 @@ p {
         align-items: stretch;
     }
 
+    /* Bas de page : comme les deux encarts du dessus, côte à côte à parts égales. */
+    .fin-de-page {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--espace-grand);
+    }
+
     .presentation {
         --largeur-image-dans-texte: var(--largeur-image-presentation-portable);
     }
@@ -2152,7 +2161,8 @@ p {
 
 /* Téléphones : les deux encarts l'un sous l'autre. */
 @media (max-width: 600px) {
-    .colonne-droite {
+    .colonne-droite,
+    .fin-de-page {
         grid-template-columns: minmax(0, 1fr);
     }
 }
@@ -2162,21 +2172,8 @@ p {
    de la version 8003 (26/10/2026, demande du client)
    ========================================================================== */
 
-/* « Nos aménagements » sur une bande de fond légèrement teintée, d'un bord à
-   l'autre de l'écran (l'ombre « box-shadow » prolonge le fond sur les côtés,
-   « clip-path » l'arrête en haut et en bas) : l'œil sent qu'on change de partie. */
-.accueil-sections > .bande-teintee {
-    border-top: none;
-    padding-block: var(--espace-tres-grand);
-    background-color: var(--couleur-fond-bande);
-    box-shadow: 0 0 0 100vmax var(--couleur-fond-bande);
-    clip-path: inset(0 -100vmax);
-}
-
-/* Après la bande, pas de liseré : le bord de la bande sépare déjà. */
-.accueil-sections > .bande-teintee + * {
-    border-top: none;
-}
+/* (Bande teintée de « Nos aménagements » retirée le 26/10/2026 : tout le site a
+   désormais le même fond bleu-gris ; un liseré sépare les parties.) */
 
 /* Image à gauche de la présentation (26/10/2026, demande du client) : aucune
    ligne ne doit passer sous l'image (« approbation éclairée » se retrouvait
