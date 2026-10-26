@@ -519,11 +519,22 @@ a:hover {
    Une colonne de texte centrée, d'une largeur confortable à lire.
    ========================================================================== */
 
+/* Même modèle que l'accueil, Contact et Qualification UTAC (26/10/2026, demande
+   du client) : le contenu est aligné sur les bords du bandeau (largeur du bandeau,
+   même fond). Les paragraphes et les listes gardent une longueur de ligne
+   confortable à lire (--largeur-texte), calés à gauche ; les titres et leur trait
+   prennent toute la largeur. (Avant : colonne étroite centrée.) */
 .page-texte {
-    width: 100%;
-    max-width: var(--largeur-texte);
+    width: var(--largeur-bandeau-haut);
     margin: 0 auto;
-    padding: var(--espace-tres-grand) var(--marge-cotes-ecran);
+    padding: var(--espace-tres-grand) 0;
+}
+
+.page-texte p,
+.page-texte ul,
+.page-texte ol,
+.page-texte dl {
+    max-width: var(--largeur-texte);
 }
 
 /* Grand titre de la page (« Mentions légales », « Politique de
@@ -1931,7 +1942,8 @@ a:hover {
     .bande-bleue-carrousel,
     .accueil-corps,
     .page-contact,
-    .page-utac {
+    .page-utac,
+    .page-texte {
         width: auto;
         margin-left: var(--marge-cotes-ecran);
         margin-right: var(--marge-cotes-ecran);

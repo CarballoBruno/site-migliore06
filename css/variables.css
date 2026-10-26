@@ -186,7 +186,7 @@
 
     /* Largeur maximale d'une colonne de texte (pages de texte comme les
        mentions légales) : environ 75 caractères par ligne, confortable à lire. */
-    --largeur-texte: 48rem;
+    --largeur-texte: 62rem;   /* longueur maxi des lignes d'une page de texte (48 → 62rem le 26/10/2026, page alignée sur le bandeau) */
 
     /* Page d'accueil : la partie haute est partagée entre le contenu
        principal et la colonne de droite. Le contenu prend N parts et la
